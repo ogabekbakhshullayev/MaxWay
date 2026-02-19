@@ -1,11 +1,11 @@
-package uz.gita.maxwayappclone.presentation.screens.registerPhone
+package uz.gita.maxwayappclone.presentation.screens.registerVerify
 
 import androidx.lifecycle.LiveData
 
-interface RegisterPhoneViewModel {
+interface RegisterVerifyViewModel {
     val loadingLiveData: LiveData<Boolean>
     val successLiveData: LiveData<String>
     val errorMessageLiveData: LiveData<String>
 
-    fun register(phone: String)
+    fun verify(phone: String, code: Int)
 }

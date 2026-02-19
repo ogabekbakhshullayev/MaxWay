@@ -1,12 +1,12 @@
-package uz.gita.maxwayappclone.presentation.screens.registerPhone
+package uz.gita.maxwayappclone.presentation.screens.registerVerify
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -17,12 +17,11 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import timber.log.Timber
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.databinding.ScreenRegisterPhoneBinding
+import uz.gita.maxwayappclone.databinding.ScreenRegisterVerifyBinding
 
-class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
-
-    private val binding by viewBinding(ScreenRegisterPhoneBinding::bind)
-    private val viewModel by viewModels<RegisterPhoneViewModelImpl> { RegisterPhoneViewModelFactory() }
+class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
+    private val binding by viewBinding(ScreenRegisterVerifyBinding::bind)
+    private val viewModel by viewModels<RegisterVerifyViewModelImpl> { RegisterVerifyViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,31 +40,51 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
         }
 
         binding.backBtn.setOnClickListener {
-            // back btn click
+            findNavController().popBackStack()
         }
-        binding.edPhone.addTextChangedListener(textChangeListener)
-        binding.edPhone.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.edPhone.setBackgroundResource(R.drawable.input_ed_bcg_selected)
-            } else {
-                binding.edPhone.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
-            }
-        }
+        binding.ed1.setFocusListener()
+        binding.ed2.setFocusListener()
+        binding.ed3.setFocusListener()
+        binding.ed4.setFocusListener()
+        binding.ed4.addTextChangedListener(textChangeListener)
 
         binding.continueBtn.setOnClickListener {
-            viewModel.register(binding.edPhone.text.toString())
+            val sb = StringBuilder()
+            sb.append(binding.ed1.text.toString())
+            sb.append(binding.ed2.text.toString())
+            sb.append(binding.ed3.text.toString())
+            sb.append(binding.ed4.text.toString())
+            viewModel.verify(arguments?.getString("phone", "") ?: "", sb.toString().toInt())
         }
-
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
+
+        object : CountDownTimer(59000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val str = getString(R.string.use_time)
+                binding.timerTv.text = str + millisUntilFinished / 1000
+            }
+
+            override fun onFinish() {
+                binding.continueBtn.isEnabled = false
+                binding.continueBtn.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+                val str = getString(R.string.send_again)
+                binding.timerTv.text = str
+                binding.timerTv.isClickable = true
+            }
+        }.start()
+        binding.timerTv.setOnClickListener {
+            // resend code
+        }
     }
 
     private val successObserver = Observer<String> {
-        Timber.tag("TTT").d("Verification code: $it")
+        Timber.tag("TTT").d("Success: $it")
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-
-        findNavController().navigate(R.id.action_registerPhoneScreen_to_registerVerifyScreen,
-            bundleOf("phone" to binding.edPhone.text.toString())
-        )
     }
     private val errorMessageObserver = Observer<String> {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -77,6 +96,17 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             binding.pb.visibility = View.GONE
         }
     }
+
+    private fun View.setFocusListener() {
+        this.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                this.setBackgroundResource(R.drawable.input_ed_bcg_selected)
+            } else {
+                this.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+            }
+        }
+    }
+
     val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(
@@ -84,7 +114,8 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             p1: Int,
             p2: Int,
             p3: Int
-        ) {}
+        ) {
+        }
 
         override fun onTextChanged(
             p0: CharSequence?,
@@ -92,12 +123,12 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             p2: Int,
             p3: Int
         ) {
-            val phone = p0.toString()
-            if (phone.length == 13 && phone[0] == '+' && phone[1] == '9' && phone[2] == '9' && phone[3] == '8' && phone.substring(
-                    4,
-                    phone.length
-                ).toLongOrNull() != null
-            ) {
+            val sb = StringBuilder()
+            sb.append(binding.ed1.text.toString())
+            sb.append(binding.ed2.text.toString())
+            sb.append(binding.ed3.text.toString())
+            sb.append(binding.ed4.text.toString())
+            if (sb.toString().length == 4) {
                 binding.continueBtn.isEnabled = true
                 binding.continueBtn.setTextColor(
                     ContextCompat.getColor(
@@ -116,7 +147,5 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             }
 
         }
-
     }
-
 }

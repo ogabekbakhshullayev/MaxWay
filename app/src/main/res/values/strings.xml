@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
     <string name="continue_str">Продолжить</string>
+
+    <string name="verification_code">Код подверждения</string>
+    <string name="use_time">Время прибытия: 0:</string>
+    <string name="send_again">Отправить другой код</string>
 </resources>
