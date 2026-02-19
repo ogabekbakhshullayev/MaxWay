@@ -18,8 +18,5 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.main, TestScreen())
-            .commit()
     }
 }

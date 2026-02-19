@@ -2,6 +2,7 @@ package uz.gita.maxwayappclone.data.source.remote
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.maxwayappclone.BuildConfig.BASE_URL
@@ -9,6 +10,9 @@ import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 
 object ApiClient {
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(ChuckerInterceptor.Builder(MyApp.instance).build())

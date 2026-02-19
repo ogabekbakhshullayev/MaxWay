@@ -24,11 +24,11 @@ class AuthRepositoryImpl private constructor(
     }
 
 
-    override suspend fun register(phone: String): Result<Unit> {
+    override suspend fun register(phone: String): Result<String> {
         val request = RegisterRequest(phone)
         val response = authApi.register(request)
         return if (response.isSuccessful && response.body() != null)
-            Result.success(Unit)
+            Result.success(response.body()?.data?.code.toString())
         else {
             val errorJson = response.errorBody()?.string()
             if (errorJson.isNullOrEmpty()) Result.failure(Throwable("Unknown exception"))
