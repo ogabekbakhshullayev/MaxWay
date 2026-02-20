@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import timber.log.Timber
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.util.setFocusListener
 import uz.gita.maxwayappclone.databinding.ScreenRegisterVerifyBinding
 
 class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
@@ -29,6 +32,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         viewModel.errorMessageLiveData.observe(this, errorMessageObserver)
     }
 
+    private var code = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,8 +44,10 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         }
 
         binding.backBtn.setOnClickListener {
+            timer.cancel()
             findNavController().popBackStack()
         }
+        timer.start()
         binding.ed1.setFocusListener()
         binding.ed2.setFocusListener()
         binding.ed3.setFocusListener()
@@ -58,35 +64,79 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
 
-        object : CountDownTimer(59000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val str = getString(R.string.use_time)
-                binding.timerTv.text = str + millisUntilFinished / 1000
-            }
-
-            override fun onFinish() {
-                binding.continueBtn.isEnabled = false
-                binding.continueBtn.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.black
-                    )
-                )
-                val str = getString(R.string.send_again)
-                binding.timerTv.text = str
-                binding.timerTv.isClickable = true
-            }
-        }.start()
         binding.timerTv.setOnClickListener {
-            // resend code
+            binding.timerTv.isClickable = false
+            binding.timerTv.isFocusable = false
+            timer.cancel()
+            timer.start()
+            viewModel.repeat(arguments?.getString("phone", "") ?: "")
         }
     }
 
+    private val timer = object : CountDownTimer(59000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            val str = getString(R.string.use_time)
+            binding.timerTv.text = str + millisUntilFinished / 1000
+            binding.timerTv.isClickable = false
+            binding.timerTv.isFocusable = false
+        }
+
+        override fun onFinish() {
+            binding.continueBtn.isEnabled = false
+            binding.continueBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.black
+                )
+            )
+            val str = getString(R.string.send_again)
+            binding.timerTv.text = str
+            binding.timerTv.isClickable = true
+            binding.timerTv.isFocusable = true
+        }
+    }
+
+
     private val successObserver = Observer<String> {
-        Timber.tag("TTT").d("Success: $it")
-        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        Log.d("TTT","Success: $it")
+        code = it
+        if (code.length > 4) {
+            timer.cancel()
+            findNavController().navigate(
+                R.id.action_registerVerifyScreen_to_registerNameScreen,
+                bundleOf("token" to it)
+            )
+        }else{
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            binding.ed1.setText("")
+            binding.ed1.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+            binding.ed2.setText("")
+            binding.ed2.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+            binding.ed3.setText("")
+            binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+            binding.ed4.setText("")
+            binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+        }
     }
     private val errorMessageObserver = Observer<String> {
+        val sb = StringBuilder()
+        sb.append(binding.ed1.text.toString())
+        sb.append(binding.ed2.text.toString())
+        sb.append(binding.ed3.text.toString())
+        sb.append(binding.ed4.text.toString())
+        if (sb.toString() != code) {
+            binding.ed1.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+            binding.ed2.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+            binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+            binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+            binding.continueBtn.isEnabled = false
+            binding.continueBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.black
+                )
+            )
+        }
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
     private val loadingObserver = Observer<Boolean> {
@@ -94,16 +144,6 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             binding.pb.visibility = View.VISIBLE
         } else {
             binding.pb.visibility = View.GONE
-        }
-    }
-
-    private fun View.setFocusListener() {
-        this.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                this.setBackgroundResource(R.drawable.input_ed_bcg_selected)
-            } else {
-                this.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
-            }
         }
     }
 

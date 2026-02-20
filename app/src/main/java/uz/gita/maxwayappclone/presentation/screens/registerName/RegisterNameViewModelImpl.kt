@@ -1,4 +1,4 @@
-package uz.gita.maxwayappclone.presentation.screens.registerVerify
+package uz.gita.maxwayappclone.presentation.screens.registerName
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,32 +8,19 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import uz.gita.maxwayappclone.domain.usecase.RepeatUseCase
-import uz.gita.maxwayappclone.domain.usecase.VerifyUseCase
+import uz.gita.maxwayappclone.domain.usecase.NameDateUseCase
+import uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyViewModel
 
-class RegisterVerifyViewModelImpl(
-    private val verifyUseCase: VerifyUseCase,
-    private val repeatUseCase: RepeatUseCase
-) :
-    RegisterVerifyViewModel,
+class RegisterNameViewModelImpl(private val nameUseCase: NameDateUseCase) : RegisterNameViewModel,
     ViewModel() {
+
     override val loadingLiveData = MutableLiveData<Boolean>()
     override val successLiveData = MutableLiveData<String>()
     override val errorMessageLiveData = MutableLiveData<String>()
 
-    override fun verify(phone: String, code: Int) {
-        verifyUseCase(phone, code).onStart { loadingLiveData.value = true }
-            .onCompletion { loadingLiveData.value = false }.onEach {
-                it.onSuccess {
-                    successLiveData.value = it
-                }.onFailure {
-                    errorMessageLiveData.value = it.message ?: "Error"
-                }
-            }.launchIn(viewModelScope)
-    }
 
-    override fun repeat(phone: String) {
-        repeatUseCase(phone).onStart {
+    override fun nameDate(token: String, name: String, date: String) {
+        nameUseCase(token, name, date).onStart {
             loadingLiveData.value = true
         }.onCompletion {
             loadingLiveData.value = false
@@ -45,4 +32,6 @@ class RegisterVerifyViewModelImpl(
             }
         }.launchIn(viewModelScope)
     }
+
+
 }

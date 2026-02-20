@@ -23,5 +23,14 @@
         android:id="@+id/registerVerifyScreen"
         tools:layout="@layout/screen_register_verify"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
-        android:label="RegisterVerifyScreen" />
+        android:label="RegisterVerifyScreen" >
+        <action
+            android:id="@+id/action_registerVerifyScreen_to_registerNameScreen"
+            app:destination="@id/registerNameScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerNameScreen"
+        tools:layout="@layout/screen_register_name"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
+        android:label="RegisterNameScreen" />
 </navigation>

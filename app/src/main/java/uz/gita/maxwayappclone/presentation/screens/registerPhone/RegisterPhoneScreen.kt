@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.presentation.screens.registerPhone
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -60,7 +61,7 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
     }
 
     private val successObserver = Observer<String> {
-        Timber.tag("TTT").d("Verification code: $it")
+        Log.d("TTT","Code: $it")
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
         findNavController().navigate(R.id.action_registerPhoneScreen_to_registerVerifyScreen,

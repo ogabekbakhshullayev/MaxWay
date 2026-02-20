@@ -8,4 +8,5 @@ interface RegisterVerifyViewModel {
     val errorMessageLiveData: LiveData<String>
 
     fun verify(phone: String, code: Int)
+    fun repeat(phone:String)
 }
