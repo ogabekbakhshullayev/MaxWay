@@ -11,6 +11,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import timber.log.Timber
@@ -68,11 +69,17 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
             )
         }
 
+        viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) {
+                findNavController().navigate(R.id.action_registerNameScreen_to_noConnectionScreen)
+                viewModel.noConnectionLiveData.value = false
+            }
+        })
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
     }
 
     private val successObserver = Observer<String> {
-        Log.d("TTT","Success: $it")
+        Log.d("TTT", "Success: $it")
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
     private val errorMessageObserver = Observer<String> {

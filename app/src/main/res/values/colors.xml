@@ -7,4 +7,5 @@
     <color name="grey_stroke_white">#E2E7EE</color>
     <color name="disabled">#EBEDF0</color>
     <color name="hint_color">#818C99</color>
+    <color name="wrong">#E8D52F46</color>
 </resources>

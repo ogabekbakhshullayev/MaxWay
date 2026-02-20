@@ -37,7 +37,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:inputType="number"
         android:id="@+id/ed_1"
         android:layout_width="50dp"
         android:layout_height="56dp"
@@ -46,6 +45,7 @@
         android:fontFamily="@font/sf_pro_regular"
         android:gravity="center"
         android:imeOptions="actionNext"
+        android:inputType="number"
         android:maxLength="1"
         android:textColor="@color/black"
         android:textColorHint="@color/hint_color"
@@ -58,7 +58,6 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <EditText
-        android:inputType="number"
         android:id="@+id/ed_2"
         android:layout_width="50dp"
         android:layout_height="56dp"
@@ -67,6 +66,7 @@
         android:fontFamily="@font/sf_pro_regular"
         android:gravity="center"
         android:imeOptions="actionNext"
+        android:inputType="number"
         android:maxLength="1"
         android:textColor="@color/black"
         android:textColorHint="@color/hint_color"
@@ -78,7 +78,6 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <EditText
-        android:inputType="number"
         android:id="@+id/ed_3"
         android:layout_width="50dp"
         android:layout_height="56dp"
@@ -87,6 +86,7 @@
         android:fontFamily="@font/sf_pro_regular"
         android:gravity="center"
         android:imeOptions="actionNext"
+        android:inputType="number"
         android:maxLength="1"
         android:textColor="@color/black"
         android:textColorHint="@color/hint_color"
@@ -98,7 +98,6 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <EditText
-        android:inputType="number"
         android:id="@+id/ed_4"
         android:layout_width="50dp"
         android:layout_height="56dp"
@@ -107,6 +106,7 @@
         android:fontFamily="@font/sf_pro_regular"
         android:gravity="center"
         android:imeOptions="actionNext"
+        android:inputType="number"
         android:maxLength="1"
         android:textColor="@color/black"
         android:textColorHint="@color/hint_color"
@@ -117,6 +117,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
+
+    <TextView
+        android:id="@+id/wrong_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/sf_pro_regular"
+        android:text="@string/wrong_code"
+        android:textColor="@color/wrong"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/ed_1"
+        app:layout_constraintTop_toBottomOf="@id/ed_1" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/continue_btn"
@@ -140,11 +153,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:clickable="false"
+        android:focusable="false"
         android:fontFamily="@font/sf_pro_regular"
         android:text="@string/use_time"
         android:textColor="@color/max_purple"
-        android:clickable="false"
-        android:focusable="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/continue_btn"
         app:layout_constraintLeft_toLeftOf="parent"

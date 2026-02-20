@@ -6,22 +6,4 @@
     </style>
 
     <style name="Theme.MaxWayAppClone" parent="Base.Theme.MaxWayAppClone" />
-
-    <style name="CustomMaterialDatePicker"
-        parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-
-        <!-- Header background -->
-        <item name="colorPrimary">#2ECEC2</item>
-
-        <!-- Header text -->
-        <item name="colorOnPrimary">#FFFFFF</item>
-
-        <!-- Selected day circle -->
-    </style>
-
-    <style name="CustomDaySelectedStyle"
-        parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
-        <item name="itemFillColor">#2ECEC2</item>
-        <item name="itemTextColor">#000000</item>
-    </style>
 </resources>

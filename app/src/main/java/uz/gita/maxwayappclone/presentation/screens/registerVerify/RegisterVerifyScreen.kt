@@ -48,10 +48,13 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             findNavController().popBackStack()
         }
         timer.start()
-        binding.ed1.setFocusListener()
-        binding.ed2.setFocusListener()
-        binding.ed3.setFocusListener()
-        binding.ed4.setFocusListener()
+        binding.ed1.setFocusListener(true)
+        binding.ed2.setFocusListener(true)
+        binding.ed3.setFocusListener(true)
+        binding.ed4.setFocusListener(true)
+//        binding.ed1.addTextChangedListener(textChangeListener)
+//        binding.ed2.addTextChangedListener(textChangeListener)
+//        binding.ed3.addTextChangedListener(textChangeListener)
         binding.ed4.addTextChangedListener(textChangeListener)
 
         binding.continueBtn.setOnClickListener {
@@ -63,6 +66,14 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             viewModel.verify(arguments?.getString("phone", "") ?: "", sb.toString().toInt())
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
+
+        viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean>{
+            if (it){
+                timer.cancel()
+                findNavController().navigate(R.id.action_registerVerifyScreen_to_noConnectionScreen)
+                viewModel.noConnectionLiveData.value = false
+            }
+        })
 
         binding.timerTv.setOnClickListener {
             binding.timerTv.isClickable = false
@@ -116,6 +127,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
             binding.ed4.setText("")
             binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
+            binding.wrongCodeTv.visibility = View.INVISIBLE
         }
     }
     private val errorMessageObserver = Observer<String> {
@@ -125,10 +137,15 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         sb.append(binding.ed3.text.toString())
         sb.append(binding.ed4.text.toString())
         if (sb.toString() != code) {
+            binding.ed1.onFocusChangeListener = null
+            binding.ed2.onFocusChangeListener = null
+            binding.ed3.onFocusChangeListener = null
+            binding.ed4.onFocusChangeListener = null
             binding.ed1.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
             binding.ed2.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
             binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
             binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+            binding.wrongCodeTv.visibility = View.VISIBLE
             binding.continueBtn.isEnabled = false
             binding.continueBtn.setTextColor(
                 ContextCompat.getColor(

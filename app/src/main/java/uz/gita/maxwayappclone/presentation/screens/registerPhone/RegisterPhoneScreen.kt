@@ -57,14 +57,21 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             viewModel.register(binding.edPhone.text.toString())
         }
 
+        viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) {
+                findNavController().navigate(R.id.action_registerPhoneScreen_to_noConnectionScreen)
+                viewModel.noConnectionLiveData.value = false
+            }
+        })
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
     }
 
     private val successObserver = Observer<String> {
-        Log.d("TTT","Code: $it")
+        Log.d("TTT", "Code: $it")
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
-        findNavController().navigate(R.id.action_registerPhoneScreen_to_registerVerifyScreen,
+        findNavController().navigate(
+            R.id.action_registerPhoneScreen_to_registerVerifyScreen,
             bundleOf("phone" to binding.edPhone.text.toString())
         )
     }
@@ -85,7 +92,8 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             p1: Int,
             p2: Int,
             p3: Int
-        ) {}
+        ) {
+        }
 
         override fun onTextChanged(
             p0: CharSequence?,

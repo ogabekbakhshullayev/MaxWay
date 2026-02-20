@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_registerPhoneScreen_to_registerVerifyScreen"
             app:destination="@id/registerVerifyScreen" />
+        <action
+            android:id="@+id/action_registerPhoneScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
     </fragment>
     <fragment
         android:id="@+id/registerVerifyScreen"
@@ -27,10 +30,22 @@
         <action
             android:id="@+id/action_registerVerifyScreen_to_registerNameScreen"
             app:destination="@id/registerNameScreen" />
+        <action
+            android:id="@+id/action_registerVerifyScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
     </fragment>
     <fragment
         android:id="@+id/registerNameScreen"
         tools:layout="@layout/screen_register_name"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
-        android:label="RegisterNameScreen" />
+        android:label="RegisterNameScreen" >
+        <action
+            android:id="@+id/action_registerNameScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/noConnectionScreen"
+        tools:layout="@layout/screen_no_connection"
+        android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
+        android:label="NoConnectionScreen" />
 </navigation>

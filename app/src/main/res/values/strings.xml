@@ -8,6 +8,7 @@
     <string name="verification_code">Код подверждения</string>
     <string name="use_time">Время прибытия: 0:</string>
     <string name="send_again">Отправить другой код</string>
+    <string name="wrong_code">Ввен неверный код</string>
 
     <string name="name_surname">Имя фамилия</string>
     <string name="name_surname_big">Имя Фамилия</string>
@@ -16,4 +17,8 @@
     <string name="your_date_of_birth">Ваш дата рождения</string>
     <string name="policy_of_max_way_warning">Создавая аккаунт, вы принимаете\nУсловия использования МaxWay</string>
     <string name="apply">Подтвердить</string>
+
+    <string name="try_again">Повторить попытку</string>
+    <string name="check_connection_and_try_again">Проверьте соединение и попробуйте снова.</string>
+    <string name="no_connection_ethernet">Нет подключения к\nинтернету</string>
 </resources>
