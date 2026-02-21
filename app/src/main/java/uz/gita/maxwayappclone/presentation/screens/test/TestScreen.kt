@@ -43,7 +43,7 @@ class TestScreen : Fragment(R.layout.screen_test) {
         //
     }
 
-    fun sample(){
-        println()
+    fun testInfo(){
+
     }
 }
