@@ -7,18 +7,25 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import uz.gita.maxwayappclone.databinding.ActivityMainBinding
+import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
+import uz.gita.maxwayappclone.databinding.ActivityMainBinding
 import uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen
 import uz.gita.maxwayappclone.presentation.screens.home.HomeScreen
 import uz.gita.maxwayappclone.presentation.screens.orders.OrdersScreen
 import uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var screen = "HOME"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -28,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.screens, HomeScreen())
+            .replace(R.id.main, BranchesFragment())
             .commit()
 
         setAction()
