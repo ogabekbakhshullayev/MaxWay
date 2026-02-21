@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.maxwayappclone.BuildConfig.BASE_URL
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
+import uz.gita.maxwayappclone.data.source.remote.api.StoryApi
 
 object ApiClient {
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -25,5 +26,6 @@ object ApiClient {
         .build()
 
     val authApi = retrofit.create<AuthApi>(AuthApi::class.java)
+    val storyApi = retrofit.create<StoryApi>(StoryApi::class.java)
 
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/img_blur"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/img_story"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:max="100"
+        android:id="@+id/progress_bar"
+        android:visibility="invisible"
+        android:progress="50"
+        android:progressTint="@color/disabled"
+        android:backgroundTint="@color/hint_color"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@id/progress_bar"
+        app:layout_constraintLeft_toLeftOf="@id/progress_bar"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/img_shaper"
+        android:clipToOutline="true"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"
+        android:layout_width="42dp"
+        android:id="@+id/img_ava_story"
+        android:layout_height="42dp"/>
+    <TextView
+        app:layout_constraintTop_toTopOf="@id/img_ava_story"
+        app:layout_constraintBottom_toBottomOf="@id/img_ava_story"
+        app:layout_constraintLeft_toRightOf="@id/img_ava_story"
+        android:layout_marginLeft="14dp"
+        android:text="Super Box Traditsiya"
+        android:layout_width="wrap_content"
+        android:id="@+id/title_story_tv"
+        android:textColor="@color/white"
+        android:fontFamily="@font/sf_pro_regular"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        app:layout_constraintTop_toTopOf="@id/img_ava_story"
+        app:layout_constraintBottom_toBottomOf="@id/img_ava_story"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/close_icon"
+        android:layout_width="24dp"
+        android:padding="3dp"
+        android:layout_height="24dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
