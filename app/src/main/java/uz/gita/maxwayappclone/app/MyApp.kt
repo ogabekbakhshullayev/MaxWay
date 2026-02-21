@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import uz.gita.maxwayappclone.data.repository_impl.AuthRepositoryImpl
+import uz.gita.maxwayappclone.data.repository_impl.BranchRepositoryImpl
 
 class MyApp : Application() {
 
@@ -18,6 +19,6 @@ class MyApp : Application() {
         instance = this
 
         AuthRepositoryImpl.init()
+        BranchRepositoryImpl.init()
     }
 }
-

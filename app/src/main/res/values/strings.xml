@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>
 </resources>
