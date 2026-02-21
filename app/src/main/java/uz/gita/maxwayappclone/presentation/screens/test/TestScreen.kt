@@ -14,7 +14,12 @@ class TestScreen : Fragment(R.layout.screen_test) {
     private val name: String = ""
     private val age: Int = 0
     private val binding by viewBinding(ScreenTestBinding::bind)
+
+
     private val viewModel: TestViewModel by viewModels<TestViewModelImpl> { TestViewModelFactory() }
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
