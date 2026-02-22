@@ -28,6 +28,7 @@ class AuthRepositoryImpl private constructor(
         val request = RegisterRequest(phone)
         val response = authApi.register(request)
         return if (response.isSuccessful && response.body() != null)
+
             Result.success(Unit)
         else {
             val errorJson = response.errorBody()?.string()

@@ -7,6 +7,6 @@ interface AuthRepository {
     /**
      *  bu method user register qilish uchun
      */
-    suspend fun register(phone: String) : Result<NotificationResponse>
+    suspend fun register(phone: String) : Result<Unit>
 }
 

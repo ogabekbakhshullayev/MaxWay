@@ -9,7 +9,7 @@ interface NotificationApi {
 	
 	
 	@GET("/notifications")
-	suspend fun notification(): Response<GeneralResponse<NotificationResponse>>
+	suspend fun getNotification(): Response<GeneralResponse<NotificationResponse>>
 
 
 
