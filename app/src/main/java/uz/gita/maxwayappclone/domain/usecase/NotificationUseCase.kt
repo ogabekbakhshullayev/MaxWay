@@ -5,5 +5,5 @@ import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 
 interface NotificationUseCase {
 
-    operator fun invoke() : Flow<Result<NotificationResponse>>
+    operator fun invoke() : Flow<Result<List<NotificationResponse>>>
 }

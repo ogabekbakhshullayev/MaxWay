@@ -6,7 +6,7 @@ import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 
 interface NotificationViewModel {
     val loadingLiveData: LiveData<Boolean>
-    val notificationListLiveData: LiveData<NotificationResponse>
+    val notificationListLiveData: LiveData<List<NotificationResponse>>
     val errorMessageLiveData: LiveData<String>
 
     fun getNotificationsList()

@@ -11,7 +11,7 @@ import uz.gita.maxwayappclone.domain.usecase.RegisterUseCase
 
 class  RegisterUseCaseImpl (private val repository: AuthRepository) : RegisterUseCase {
 
-    override fun invoke(phone: String): Flow<Result<NotificationResponse>> = flow {
+    override fun invoke(phone: String): Flow<Result<Unit>> = flow {
         emit(repository.register(phone))
     }
         .catch { emit(Result.failure(it)) }

@@ -4,7 +4,7 @@ data class NotificationResponse (
 	val id: Int,
 	val name: String,
 	val message: String,
-	val imgUrl: String,
+	val imgURL: String,
 	val data: String
 	
 )

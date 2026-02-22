@@ -4,6 +4,6 @@ import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 
 interface NotificationRepository {
 
-    suspend fun getAllNotifications(): Result<NotificationResponse>
+    suspend fun getAllNotifications(): Result<List<NotificationResponse>>
 
 }

@@ -15,7 +15,7 @@ import uz.gita.maxwayappclone.domain.usecase.RegisterUseCase
 class NotificationViewModelImpl(private val notificationUseCase: NotificationUseCase): ViewModel(), NotificationViewModel {
 
     override val loadingLiveData = MutableLiveData<Boolean>()
-    override val notificationListLiveData = MutableLiveData<NotificationResponse>()
+    override val notificationListLiveData = MutableLiveData< List<NotificationResponse>>()
     override val errorMessageLiveData = MutableLiveData<String>()
 
     override fun getNotificationsList() {

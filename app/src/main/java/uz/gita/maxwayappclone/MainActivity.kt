@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main, BranchesFragment())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.main, BranchesFragment())
+//            .commit()
     }
 }

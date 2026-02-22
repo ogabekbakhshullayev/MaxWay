@@ -11,7 +11,7 @@ import uz.gita.maxwayappclone.domain.repository.NotificationRepository
 import uz.gita.maxwayappclone.domain.usecase.NotificationUseCase
 
 class NotificationUseCaseImpl(private val repository: NotificationRepository): NotificationUseCase {
-    override fun invoke(): Flow<Result<NotificationResponse>> = flow {
+    override fun invoke(): Flow<Result<List<NotificationResponse>>> = flow {
         emit(repository.getAllNotifications())
     }
         .catch { emit(Result.failure(it)) }

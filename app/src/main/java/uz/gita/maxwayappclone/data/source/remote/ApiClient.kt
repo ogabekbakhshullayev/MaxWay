@@ -19,7 +19,9 @@ object ApiClient {
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl(BASE_URL)
+        .baseUrl("" +
+                "" +
+                "https://pledgeable-marly-hubert.ngrok-free.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
