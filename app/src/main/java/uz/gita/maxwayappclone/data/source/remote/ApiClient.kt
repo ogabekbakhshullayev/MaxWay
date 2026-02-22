@@ -21,7 +21,7 @@ object ApiClient {
         .client(okHttpClient)
         .baseUrl("" +
                 "" +
-                "https://pledgeable-marly-hubert.ngrok-free.dev/")
+                "https://extramundane-arlo-stereospecific.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

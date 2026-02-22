@@ -1,7 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.notification
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -42,7 +41,6 @@ class NotificationAdapter(
         ): RecyclerView.ViewHolder(binding.root){
 
         fun bind(item : NotificationResponse){
-            Log.d("TAG_LIVE_DATA", "item: $item")
             binding.notificationName.text = item.name
             binding.notificationMassage.text = item.message
             Glide.with(context)
