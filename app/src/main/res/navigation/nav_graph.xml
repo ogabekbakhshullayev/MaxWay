@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/storiesScreen">
+
+    <fragment
+        android:id="@+id/testScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.test.TestScreen"
+        android:label="screen_test"
+        tools:layout="@layout/screen_test" />
+    <fragment
+        android:id="@+id/registerPhoneScreen"
+        tools:layout="@layout/screen_register_phone"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerPhone.RegisterPhoneScreen"
+        android:label="RegisterPhoneScreen" >
+        <action
+            android:id="@+id/action_registerPhoneScreen_to_registerVerifyScreen"
+            app:destination="@id/registerVerifyScreen" />
+        <action
+            android:id="@+id/action_registerPhoneScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerVerifyScreen"
+        tools:layout="@layout/screen_register_verify"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
+        android:label="RegisterVerifyScreen" >
+        <action
+            android:id="@+id/action_registerVerifyScreen_to_registerNameScreen"
+            app:destination="@id/registerNameScreen" />
+        <action
+            android:id="@+id/action_registerVerifyScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerNameScreen"
+        tools:layout="@layout/screen_register_name"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
+        android:label="RegisterNameScreen" >
+        <action
+            android:id="@+id/action_registerNameScreen_to_noConnectionScreen"
+            app:destination="@id/noConnectionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/noConnectionScreen"
+        tools:layout="@layout/screen_no_connection"
+        android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
+        android:label="NoConnectionScreen" />
+    <fragment
+        android:id="@+id/storiesScreen"
+        tools:layout="@layout/screen_stories"
+        android:name="uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen"
+        android:label="StoriesScreen" />
+</navigation>
