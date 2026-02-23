@@ -1,18 +1,15 @@
 package uz.gita.maxwayappclone.presentation.screens.search
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import uz.gita.maxwayappclone.data.repository_impl.SearchRepositoryImpl
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.domain.usecase.SearchUseCase
 
