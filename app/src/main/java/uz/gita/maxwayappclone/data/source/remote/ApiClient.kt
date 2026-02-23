@@ -14,6 +14,13 @@ import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
 object ApiClient {
 
     private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .addHeader("Accept", "application/json")
+                .build()
+            chain.proceed(request)
+        }
         .addInterceptor(ChuckerInterceptor.Builder(MyApp.instance).build())
         .build()
 
@@ -21,7 +28,7 @@ object ApiClient {
         .client(okHttpClient)
         .baseUrl("" +
                 "" +
-                "https://pledgeable-marly-hubert.ngrok-free.dev/")
+                "https://emblematic-maggie-unmeetly.ngrok-free.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
