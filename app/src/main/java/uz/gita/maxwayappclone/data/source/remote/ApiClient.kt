@@ -4,11 +4,13 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import uz.gita.maxwayappclone.BuildConfig.BASE_URL
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
+import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
 
 object ApiClient {
 
@@ -25,5 +27,6 @@ object ApiClient {
     val authApi = retrofit.create<AuthApi>(AuthApi::class.java)
     val productApi = retrofit.create<ProductApi>(ProductApi::class.java)
     val branchApi = retrofit.create<BranchApi>(BranchApi::class.java)
+    val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
 
 }

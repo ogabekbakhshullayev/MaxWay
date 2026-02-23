@@ -13,4 +13,8 @@
     <string name="place_your_first_order">Place your first order and enjoy dishes from Max Way!</string>
     <string name="make_order">Make Order</string>
     <string name="completed">Completed</string>
+    <string name="notifications_title">Акции</string>
+    <string name="google_maps_key">ggg</string>
+
+
 </resources>
