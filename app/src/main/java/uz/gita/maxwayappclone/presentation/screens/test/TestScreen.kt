@@ -11,8 +11,6 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenTestBinding
 
 class TestScreen : Fragment(R.layout.screen_test) {
-    private val name: String = ""
-    private val age: Int = 0
     private val binding by viewBinding(ScreenTestBinding::bind)
     private val viewModel: TestViewModel by viewModels<TestViewModelImpl> { TestViewModelFactory() }
 
@@ -41,9 +39,5 @@ class TestScreen : Fragment(R.layout.screen_test) {
 
     private val loadingObserver = Observer<Boolean> {
         //
-    }
-
-    fun testInfo(){
-
     }
 }
