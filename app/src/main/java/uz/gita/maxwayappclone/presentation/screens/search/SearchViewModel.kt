@@ -1,7 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.search
 
 import androidx.lifecycle.LiveData
-import retrofit2.http.Query
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 
 interface SearchViewModel {

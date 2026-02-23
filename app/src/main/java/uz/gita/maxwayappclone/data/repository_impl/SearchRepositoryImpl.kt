@@ -5,7 +5,6 @@ import uz.gita.maxwayappclone.data.source.remote.ApiClient
 import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
-import uz.gita.maxwayappclone.domain.repository.AuthRepository
 import uz.gita.maxwayappclone.domain.repository.SearchRepository
 
 class SearchRepositoryImpl private constructor(
