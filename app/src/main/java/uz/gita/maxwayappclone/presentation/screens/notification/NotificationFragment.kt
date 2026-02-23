@@ -33,7 +33,6 @@ class NotificationFragment: Fragment(R.layout.fragment_notification) {
     private fun setupAdapter(){
         adapter = NotificationAdapter(requireContext()){item ->
             val bundle = Bundle().apply {
-                putInt("id",item.id)
                 putString("name",item.name)
                 putString("message",item.message)
                 putString("image",item.imgURL)

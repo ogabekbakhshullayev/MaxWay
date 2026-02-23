@@ -6,6 +6,7 @@ import android.content.Context
 import uz.gita.maxwayappclone.data.repository_impl.AuthRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.BranchRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.NotificationRepositoryImpl
+import uz.gita.maxwayappclone.data.repository_impl.SearchRepositoryImpl
 
 class MyApp : Application() {
 
@@ -22,5 +23,6 @@ class MyApp : Application() {
         AuthRepositoryImpl.init()
         BranchRepositoryImpl.init()
         NotificationRepositoryImpl.init()
+        SearchRepositoryImpl.init()
     }
 }
