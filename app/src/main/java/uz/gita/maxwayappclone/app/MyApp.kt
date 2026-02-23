@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.app
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import timber.log.Timber
 import uz.gita.maxwayappclone.data.repository_impl.AuthRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.StoryRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.BranchRepositoryImpl
@@ -12,13 +13,15 @@ class MyApp : Application() {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        lateinit var instance: Context
+        lateinit var context: Context
             private set
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        context = this
+
+        Timber.plant(Timber.DebugTree())
 
         AuthRepositoryImpl.init()
         StoryRepositoryImpl.init()
