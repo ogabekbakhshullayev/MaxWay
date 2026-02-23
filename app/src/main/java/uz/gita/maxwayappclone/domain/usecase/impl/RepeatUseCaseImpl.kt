@@ -5,17 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.domain.repository.AuthRepository
-import uz.gita.maxwayappclone.domain.usecase.RegisterUseCase
+import uz.gita.maxwayappclone.domain.usecase.RepeatUseCase
 
-class  RegisterUseCaseImpl (private val repository: AuthRepository) : RegisterUseCase {
-
+class RepeatUseCaseImpl(private val repository: AuthRepository) : RepeatUseCase {
     override fun invoke(phone: String): Flow<Result<String>> = flow {
-        emit(repository.register(phone))
-    }
-        .catch { emit(Result.failure(it)) }
-        .flowOn(Dispatchers.IO)
+        emit(repository.repeat(phone))
+    }.catch {
+        emit(Result.failure(it))
+    }.flowOn(Dispatchers.IO)
 }
-
-

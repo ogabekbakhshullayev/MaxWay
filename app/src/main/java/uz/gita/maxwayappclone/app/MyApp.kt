@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import timber.log.Timber
 import uz.gita.maxwayappclone.data.repository_impl.AuthRepositoryImpl
+import uz.gita.maxwayappclone.data.repository_impl.StoryRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.BranchRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.NotificationRepositoryImpl
 
@@ -23,7 +24,9 @@ class MyApp : Application() {
         Timber.plant(Timber.DebugTree())
 
         AuthRepositoryImpl.init()
+        StoryRepositoryImpl.init()
         BranchRepositoryImpl.init()
         NotificationRepositoryImpl.init()
     }
 }
+
