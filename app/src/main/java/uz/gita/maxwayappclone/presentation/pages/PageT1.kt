@@ -1,16 +1,9 @@
 package uz.gita.maxwayappclone.presentation.pages
 
-import android.animation.ObjectAnimator
-import android.graphics.Color
-import android.graphics.RenderEffect
-import android.graphics.Shader
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.response.StoryData
@@ -26,13 +19,13 @@ class PageT1(private val arrayL: Array<StoryData>) : Fragment(R.layout.page_stor
 
         binding.imgBlur.applyBlurEffect(16f)
 
-        Picasso.get()
+        Glide.with(MyApp.instance)
             .load(arrayL[pos].url)
             .into(binding.imgStory)
-        Picasso.get()
+        Glide.with(MyApp.instance)
             .load(arrayL[pos].url)
             .into(binding.imgBlur)
-        Picasso.get()
+        Glide.with(MyApp.instance)
             .load(arrayL[pos].url)
             .into(binding.imgAvaStory)
         binding.titleStoryTv.text = arrayL[pos].name
