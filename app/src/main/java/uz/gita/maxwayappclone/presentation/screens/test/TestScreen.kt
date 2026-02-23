@@ -13,11 +13,7 @@ import uz.gita.maxwayappclone.databinding.ScreenTestBinding
 class TestScreen : Fragment(R.layout.screen_test) {
     private val binding by viewBinding(ScreenTestBinding::bind)
 
-
     private val viewModel: TestViewModel by viewModels<TestViewModelImpl> { TestViewModelFactory() }
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
