@@ -6,4 +6,11 @@
     <string name="basket">Basket</string>
     <string name="orders">Orders</string>
     <string name="profile">Profile</string>
+    <string name="my_orders">My orders</string>
+    <string name="current_order">Current Order</string>
+    <string name="history">History</string>
+    <string name="no_orders">You have no orders yet</string>
+    <string name="place_your_first_order">Place your first order and enjoy dishes from Max Way!</string>
+    <string name="make_order">Make Order</string>
+    <string name="completed">Completed</string>
 </resources>

@@ -8,9 +8,11 @@
     <color name="text_secondary">#6B7280</color>
     <color name="card_stroke">#E5E7EB</color>
     <color name="maxway_purple">#7D59B5</color>
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
     <color name="grey">#edf1f4</color>
     <color name="dark_grey">#747579</color>
     <color name="violet">#7a5897</color>
+    <color name="yellow">#F4C243</color>
+    <color name="light_gray">#eff0f2</color>
+    <color name="none">#0000</color>
+    <color name="green">#5ed069</color>
 </resources>
