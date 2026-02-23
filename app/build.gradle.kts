@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "uz.gita.maxwayappclone"
-        minSdk = 26
+        minSdk = 29
         targetSdk = 36
         versionCode = 2
         versionName = "1.0"
@@ -48,8 +48,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-	implementation(libs.play.services.maps)
-	testImplementation(libs.junit)
+    implementation(libs.androidx.remote.creation.compose)
+    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

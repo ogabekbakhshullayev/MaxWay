@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_bar"
-    app:startDestination="@id/notificationFragment">
+    app:startDestination="@id/searchFragment">
 
     <fragment
         android:id="@+id/notificationFragment"
@@ -16,4 +16,8 @@
         android:id="@+id/notificationDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.notification.NotificationDetailFragment"
         android:label="NotificationDetailFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

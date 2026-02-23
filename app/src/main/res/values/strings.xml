@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+    <string name="notifications_title">уведомление</string>
 
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
@@ -37,5 +38,6 @@
     <string name="completed">Completed</string>
     <string name="notifications_title">Акции</string>
     <string name="google_maps_key">ggg</string>
+    <string name="search_hint">Найти</string>
 
 </resources>

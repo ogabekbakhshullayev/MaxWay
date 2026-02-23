@@ -29,8 +29,7 @@ class NotificationRepositoryImpl private constructor(
         val response = notificationApi.getNotification()
 
         return if (response.isSuccessful && response.body() != null) {
-            // response.body() GeneralResponse
-            Result.success(response.body()!!.data) // <-- faqat data fieldni oling
+            Result.success(response.body()!!.data)
         } else {
             val errorJson = response.errorBody()?.string()
             if (errorJson.isNullOrEmpty()) {
@@ -41,22 +40,4 @@ class NotificationRepositoryImpl private constructor(
             }
         }
     }
-
-
-//    override suspend fun getAllNotifications(): Result<List<NotificationResponse>> {
-//
-//        val response = notificationApi.getNotification()
-//
-//        return (if (response.isSuccessful && response.body() != null){
-//            Result.success(response.body())
-//        } else{
-//            val errorJson = response.errorBody()?.string()
-//            if (errorJson.isNullOrEmpty()) Result.failure(Throwable("Unknown exseption"))
-//            else{
-//                val errorMassage = gson.fromJson(errorJson, ErrorMessageResponse::class.java)
-//                Result.failure(Throwable(errorMassage.message))
-//            }
-//        }) as Result<List<NotificationResponse>>
-//
-//    }
 }
