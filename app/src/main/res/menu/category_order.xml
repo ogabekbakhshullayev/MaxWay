@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/current"
+		android:title="@string/current_order"
+		android:icon="@drawable/icon_flash" />
+	<item
+		android:id="@+id/history"
+		android:title="@string/history"
+		android:icon="@drawable/icon_orders_history" />
+</menu>
