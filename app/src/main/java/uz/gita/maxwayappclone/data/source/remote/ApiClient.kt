@@ -9,23 +9,23 @@ import uz.gita.maxwayappclone.BuildConfig.BASE_URL
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
+import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
 
 object ApiClient {
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(ChuckerInterceptor.Builder(MyApp.instance).build())
+        .addInterceptor(ChuckerInterceptor.Builder(MyApp.context).build())
         .build()
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("" +
-                "" +
-                "https://pledgeable-marly-hubert.ngrok-free.dev/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     val authApi = retrofit.create<AuthApi>(AuthApi::class.java)
+    val productApi = retrofit.create<ProductApi>(ProductApi::class.java)
     val branchApi = retrofit.create<BranchApi>(BranchApi::class.java)
     val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
 

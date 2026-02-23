@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>
+    <string name="delivery">Delivery</string>
+    <string name="home">Home</string>
+    <string name="basket">Basket</string>
+    <string name="orders">Orders</string>
+    <string name="profile">Profile</string>
+    <string name="my_orders">My orders</string>
+    <string name="current_order">Current Order</string>
+    <string name="history">History</string>
+    <string name="no_orders">You have no orders yet</string>
+    <string name="place_your_first_order">Place your first order and enjoy dishes from Max Way!</string>
+    <string name="make_order">Make Order</string>
+    <string name="completed">Completed</string>
     <string name="notifications_title">Акции</string>
     <string name="google_maps_key">ggg</string>
 
