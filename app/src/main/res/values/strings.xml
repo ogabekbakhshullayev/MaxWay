@@ -21,4 +21,8 @@
     <string name="try_again">Повторить попытку</string>
     <string name="check_connection_and_try_again">Проверьте соединение и попробуйте снова.</string>
     <string name="no_connection_ethernet">Нет подключения к\nинтернету</string>
+
+    <string name="notifications_title">Акции</string>
+    <string name="google_maps_key">ggg</string>
+
 </resources>
