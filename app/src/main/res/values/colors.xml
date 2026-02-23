@@ -8,4 +8,5 @@
     <color name="text_secondary">#6B7280</color>
     <color name="card_stroke">#E5E7EB</color>
     <color name="maxway_purple">#7D59B5</color>
+    <color name="bg_round_8_stroke_color">#7A31C5</color>
 </resources>

@@ -16,4 +16,8 @@
         android:id="@+id/notificationDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.notification.NotificationDetailFragment"
         android:label="NotificationDetailFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

@@ -8,6 +8,7 @@ import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
 import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
+import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 
 object ApiClient {
 
@@ -26,5 +27,7 @@ object ApiClient {
     val authApi = retrofit.create<AuthApi>(AuthApi::class.java)
     val branchApi = retrofit.create<BranchApi>(BranchApi::class.java)
     val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
+
+    val searchApi = retrofit.create<SearchApi>(SearchApi::class.java)
 
 }
