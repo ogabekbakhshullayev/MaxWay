@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://erick-fustigatory-khadijah.ngrok-free.dev/\"")
+            buildConfigField("String", "BASE_URL", "\"https://emblematic-maggie-unmeetly.ngrok-free.dev\"")
         }
         release {
             isMinifyEnabled = false
@@ -48,8 +48,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation(libs.androidx.remote.creation.compose)
-    testImplementation(libs.junit)
+	implementation(libs.play.services.maps)
+	testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

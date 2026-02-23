@@ -19,13 +19,13 @@ class PageT1(private val arrayL: Array<StoryData>) : Fragment(R.layout.page_stor
 
         binding.imgBlur.applyBlurEffect(16f)
 
-        Glide.with(MyApp.instance)
+        Glide.with(MyApp.context)
             .load(arrayL[pos].url)
             .into(binding.imgStory)
-        Glide.with(MyApp.instance)
+        Glide.with(MyApp.context)
             .load(arrayL[pos].url)
             .into(binding.imgBlur)
-        Glide.with(MyApp.instance)
+        Glide.with(MyApp.context)
             .load(arrayL[pos].url)
             .into(binding.imgAvaStory)
         binding.titleStoryTv.text = arrayL[pos].name

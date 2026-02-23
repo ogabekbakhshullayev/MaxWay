@@ -4,7 +4,7 @@ import android.util.Log
 import uz.gita.leeson_network.data.mapper.NetworkMonitor
 import uz.gita.maxwayappclone.app.MyApp
 
-private val networkMonitor by lazy { NetworkMonitor(MyApp.instance) }
+private val networkMonitor by lazy { NetworkMonitor(MyApp.context) }
 
 fun checkConnection(): Boolean {
     when {
