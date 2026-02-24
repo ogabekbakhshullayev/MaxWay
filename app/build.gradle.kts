@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "uz.gita.maxwayappclone"
-        minSdk = 26
+        minSdk = 29
         targetSdk = 36
         versionCode = 2
         versionName = "1.0"
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://rutilant-treena-nonheinous.ngrok-free.dev/\"")
+            buildConfigField("String", "BASE_URL", "\"https://emblematic-maggie-unmeetly.ngrok-free.dev\"")
         }
         release {
             isMinifyEnabled = false

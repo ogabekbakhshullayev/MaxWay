@@ -2,12 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_white">#F8F6FA</color>
+    <color name="max_purple">#51267D</color>
+    <color name="grey_stroke_white">#E2E7EE</color>
+    <color name="disabled">#EBEDF0</color>
+    <color name="hint_color">#818C99</color>
+    <color name="wrong">#E8D52F46</color>
+
     <color name="bg_light">#F3F4F6</color>
     <color name="segment_bg">#E2E3E5</color>
     <color name="text_primary">#111111</color>
     <color name="text_secondary">#6B7280</color>
     <color name="card_stroke">#E5E7EB</color>
     <color name="maxway_purple">#7D59B5</color>
+    <color name="bg_round_8_stroke_color">#7A31C5</color>
+
     <color name="grey">#edf1f4</color>
     <color name="dark_grey">#747579</color>
     <color name="violet">#7a5897</color>

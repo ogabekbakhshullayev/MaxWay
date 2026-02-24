@@ -1,6 +1,5 @@
 package uz.gita.maxwayappclone.presentation.screens.notification
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.domain.usecase.NotificationUseCase
-import uz.gita.maxwayappclone.domain.usecase.RegisterUseCase
 
 class NotificationViewModelImpl(private val notificationUseCase: NotificationUseCase): ViewModel(), NotificationViewModel {
 

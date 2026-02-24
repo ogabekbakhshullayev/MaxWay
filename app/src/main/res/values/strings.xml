@@ -1,6 +1,29 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
-    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>
+    <string name="notifications_title">уведомление</string>
+
+    <string name="phone_number">Номер телефона</string>
+    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="continue_str">Продолжить</string>
+
+    <string name="verification_code">Код подверждения</string>
+    <string name="use_time">Время прибытия: 0:</string>
+    <string name="send_again">Отправить другой код</string>
+    <string name="wrong_code">Ввен неверный код</string>
+
+    <string name="name_surname">Имя фамилия</string>
+    <string name="name_surname_big">Имя Фамилия</string>
+    <string name="enter_your_name">Введите ваш имя</string>
+    <string name="enter_your_date_of_birth">Введите ваш дата рождения</string>
+    <string name="your_date_of_birth">Ваш дата рождения</string>
+    <string name="policy_of_max_way_warning">Создавая аккаунт, вы принимаете\nУсловия использования МaxWay</string>
+    <string name="apply">Подтвердить</string>
+
+    <string name="try_again">Повторить попытку</string>
+    <string name="check_connection_and_try_again">Проверьте соединение и попробуйте снова.</string>
+    <string name="no_connection_ethernet">Нет подключения к\nинтернету</string>
+
+<!--    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>-->
     <string name="delivery">Delivery</string>
     <string name="home">Home</string>
     <string name="basket">Basket</string>
@@ -20,5 +43,8 @@
     <string name="order_status">Order status №</string>
     <string name="order_confirmed">Order confirmed</string>
 
+    <string name="notifications_ads">Акции</string>
+    <string name="google_maps_key">ggg</string>
+    <string name="search_hint">Найти</string>
 
 </resources>
