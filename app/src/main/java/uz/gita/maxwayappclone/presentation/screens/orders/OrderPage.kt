@@ -52,7 +52,7 @@ class OrderPage: Fragment(R.layout.page_order) {
 		}
 		binding.btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
 		binding.numberOrder.text = "Order №${data.id + 100}"
-		binding.orderStatusNum.text = "Order №${data.id + 100}"
+		binding.orderStatusNum.text = "${data.id + 100}"
 		binding.date.text = data.createTime.getDate().substring(0, 10)
 		data.ls.forEach {
 			val product = layoutInflater.inflate(R.layout.item_order_price, binding.orderList, false)
