@@ -10,12 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.databinding.FragmentNotificationBinding
+import uz.gita.maxwayappclone.databinding.ScreenNotificationBinding
 
 
-class NotificationFragment: Fragment(R.layout.fragment_notification) {
+class NotificationFragment: Fragment(R.layout.screen_notification) {
 
-    private val binding by viewBinding(FragmentNotificationBinding::bind)
+    private val binding by viewBinding(ScreenNotificationBinding::bind)
 
     private val viewModel: NotificationViewModel by viewModels<NotificationViewModelImpl>{ NotificationViewModelFactory() }
 

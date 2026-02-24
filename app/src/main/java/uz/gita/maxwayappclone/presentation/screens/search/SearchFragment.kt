@@ -12,13 +12,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.databinding.FragmentSearchBinding
+import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
+import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 
-class SearchFragment: Fragment(R.layout.fragment_search) {
+class SearchFragment: Fragment(R.layout.screen_search) {
 
-    private val binding by viewBinding(FragmentSearchBinding::bind)
+    private val binding by viewBinding(ScreenSearchBinding::bind)
     private val viewModel: SearchViewModel by viewModels <SearchViewModelImpl>{ SearchViewModelFactory() }
     private lateinit var adapter: SearchAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +28,6 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         adapter =  SearchAdapter(requireContext())
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL,false)
         binding.recyclerView.adapter = adapter
-
         observe()
         binding.search.requestFocus()
 
@@ -34,7 +35,15 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         binding.search.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    viewModel.getSearchResult(s.toString())
+                    if (s.toString() != "") {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.textTitle.visibility = View.VISIBLE
+                        viewModel.getSearchResult(s.toString())
+                    }
+                    else{
+                        binding.recyclerView.visibility = View.GONE
+                        binding.textTitle.visibility = View.GONE
+                    }
                 }
 
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -52,6 +61,13 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
          }
         viewModel.searchLiveData.observe(viewLifecycleOwner){responses ->
             adapter.submitList(responses)
+            if (responses.isEmpty()){
+                binding.textTitle.visibility = View.GONE
+                binding.imageNotFound.visibility = View.VISIBLE
+            }
+            else {
+                binding.imageNotFound.visibility = View.GONE
+            }
         }
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

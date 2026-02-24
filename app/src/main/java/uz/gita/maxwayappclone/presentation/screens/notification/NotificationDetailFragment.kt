@@ -7,11 +7,11 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.databinding.FragmentNotificationDetailBinding
+import uz.gita.maxwayappclone.databinding.ScreenNotificationDetailBinding
 
-class NotificationDetailFragment : Fragment(R.layout.fragment_notification_detail) {
+class NotificationDetailFragment : Fragment(R.layout.screen_notification_detail) {
 
-    private val binding by viewBinding(FragmentNotificationDetailBinding::bind)
+    private val binding by viewBinding(ScreenNotificationDetailBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

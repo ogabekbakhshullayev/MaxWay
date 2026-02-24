@@ -20,4 +20,40 @@
         android:id="@+id/searchFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/branchesFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment"
+        android:label="BranchesFragment" >
+        <action
+            android:id="@+id/action_branchesFragment_to_branchDetailFragment"
+            app:destination="@id/branchDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.home.HomeScreen"
+        android:label="HomeScreen" />
+    <fragment
+        android:id="@+id/profileScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen"
+        android:label="ProfileScreen" />
+    <fragment
+        android:id="@+id/registerVerifyScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
+        android:label="RegisterVerifyScreen" />
+    <fragment
+        android:id="@+id/registerPhoneScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerPhone.RegisterPhoneScreen"
+        android:label="RegisterPhoneScreen" />
+    <fragment
+        android:id="@+id/registerNameScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
+        android:label="RegisterNameScreen" />
+    <fragment
+        android:id="@+id/basketScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen"
+        android:label="BasketScreen" />
+    <fragment
+        android:id="@+id/branchDetailFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
+        android:label="BranchDetailFragment" />
 </navigation>

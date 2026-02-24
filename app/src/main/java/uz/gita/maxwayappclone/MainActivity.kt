@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+     //   supportFragmentManager.beginTransaction().replace(R.id.main, BranchesFragment()).commit()
         binding.viewPager.adapter = adapter
 
         binding.bottomNavigation.setOnItemSelectedListener {
@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
 
         binding.viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {

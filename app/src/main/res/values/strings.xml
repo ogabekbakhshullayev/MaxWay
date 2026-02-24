@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+    
     <string name="notifications_title">уведомление</string>
+    <string name="item_product_add">Добавить</string>
+    <string name="profile_title">Профиль</string>
+    
+
+    <string name="search_title">Результаты поиска</string>
 
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
