@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import timber.log.Timber
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.model.OrdersUIData
 import uz.gita.maxwayappclone.databinding.ScreenHistroyOrderBinding
 import uz.gita.maxwayappclone.presentation.adapter.OrderItemAdapter
 import kotlin.getValue

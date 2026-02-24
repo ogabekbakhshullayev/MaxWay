@@ -10,7 +10,6 @@ import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenCurrentOrderBinding
 import uz.gita.maxwayappclone.presentation.adapter.CurrentOrderAdapter
-import uz.gita.maxwayappclone.presentation.adapter.OrderItemAdapter
 import uz.gita.maxwayappclone.presentation.util.getCurrent
 import kotlin.getValue
 
