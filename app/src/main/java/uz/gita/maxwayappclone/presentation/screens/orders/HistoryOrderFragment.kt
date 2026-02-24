@@ -24,7 +24,10 @@ class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
 		_binding = ScreenHistroyOrderBinding.bind(view)
 
 		binding.recyclerView.adapter = adapter
-		binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+		val layoutManager = LinearLayoutManager(requireContext())
+		layoutManager.reverseLayout = true
+		layoutManager.stackFromEnd = true
+		binding.recyclerView.layoutManager = layoutManager
 
 		observe()
 		setAction()

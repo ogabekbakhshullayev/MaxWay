@@ -3,18 +3,13 @@ package uz.gita.maxwayappclone.presentation.screens.orders
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.Gson
 import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
-import uz.gita.maxwayappclone.presentation.adapter.CategoryOrderAdapter
-import uz.gita.maxwayappclone.presentation.screens.home.HomeScreen
 
 class OrdersScreen: Fragment(R.layout.screen_orders) {
 	private val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
@@ -59,8 +54,15 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			(activity as MainActivity).binding.viewPager.currentItem = 0
 		}
 		viewModel.onClickOrder.observe(viewLifecycleOwner) { data ->
+			val bundle = Bundle()
+			val gson = Gson()
+			val json = gson.toJson(data)
+			bundle.putString("DATA", json)
+			val fragment = OrderPage()
+			fragment.arguments = bundle
+
 			parentFragmentManager.beginTransaction()
-				.replace(R.id.main, HomeScreen())
+				.replace(R.id.main, fragment)
 				.addToBackStack(null)
 				.commit()
 		}
