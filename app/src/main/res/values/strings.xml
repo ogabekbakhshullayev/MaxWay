@@ -5,8 +5,23 @@
     <string name="item_product_add">Добавить</string>
     <string name="profile_title">Профиль</string>
     
-
+    //screen profile strings
     <string name="search_title">Результаты поиска</string>
+    <string name="login_text">Войти</string>
+    <string name="login_text_text">Авторизуйтесь и начните совершать
+выгодные покупки на MaхWау</string>
+    <string name="balance_text">Баланс</string>
+    <string name="address_text">Мои адреса</string>
+    <string name="stock_text">Акции</string>
+    <string name="branches_text">Филиалы</string>
+    <string name="news_text">Новости</string>
+    <string name="vacancies_text">Вакансии</string>
+    <string name="gallery_text">Галерея</string>
+    <string name="recipes_text">Рецепты</string>
+    <string name="lang_text">Язык</string>
+    <string name="profile_bottom_text">Политика конфиденциальности. и Публичная оферта</string>
+    <string name="profile_bottom_text_dev">Работает нa Delever</string>
+    <string name="profile_bottom_text_version">Версия 2.1.29</string>
 
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>

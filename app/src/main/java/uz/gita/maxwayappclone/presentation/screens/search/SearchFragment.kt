@@ -14,6 +14,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
+import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
 
 class SearchFragment: Fragment(R.layout.screen_search) {
 
@@ -25,7 +26,7 @@ class SearchFragment: Fragment(R.layout.screen_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter =  SearchAdapter(requireContext())
+        adapter = SearchAdapter(requireContext())
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL,false)
         binding.recyclerView.adapter = adapter
         observe()
