@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://emblematic-maggie-unmeetly.ngrok-free.dev\"")
+            buildConfigField("String", "BASE_URL", "\"https://rutilant-treena-nonheinous.ngrok-free.dev/\"")
         }
         release {
             isMinifyEnabled = false
@@ -85,4 +85,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
+//    swipe refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

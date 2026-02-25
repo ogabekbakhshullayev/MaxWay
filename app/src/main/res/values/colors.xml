@@ -22,6 +22,7 @@
     <color name="violet">#7a5897</color>
     <color name="yellow">#F4C243</color>
     <color name="light_gray">#eff0f2</color>
+    <color name="lightest_grey">#EBEDF0</color>
     <color name="none">#0000</color>
     <color name="green">#5ed069</color>
 </resources>
