@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import timber.log.Timber
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.model.OrdersUIData
 import uz.gita.maxwayappclone.databinding.ScreenHistroyOrderBinding
 import uz.gita.maxwayappclone.presentation.adapter.OrderItemAdapter
 import kotlin.getValue
@@ -24,7 +23,10 @@ class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
 		_binding = ScreenHistroyOrderBinding.bind(view)
 
 		binding.recyclerView.adapter = adapter
-		binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+		val layoutManager = LinearLayoutManager(requireContext())
+		layoutManager.reverseLayout = true
+		layoutManager.stackFromEnd = true
+		binding.recyclerView.layoutManager = layoutManager
 
 		observe()
 		setAction()
@@ -40,9 +42,6 @@ class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
 	fun observe() {
 		viewModel.loadingLiveData.observe(viewLifecycleOwner) { bool ->
 			binding.loadingProgress.isVisible = bool
-		}
-		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
-			Timber.tag("TTT").d("error: $message")
 		}
 		viewModel.orderLiveData.observe(viewLifecycleOwner) { list ->
 			if (list.isNullOrEmpty()) {

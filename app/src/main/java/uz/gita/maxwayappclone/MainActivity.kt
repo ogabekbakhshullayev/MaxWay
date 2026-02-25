@@ -12,13 +12,12 @@ import androidx.core.view.get
 import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     val adapter = ViewPagerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.viewPager) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
