@@ -5,6 +5,6 @@ import uz.gita.maxwayappclone.data.source.remote.response.EditProfileResponse
 
 interface EditeProfileUseCase {
 
-    operator fun invoke(name: String, birthDate: String): Flow<Result<String>>
+    operator fun invoke(token: String, name: String, birthDate: String): Flow<Result<String>>
     operator fun invoke(token: String): Flow<Result<EditProfileResponse>>
 }

@@ -20,7 +20,7 @@ object ApiClient {
     }
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(ChuckerInterceptor.Builder(MyApp.context).build())
+        .addInterceptor(loggingInterceptor)
         .build()
 
     private val retrofit = Retrofit.Builder()

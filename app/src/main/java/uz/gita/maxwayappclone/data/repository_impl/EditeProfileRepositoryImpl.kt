@@ -41,9 +41,9 @@ class EditeProfileRepositoryImpl private constructor(
 
 
 
-    override suspend fun updateProfileInfo(name: String, birthDate: String): Result<String> {
+    override suspend fun updateProfileInfo(token: String, name: String, birthDate: String): Result<String> {
         val request = EditProfileRequest(name,birthDate)
-        val response = editeProfileApi.updateProfileInfo(request)
+        val response = editeProfileApi.updateProfileInfo(token,request)
 
         return if (response.isSuccessful && response.body() != null){
             Result.success(response.body()?.data.toString())

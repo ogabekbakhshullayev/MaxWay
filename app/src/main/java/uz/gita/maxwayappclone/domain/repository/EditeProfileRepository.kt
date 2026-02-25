@@ -6,6 +6,6 @@ interface EditeProfileRepository {
 
     suspend fun getProfileInfo(token: String): Result<EditProfileResponse>
 
-    suspend fun updateProfileInfo(name: String, birthDate: String): Result<String>
+    suspend fun updateProfileInfo(token: String, name: String, birthDate: String): Result<String>
 
 }

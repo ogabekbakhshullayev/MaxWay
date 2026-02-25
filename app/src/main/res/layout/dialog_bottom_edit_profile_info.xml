@@ -65,6 +65,8 @@
         android:id="@+id/edit_phone"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:gravity="center|start"
+        android:textSize="16sp"
         android:background="@drawable/bg_edit"
         android:enabled="false"
         android:paddingStart="12dp"

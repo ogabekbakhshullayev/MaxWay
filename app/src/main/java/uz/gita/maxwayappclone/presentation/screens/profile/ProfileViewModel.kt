@@ -17,6 +17,6 @@ interface ProfileViewModel {
 
 
     fun getProfileInfo(token: String)
-    fun updateProfileInfo(name: String, birthDate: String)
+    fun updateProfileInfo(token: String, name: String, birthDate: String)
 
 }

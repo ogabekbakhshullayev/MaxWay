@@ -41,8 +41,8 @@ class ProfileViewModelImpl(private val profileUseCase: EditeProfileUseCase): Vie
             .launchIn(viewModelScope)
     }
 
-    override fun updateProfileInfo(name: String, birthDate: String) {
-        profileUseCase(name = name,birthDate = birthDate)
+    override fun updateProfileInfo(token: String, name: String, birthDate: String) {
+        profileUseCase(token = token,name = name,birthDate = birthDate)
             .onStart { updateInfoLoadingLiveData.value = true }
             .onCompletion { updateInfoLoadingLiveData.value = false }
             .onEach { result ->

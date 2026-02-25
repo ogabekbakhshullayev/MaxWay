@@ -15,7 +15,7 @@ interface EditeProfileApi {
     suspend fun getProfileInfo(@Header("token") token: String): Response<GeneralResponse<EditProfileResponse>>
 
     @PUT("/update_user_info")
-    suspend fun updateProfileInfo(@Body data: EditProfileRequest): Response<GeneralResponse<Unit>>
+    suspend fun updateProfileInfo(@Header("token" )token: String,@Body data: EditProfileRequest): Response<GeneralResponse<Unit>>
 
 
 }

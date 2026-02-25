@@ -1,7 +1,9 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -28,19 +30,30 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     private val binding by viewBinding(ScreenProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl> { ProfileViewModelFactory() }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        getBundle()
+        viewModel.updateProfileInfo("39c860c4de5bbbdd87efd68e93d90995",updateName, updateBirth)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        viewModel.getProfileInfo("39c860c4de5bbbdd87efd68e93d90995")
         getBundle()
+//        viewModel.updateProfileInfo("39c860c4de5bbbdd87efd68e93d90995",updateName, updateBirth)
+
         observe()
+        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
+            name = response.name
+            phone = response.phone
+            birth = response.birthDate
+        }
+
         binding.buttonEdit.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("name", name)
                 putString("phone", phone)
                 putString("birth", birth)
-
             }
 
             findNavController().navigate(
@@ -48,8 +61,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                 bundle
             )
         }
-
-
 
         toasts()
 
@@ -59,27 +70,31 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         binding.buttonLogin.setOnClickListener {
             login(true)
         }
+
+
+    }
+
+    private fun loadView(){
+        binding.profileName.text = name
+        binding.profilePhone.text = phone
     }
 
     private fun getBundle() {
         arguments.let { bundle ->
-            updateName = bundle?.getString("name").toString()
-            updateBirth = bundle?.getString("birth").toString()
+            updateName = bundle?.getString("name") ?: ""
+            updateBirth = bundle?.getString("birth") ?: ""
         }
-
     }
 
     private fun observe() {
         viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) {
             binding.progress.isVisible = it
+            if (!it) {
+                loadView()
+            }
         }
 
-        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
-            name = response.name
-            phone = response.phone
-            birth = response.birthDate
 
-        }
 
         viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -96,8 +111,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             binding.loginInContainer.visibility = View.GONE
             binding.buttonLogOut.visibility = View.GONE
         }
-
-
     }
 
     fun toasts() {
@@ -125,8 +138,5 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         binding.buttonLanguage.setOnClickListener {
             Toast.makeText(requireContext(), "language clicked", Toast.LENGTH_SHORT).show()
         }
-
     }
-
-
 }
