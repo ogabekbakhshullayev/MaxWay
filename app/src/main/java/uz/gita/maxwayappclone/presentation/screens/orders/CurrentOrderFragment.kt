@@ -44,9 +44,6 @@ class CurrentOrderFragment: Fragment(R.layout.screen_current_order) {
 		viewModel.loadingLiveData.observe(viewLifecycleOwner) { bool ->
 			binding.loadingProgress.isVisible = bool
 		}
-		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
-			Timber.tag("TTT").d("error: $message")
-		}
 		viewModel.orderLiveData.observe(viewLifecycleOwner) { list ->
 			if (list.isNullOrEmpty()) {
 				binding.emptyList.isVisible = true

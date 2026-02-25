@@ -7,12 +7,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.gson.Gson
+import timber.log.Timber
 import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
 
 class OrdersScreen: Fragment(R.layout.screen_orders) {
-	private val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
+	val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
 	private var _binding: ScreenOrdersBinding? = null
 	private val binding get() = _binding!!
 
@@ -53,6 +54,19 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner){
 			(activity as MainActivity).binding.viewPager.currentItem = 0
 		}
+		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
+			Timber.tag("TTT").d("error: $message")
+
+			parentFragmentManager.setFragmentResultListener("key", viewLifecycleOwner) { _, bundle ->
+				val result = bundle.getBoolean("refresh")
+				if (result) viewModel.refresh()
+			}
+
+			parentFragmentManager.beginTransaction()
+				.replace(R.id.main, NoConnectionScreen())
+				.addToBackStack(null)
+				.commit()
+		}
 		viewModel.onClickOrder.observe(viewLifecycleOwner) { data ->
 			val bundle = Bundle()
 			val gson = Gson()
@@ -66,11 +80,18 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 				.addToBackStack(null)
 				.commit()
 		}
+		viewModel.refreshLiveData.observe(viewLifecycleOwner) {
+			viewModel.loadOrders()
+		}
+		viewModel.loadingLiveData.observe(viewLifecycleOwner) { bool ->
+			if (bool) binding.swipeRefresh.isRefreshing = false
+		}
 	}
 
 	fun setAction() {
 		binding.historyOrders.setOnClickListener { viewModel.setOnClickHistory() }
 		binding.currentOrders.setOnClickListener { viewModel.setOnClickCurrent() }
+		binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
 	}
 
 	override fun onDestroyView() {
