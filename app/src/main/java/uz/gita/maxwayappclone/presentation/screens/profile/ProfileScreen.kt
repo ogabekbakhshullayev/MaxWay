@@ -1,9 +1,7 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,90 +9,55 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.source.remote.response.EditProfileResponse
 import uz.gita.maxwayappclone.databinding.ScreenProfileBinding
 import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
-import uz.gita.maxwayappclone.presentation.screens.notification.NotificationViewModel
-import uz.gita.maxwayappclone.presentation.screens.notification.NotificationViewModelFactory
-import uz.gita.maxwayappclone.presentation.screens.notification.NotificationViewModelImpl
 import kotlin.getValue
-import kotlin.properties.Delegates
 
 class ProfileScreen : Fragment(R.layout.screen_profile) {
-    private lateinit var name: String
-    private lateinit var phone: String
-    private lateinit var birth: String
-    private lateinit var updateName: String
-    private lateinit var updateBirth: String
-
-
     private val binding by viewBinding(ScreenProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl> { ProfileViewModelFactory() }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getBundle()
-        viewModel.updateProfileInfo("39c860c4de5bbbdd87efd68e93d90995",updateName, updateBirth)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getProfileInfo("39c860c4de5bbbdd87efd68e93d90995")
-        getBundle()
-//        viewModel.updateProfileInfo("39c860c4de5bbbdd87efd68e93d90995",updateName, updateBirth)
 
         observe()
         viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
-            name = response.name
-            phone = response.phone
-            birth = response.birthDate
+            viewModel.userResponse = response
+            loadView(response)
         }
-
         binding.buttonEdit.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString("name", name)
-                putString("phone", phone)
-                putString("birth", birth)
-            }
 
+            val bundle = Bundle().apply {
+                if (viewModel.userResponse != null) {
+                    putString("name", viewModel.userResponse?.name)
+                    putString("phone", viewModel.userResponse?.phone)
+                    putString("birth", viewModel.userResponse?.birthDate)
+                }
+            }
             findNavController().navigate(
                 R.id.action_profileScreen_to_editProfileBottomSheet,
                 bundle
             )
         }
-
         toasts()
-
         binding.buttonLogOut.setOnClickListener {
             login(false)
         }
         binding.buttonLogin.setOnClickListener {
             login(true)
         }
-
-
     }
-
-    private fun loadView(){
-        binding.profileName.text = name
-        binding.profilePhone.text = phone
-    }
-
-    private fun getBundle() {
-        arguments.let { bundle ->
-            updateName = bundle?.getString("name") ?: ""
-            updateBirth = bundle?.getString("birth") ?: ""
-        }
+    private fun loadView(response: EditProfileResponse){
+        binding.profileName.text = response.name
+        binding.profilePhone.text = response.phone
     }
 
     private fun observe() {
         viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) {
             binding.progress.isVisible = it
-            if (!it) {
-                loadView()
-            }
         }
-
-
 
         viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

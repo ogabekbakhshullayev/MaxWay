@@ -10,12 +10,14 @@ import uz.gita.maxwayappclone.domain.repository.EditeProfileRepository
 import uz.gita.maxwayappclone.domain.usecase.EditProfileDialogUseCase
 import uz.gita.maxwayappclone.domain.usecase.EditeProfileUseCase
 
-class EditeProfileUseCaseImpl(private val repository: EditeProfileRepository):
-    EditeProfileUseCase {
 
-    override fun invoke(token: String): Flow<Result<EditProfileResponse>> = flow {
-        emit(repository.getProfileInfo(token))
+class EditProfileDialogUseCaseImp(private val repository: EditeProfileRepository): EditProfileDialogUseCase {
+    override fun invoke(token: String, name: String, birthDate: String): Flow<Result<String>> = flow {
+        emit(repository.updateProfileInfo(token,name,birthDate))
     }
-        .catch { emit(Result.failure(it)) }
+        .catch { emit(Result.failure(it))}
         .flowOn(Dispatchers.IO)
+
+
+
 }

@@ -74,7 +74,7 @@
     </dialog>
     <dialog
         android:id="@+id/editProfileBottomSheet"
-        android:name="uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.EditProfileBottomSheet"
+        android:name="uz.gita.maxwayappclone.presentation.screens.prfileDialog.EditProfileBottomSheet"
         android:label="EditProfileBottomSheet" >
         <action
             android:id="@+id/action_editProfileBottomSheet_to_datePickerBottomSheet"
