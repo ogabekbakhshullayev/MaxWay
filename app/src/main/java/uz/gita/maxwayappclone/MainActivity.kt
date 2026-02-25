@@ -12,7 +12,7 @@ import androidx.core.view.get
 import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     val adapter = ViewPagerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
