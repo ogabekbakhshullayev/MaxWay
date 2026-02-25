@@ -5,14 +5,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import uz.gita.maxwayappclone.BuildConfig.BASE_URL
+import uz.gita.maxwayappclone.BuildConfig
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.StoryApi
 import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
+import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 
 object ApiClient {
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -25,7 +25,7 @@ object ApiClient {
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -34,5 +34,6 @@ object ApiClient {
     val productApi = retrofit.create<ProductApi>(ProductApi::class.java)
     val branchApi = retrofit.create<BranchApi>(BranchApi::class.java)
     val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
+    val searchApi = retrofit.create<SearchApi>(SearchApi::class.java)
 
 }

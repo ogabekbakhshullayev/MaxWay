@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import uz.gita.maxwayappclone.databinding.ActivityMainBinding
 import uz.gita.maxwayappclone.presentation.adapter.ViewPagerAdapter
 import androidx.core.view.get
+import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
 
 class MainActivity : AppCompatActivity() {
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MaxWayAppClone</string>
+    <string name="notifications_title">уведомление</string>
 
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
@@ -35,8 +36,15 @@
     <string name="place_your_first_order">Place your first order and enjoy dishes from Max Way!</string>
     <string name="make_order">Make Order</string>
     <string name="completed">Completed</string>
-    <string name="notifications_title">Акции</string>
+    <string name="cash">Cash</string>
+    <string name="total_amount">Total amount</string>
+    <string name="reorder">Reorder</string>
+    <string name="order_status">Order status №</string>
+    <string name="order_confirmed">Order confirmed</string>
+
+    <string name="notifications_ads">Акции</string>
     <string name="google_maps_key">ggg</string>
+    <string name="search_hint">Найти</string>
 
     <string name="burgers">Бургеры</string>
     <string name="max_burger">Макс Бургер</string>
