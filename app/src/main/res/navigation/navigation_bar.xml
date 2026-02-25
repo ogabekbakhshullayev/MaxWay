@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_bar"
-    app:startDestination="@id/basketScreen">
+    app:startDestination="@id/profileScreen">
 
     <fragment
         android:id="@+id/notificationFragment"
@@ -18,7 +18,7 @@
         android:label="NotificationDetailFragment" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchScreen"
         android:label="SearchFragment" />
     <fragment
         android:id="@+id/branchesFragment"
@@ -35,7 +35,14 @@
     <fragment
         android:id="@+id/profileScreen"
         android:name="uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen"
-        android:label="ProfileScreen" />
+        android:label="ProfileScreen" >
+        <action
+            android:id="@+id/action_profileScreen_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_profileScreen_to_editProfileBottomSheet"
+            app:destination="@id/editProfileBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/registerVerifyScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
@@ -56,4 +63,24 @@
         android:id="@+id/branchDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
         android:label="BranchDetailFragment" />
+    <dialog
+        android:id="@+id/datePickerBottomSheet"
+        android:name="uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.DatePickerBottomSheet"
+        android:label="DatePickerBottomSheet" >
+        <action
+            android:id="@+id/action_datePickerBottomSheet_to_editProfileBottomSheet"
+            app:destination="@id/editProfileBottomSheet"
+            app:popUpToInclusive="false" />
+    </dialog>
+    <dialog
+        android:id="@+id/editProfileBottomSheet"
+        android:name="uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.EditProfileBottomSheet"
+        android:label="EditProfileBottomSheet" >
+        <action
+            android:id="@+id/action_editProfileBottomSheet_to_datePickerBottomSheet"
+            app:destination="@id/datePickerBottomSheet" />
+        <action
+            android:id="@+id/action_editProfileBottomSheet_to_profileScreen"
+            app:destination="@id/profileScreen" />
+    </dialog>
 </navigation>

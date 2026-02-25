@@ -22,6 +22,8 @@
     <string name="profile_bottom_text">Политика конфиденциальности. и Публичная оферта</string>
     <string name="profile_bottom_text_dev">Работает нa Delever</string>
     <string name="profile_bottom_text_version">Версия 2.1.29</string>
+    <string name="profile_owner_name">name</string>
+    <string name="profile_owner_phone">+998900006691</string>
 
     <string name="phone_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>

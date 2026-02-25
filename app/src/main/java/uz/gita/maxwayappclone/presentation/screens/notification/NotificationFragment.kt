@@ -25,6 +25,10 @@ class NotificationFragment: Fragment(R.layout.screen_notification) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.notificationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         setupAdapter()
         observe()
@@ -52,6 +56,7 @@ class NotificationFragment: Fragment(R.layout.screen_notification) {
 
         viewModel.notificationListLiveData.observe(viewLifecycleOwner){response->
             adapter.submitList(response )
+
         }
 
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner){

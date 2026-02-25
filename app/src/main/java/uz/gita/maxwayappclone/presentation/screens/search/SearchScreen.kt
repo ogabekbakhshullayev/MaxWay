@@ -1,10 +1,13 @@
 package uz.gita.maxwayappclone.presentation.screens.search
 
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,11 +15,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
+import java.lang.ref.Cleaner
 
-class SearchFragment: Fragment(R.layout.screen_search) {
+class SearchScreen: Fragment(R.layout.screen_search) {
 
     private val binding by viewBinding(ScreenSearchBinding::bind)
     private val viewModel: SearchViewModel by viewModels <SearchViewModelImpl>{ SearchViewModelFactory() }
