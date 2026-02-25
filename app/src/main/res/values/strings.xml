@@ -38,4 +38,7 @@
     <string name="notifications_title">Акции</string>
     <string name="google_maps_key">ggg</string>
 
+    <string name="burgers">Бургеры</string>
+    <string name="max_burger">Макс Бургер</string>
+
 </resources>
