@@ -6,10 +6,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import timber.log.Timber
-import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
 import uz.gita.maxwayappclone.presentation.screens.main.MainScreen

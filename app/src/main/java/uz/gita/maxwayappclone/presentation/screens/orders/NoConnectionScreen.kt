@@ -3,7 +3,6 @@ package uz.gita.maxwayappclone.presentation.screens.orders
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenNoConnectionBinding
 

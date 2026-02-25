@@ -1,7 +1,6 @@
 package uz.gita.maxwayappclone.presentation.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen
 import uz.gita.maxwayappclone.presentation.screens.home.HomeScreen
