@@ -1,0 +1,66 @@
+package uz.gita.maxwayappclone.presentation.screens.productInfo
+
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
+import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
+import uz.gita.maxwayappclone.databinding.ScreenInfoProductBinding
+import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelFactory
+import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelImpl
+import kotlin.getValue
+
+class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
+    private val binding by viewBinding(ScreenInfoProductBinding::bind)
+    private val viewModel by viewModels<ProductInfoViewModelImpl> { ProductInfoViewModelFactory() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.successLiveData.observe(this, successObserver)
+        viewModel.errorMessageLiveData.observe(this, errorMessageObserver)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.productByCategory(arguments?.getInt("categoryId", 1) ?: 1)
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
+    }
+
+    private val successObserver = Observer<ProductResponse> {
+        Log.d("TTT", "Success: $it")
+        val argId = arguments?.getInt("id", 3) ?: 1
+        var product = it.products[0]
+        for (i in 0..<it.products.size){
+            if (it.products[i].id == argId) {
+                product = it.products[i]
+                break
+            }
+        }
+        Glide.with(requireContext())
+            .load(product.image)
+            .placeholder(R.drawable.img_placeholder)
+            .into(binding.imgProduct)
+        binding.titleTv.text = product.name
+        binding.categoryName.text = it.name
+        binding.infoTv.text = product.description
+        binding.priceTv.text = "${product.cost} ${getString(R.string.sum)}"
+    }
+    private val errorMessageObserver = Observer<String> {
+        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+    }
+    private val loadingObserver = Observer<Boolean> {
+        if (it) {
+            binding.pb.visibility = View.VISIBLE
+        } else {
+            binding.pb.visibility = View.GONE
+        }
+    }
+}

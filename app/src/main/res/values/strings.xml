@@ -22,7 +22,7 @@
     <string name="check_connection_and_try_again">Проверьте соединение и попробуйте снова.</string>
     <string name="no_connection_ethernet">Нет подключения к\nинтернету</string>
 
-    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>
+<!--    <string name="google_maps_key">AIzaSyDZB9vPpP24Z5zA1s8lYM7bQ9o6vDLsAqw</string>-->
     <string name="delivery">Delivery</string>
     <string name="home">Home</string>
     <string name="basket">Basket</string>
@@ -40,5 +40,6 @@
 
     <string name="burgers">Бургеры</string>
     <string name="max_burger">Макс Бургер</string>
+    <string name="sum"> сум</string>
 
 </resources>

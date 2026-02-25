@@ -7,7 +7,7 @@ import androidx.core.content.edit
 
 class TokenManager {
     private val pref: SharedPreferences by lazy {
-        MyApp.instance.getSharedPreferences("Contact", Context.MODE_PRIVATE)
+        MyApp.context.getSharedPreferences("Contact", Context.MODE_PRIVATE)
     }
 
     fun putToken(token: String) {

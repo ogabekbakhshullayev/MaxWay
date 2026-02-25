@@ -56,7 +56,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			}
 		}
 		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner){
-			(activity as MainActivity).binding.viewPager.currentItem = 0
+//			(activity as MainActivity).binding.viewPager.currentItem = 0
 		}
 		viewModel.onClickOrder.observe(viewLifecycleOwner) { data ->
 			parentFragmentManager.beginTransaction()
