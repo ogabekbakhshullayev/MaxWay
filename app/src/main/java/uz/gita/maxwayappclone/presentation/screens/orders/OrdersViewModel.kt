@@ -26,6 +26,8 @@ class OrdersViewModel(private val useCase: OrdersUseCase): ViewModel() {
 	val toMainScreenLiveData: LiveData<Boolean> get() = _toMainScreenLiveData
 	private val _onClickOrder = MutableLiveData<OrdersUIData>()
 	val onClickOrder: LiveData<OrdersUIData> get() = _onClickOrder
+	private val _refreshLiveData = MutableLiveData<Boolean>()
+	val refreshLiveData: LiveData<Boolean> get() = _refreshLiveData
 
 	fun loadOrders() {
 		useCase()
@@ -58,5 +60,9 @@ class OrdersViewModel(private val useCase: OrdersUseCase): ViewModel() {
 
 	fun onClickOrder(data: OrdersUIData) {
 		_onClickOrder.value = data
+	}
+
+	fun refresh() {
+		_refreshLiveData.value = true
 	}
 }
