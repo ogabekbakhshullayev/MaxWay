@@ -2,11 +2,6 @@ package uz.gita.maxwayappclone.presentation.screens.productInfo
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.usecase.GetProductCountUseCase
 import uz.gita.maxwayappclone.domain.usecase.ProductInfoUseCase

@@ -9,18 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
-import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 import uz.gita.maxwayappclone.databinding.ScreenInfoProductBinding
-import uz.gita.maxwayappclone.domain.model.Product
-import uz.gita.maxwayappclone.presentation.screens.product.ProductDetailBottomSheet
-import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelFactory
-import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelImpl
-import kotlin.getValue
 
 class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
     private val binding by viewBinding(ScreenInfoProductBinding::bind)
@@ -35,9 +27,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("TTT", (arguments?.getInt("categoryId", 1) ?: 1).toString())
-        Log.d("TTT", (arguments?.getInt("id", 1) ?: 1).toString())
-        binding.allContainer.setPadding(0, 34, 0, dpToPx(requireContext(), 84f))
+        binding.allContainer.setPadding(0, 42, 0, dpToPx(requireContext(), 84f))
 
         binding.backBtn.setOnClickListener {
             parentFragmentManager.popBackStack()

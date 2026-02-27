@@ -9,7 +9,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +17,8 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
-import uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen
-import uz.gita.maxwayappclone.presentation.screens.product.ProductDetailBottomSheet
 import uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen
+import uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen
 
 class HomeScreen : Fragment(R.layout.screen_home) {
 
@@ -99,16 +97,16 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         binding.rvProducts.adapter = sectionAdapter
         binding.rvProducts.itemAnimator = null
         binding.rvProducts.addOnScrollListener(object :
-            androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            RecyclerView.OnScrollListener() {
             override fun onScrolled(
-                recyclerView: androidx.recyclerview.widget.RecyclerView,
+                recyclerView: RecyclerView,
                 dx: Int,
                 dy: Int
             ) {
                 if (isProgrammaticScroll) return
                 val lm = recyclerView.layoutManager as GridLayoutManager
                 val first = lm.findFirstVisibleItemPosition()
-                if (first != androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
+                if (first != RecyclerView.NO_POSITION) {
                     val catId = sectionAdapter.getCategoryForPosition(first)
                     if (catId != null && catId != selectedCategoryId) {
                         selectedCategoryId = catId
@@ -118,10 +116,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             }
 
             override fun onScrollStateChanged(
-                recyclerView: androidx.recyclerview.widget.RecyclerView,
+                recyclerView: RecyclerView,
                 newState: Int
             ) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE && isProgrammaticScroll) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && isProgrammaticScroll) {
                     isProgrammaticScroll = false
                     pendingCategoryId?.let { id ->
                         selectedCategoryId = id

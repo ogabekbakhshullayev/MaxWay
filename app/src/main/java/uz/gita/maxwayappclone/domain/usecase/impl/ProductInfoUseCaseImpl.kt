@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
-import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 import uz.gita.maxwayappclone.domain.repository.ProductRepository
 import uz.gita.maxwayappclone.domain.usecase.ProductInfoUseCase
 

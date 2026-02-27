@@ -8,16 +8,12 @@ import uz.gita.maxwayappclone.data.mapper.toAdList
 import uz.gita.maxwayappclone.data.mapper.toCategoryList
 import uz.gita.maxwayappclone.data.mapper.toProductList
 import uz.gita.maxwayappclone.data.source.remote.ApiClient
-import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
-import uz.gita.maxwayappclone.data.source.remote.request.RegisterRequest
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
-import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
-import uz.gita.maxwayappclone.domain.repository.AuthRepository
 import uz.gita.maxwayappclone.domain.repository.ProductRepository
 
 class ProductRepositoryImpl private constructor(
