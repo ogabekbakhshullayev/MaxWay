@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,10 +27,15 @@ class BranchesFragment : Fragment(R.layout.screen_branches) {
     private val binding by viewBinding(ScreenBranchesBinding::bind)
     private val viewModel: BranchesViewModel by viewModels { BranchesViewModelFactory() }
     private val adapter = BranchesAdapter { branch ->
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main, BranchDetailFragment.newInstance(branch))
-            .addToBackStack(null)
-            .commit()
+        val args = bundleOf(
+            "arg_name" to branch.name,
+            "arg_phone" to branch.phone,
+            "arg_open_time" to branch.openTime,
+            "arg_close_time" to branch.closeTime,
+            "arg_lat" to branch.latitude,
+            "arg_lng" to branch.longitude
+        )
+        findNavController().navigate(R.id.action_branchesFragment_to_branchDetailFragment, args)
     }
     private var googleMap: GoogleMap? = null
     private var branches: List<Branch> = emptyList()
