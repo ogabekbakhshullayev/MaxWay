@@ -205,10 +205,15 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         parentFragmentManager.beginTransaction().replace(
             R.id.main,
             ProductInfoScreen::class.java,
-            bundleOf("categoryId" to product.categoryId, "id" to product.id), "info"
+            bundleOf(
+                "arg_id" to product.id,
+                "arg_name" to product.name,
+                "arg_desc" to product.description,
+                "arg_image" to product.image,
+                "arg_cost" to product.cost
+            ),
+            "tag"
         ).addToBackStack(null).commit()
-//        ProductDetailBottomSheet.newInstance(product)
-//            .show(parentFragmentManager, "product_detail")
     }
 
 

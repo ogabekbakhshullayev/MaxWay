@@ -16,6 +16,8 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 import uz.gita.maxwayappclone.databinding.ScreenInfoProductBinding
+import uz.gita.maxwayappclone.domain.model.Product
+import uz.gita.maxwayappclone.presentation.screens.product.ProductDetailBottomSheet
 import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelFactory
 import uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameViewModelImpl
 import kotlin.getValue
@@ -23,26 +25,27 @@ import kotlin.getValue
 class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
     private val binding by viewBinding(ScreenInfoProductBinding::bind)
     private val viewModel by viewModels<ProductInfoViewModelImpl> { ProductInfoViewModelFactory() }
-    private var cost = 0L
+    private var productId: Long = -1L
+    private var baseCost: Long = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.successLiveData.observe(this, successObserver)
         viewModel.errorMessageLiveData.observe(this, errorMessageObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.allContainer.setPadding(0,34,0,dpToPx(requireContext(),84f))
+        Log.d("TTT", (arguments?.getInt("categoryId", 1) ?: 1).toString())
+        Log.d("TTT", (arguments?.getInt("id", 1) ?: 1).toString())
+        binding.allContainer.setPadding(0, 34, 0, dpToPx(requireContext(), 84f))
 
         binding.backBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        viewModel.productByCategory(arguments?.getInt("categoryId", 1) ?: 1,arguments?.getInt("id", 1) ?: 1)
 
         viewModel.countLiveData.observe(viewLifecycleOwner) { qty ->
             binding.countTv.text = qty.toString()
-            binding.priceTv.text = formatPrice(cost * qty)
+            binding.priceTv.text = formatPrice(baseCost * qty)
         }
 
         binding.minusBtn.setOnClickListener {
@@ -59,30 +62,29 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
-    }
 
-    private val successObserver = Observer<ProductByCategoryResponse> {
-        Log.d("TTT", "Success: $it")
-        val argId = arguments?.getInt("id", 3) ?: 1
-        var product = it.products[0]
-        for (i in 0..<it.products.size) {
-            if (it.products[i].id == argId.toLong()) {
-                product = it.products[i]
-                break
-            }
-        }
-
-        cost = product.cost
+        val args = requireArguments()
+        productId = args.getLong("arg_id", -1L)
+        val name = args.getString("arg_name").orEmpty()
+        val desc = args.getString("arg_desc").orEmpty()
+        val image = args.getString("arg_image").orEmpty()
+        val cost = args.getLong("arg_cost", 0L)
+        baseCost = cost
 
         Glide.with(requireContext())
-            .load(product.image)
+            .load(image)
             .placeholder(R.drawable.img_placeholder)
             .into(binding.imgProduct)
-        binding.titleTv.text = product.name
-        binding.categoryName.text = it.name
-        binding.infoTv.text = product.description
-        binding.priceTv.text = "${product.cost} ${getString(R.string.sum)}"
+        binding.titleTv.text = name
+        binding.categoryName.text = name
+        binding.infoTv.text = desc
+        binding.priceTv.text = formatPrice(cost)
+
+        if (productId != -1L) {
+            viewModel.bind(productId)
+        }
     }
+
     private val errorMessageObserver = Observer<String> {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }

@@ -6,8 +6,6 @@ import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
 
-import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
-
 interface ProductRepository {
     suspend fun getAds(): Result<List<Ad>>
     suspend fun getCategories(): Result<List<Category>>
