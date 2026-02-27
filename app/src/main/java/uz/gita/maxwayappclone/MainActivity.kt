@@ -19,33 +19,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-//
-//        binding.viewPager.adapter = adapter
-//
-//        binding.bottomNavigation.setOnItemSelectedListener {
-//            when(it.itemId) {
-//                R.id.home -> binding.viewPager.currentItem = 0
-//                R.id.basket -> binding.viewPager.currentItem = 1
-//                R.id.orders -> binding.viewPager.currentItem = 2
-//                R.id.profile -> binding.viewPager.currentItem = 3
-//            }
-//            true
-//        }
-//
-//        binding.viewPager.registerOnPageChangeCallback(
-//            object : ViewPager2.OnPageChangeCallback() {
-//                override fun onPageSelected(position: Int) {
-//                    super.onPageSelected(position)
-//					binding.bottomNavigation.menu[position].isChecked = true
-//                }
-//            }
-//        )
-//
-//        binding.bottomNavigation.itemIconTintList = null
+        ViewCompat.setOnApplyWindowInsetsListener(binding.viewPager) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
+
+        binding.viewPager.adapter = adapter
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.home -> binding.viewPager.currentItem = 0
+                R.id.basket -> binding.viewPager.currentItem = 1
+                R.id.orders -> binding.viewPager.currentItem = 2
+                R.id.profile -> binding.viewPager.currentItem = 3
+            }
+            true
+        }
+
+        binding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+					binding.bottomNavigation.menu[position].isChecked = true
+                }
+            }
+        )
+
+        binding.bottomNavigation.itemIconTintList = null
     }
 }

@@ -5,6 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import uz.gita.maxwayappclone.data.source.remote.response.GeneralResponse
 import uz.gita.maxwayappclone.data.source.remote.response.OrderResponse
+import uz.gita.maxwayappclone.data.source.remote.response.AdResponse
+import uz.gita.maxwayappclone.data.source.remote.response.CategoryResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 
 interface ProductApi {
@@ -14,6 +16,15 @@ interface ProductApi {
 
 	@GET("/products_by_category")
 	suspend fun productsByCategory(): Response<GeneralResponse<Array<ProductResponse>>>
+
+    @GET("/ads")
+    suspend fun getAds(): Response<GeneralResponse<List<AdResponse>>>
+
+    @GET("/categories")
+    suspend fun getCategories(): Response<GeneralResponse<List<CategoryResponse>>>
+
+    @GET("/products")
+    suspend fun getProducts(): Response<GeneralResponse<List<ProductResponse>>>
 }
 
 // search, product, category, ads, recomen, basket, history
