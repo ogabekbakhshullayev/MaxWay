@@ -11,6 +11,7 @@ import uz.gita.maxwayappclone.data.repository_impl.EditeProfileRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.NotificationRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.SearchRepositoryImpl
 import uz.gita.maxwayappclone.domain.repository.EditeProfileRepository
+import uz.gita.maxwayappclone.data.repository_impl.ProductRepositoryImpl
 
 class MyApp : Application() {
 
@@ -32,6 +33,6 @@ class MyApp : Application() {
         NotificationRepositoryImpl.init()
         SearchRepositoryImpl.init()
         EditeProfileRepositoryImpl.init()
+        ProductRepositoryImpl.init()
     }
 }
-
