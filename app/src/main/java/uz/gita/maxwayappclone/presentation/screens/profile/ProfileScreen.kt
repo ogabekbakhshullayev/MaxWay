@@ -20,7 +20,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getProfileInfo("39c860c4de5bbbdd87efd68e93d90995")
+        viewModel.getProfileInfo("2ef92c130ea8a5c22c044c9006286b7a")
 
         observe()
         viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->

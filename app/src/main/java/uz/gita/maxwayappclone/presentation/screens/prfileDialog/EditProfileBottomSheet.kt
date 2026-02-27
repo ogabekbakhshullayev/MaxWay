@@ -38,7 +38,7 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
             val name = binding.editName.text.toString()
             val birth = binding.editBirth.text.toString()
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
-            viewModel.updateProfileInfo("39c860c4de5bbbdd87efd68e93d90995",name,birth)
+            viewModel.updateProfileInfo("2ef92c130ea8a5c22c044c9006286b7a",name,birth)
 
             val bundle = Bundle().apply {
                 putString("name", name)

@@ -25,7 +25,7 @@ object ApiClient {
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("https://superzealously-frumentaceous-illa.ngrok-free.dev ")
+        .baseUrl("https://superzealously-frumentaceous-illa.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
