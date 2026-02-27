@@ -1,6 +1,7 @@
 package uz.gita.maxwayappclone.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
@@ -15,5 +16,5 @@ interface ProductRepository {
     fun getProductCount(productId: Long): Int
     fun setProductCount(productId: Long, count: Int)
     fun clearProductCounts()
-    suspend fun productByCategory(): Result<Array<ProductResponse>>
+    suspend fun productByCategory(): Result<Array<ProductByCategoryResponse>>
 }

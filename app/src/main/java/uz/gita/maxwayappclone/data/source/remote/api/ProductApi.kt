@@ -7,6 +7,7 @@ import uz.gita.maxwayappclone.data.source.remote.response.GeneralResponse
 import uz.gita.maxwayappclone.data.source.remote.response.OrderResponse
 import uz.gita.maxwayappclone.data.source.remote.response.AdResponse
 import uz.gita.maxwayappclone.data.source.remote.response.CategoryResponse
+import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 
 interface ProductApi {
@@ -15,7 +16,7 @@ interface ProductApi {
 	suspend fun getOrders(@Header("token") token: String): Response<GeneralResponse<List<OrderResponse>>>
 
 	@GET("/products_by_category")
-	suspend fun productsByCategory(): Response<GeneralResponse<Array<ProductResponse>>>
+	suspend fun productsByCategory(): Response<GeneralResponse<Array<ProductByCategoryResponse>>>
 
     @GET("/ads")
     suspend fun getAds(): Response<GeneralResponse<List<AdResponse>>>
