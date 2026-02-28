@@ -20,4 +20,18 @@
         android:id="@+id/searchFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
         android:label="SearchFragment" />
+
+    <fragment
+        android:id="@+id/branchesFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment"
+        android:label="BranchesFragment">
+        <action
+            android:id="@+id/action_branchesFragment_to_branchDetailFragment"
+            app:destination="@id/branchDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/branchDetailFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
+        android:label="BranchDetailFragment" />
 </navigation>
