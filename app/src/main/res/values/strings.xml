@@ -46,4 +46,8 @@
     <string name="google_maps_key">ggg</string>
     <string name="search_hint">Найти</string>
 
+    <string name="burgers">Бургеры</string>
+    <string name="max_burger">Макс Бургер</string>
+    <string name="sum"> сум</string>
+
 </resources>

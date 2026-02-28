@@ -52,7 +52,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			}
 		}
 		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner){
-			(activity as MainActivity).binding.viewPager.currentItem = 0
+//			(activity as MainActivity).binding.viewPager.currentItem = 0
 		}
 		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
 			Timber.tag("TTT").d("error: $message")
