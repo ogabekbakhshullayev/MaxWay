@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/storiesScreen">
-
-    <fragment
-        android:id="@+id/testScreen"
-        android:name="uz.gita.maxwayappclone.presentation.screens.test.TestScreen"
-        android:label="screen_test"
-        tools:layout="@layout/screen_test" />
+    app:startDestination="@id/productInfoScreen">
     <fragment
         android:id="@+id/registerPhoneScreen"
         tools:layout="@layout/screen_register_phone"
@@ -53,4 +47,9 @@
         tools:layout="@layout/screen_stories"
         android:name="uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen"
         android:label="StoriesScreen" />
+    <fragment
+        android:id="@+id/productInfoScreen"
+        tools:layout="@layout/screen_info_product"
+        android:name="uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen"
+        android:label="ProductInfoScreen" />
 </navigation>

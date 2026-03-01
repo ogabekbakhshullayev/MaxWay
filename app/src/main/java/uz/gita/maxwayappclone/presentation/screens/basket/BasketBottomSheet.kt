@@ -106,7 +106,7 @@ class BasketBottomSheet : BottomSheetDialogFragment() {
             val remaining = raw.length - i - 1
             if (remaining > 0 && remaining % 3 == 0) sb.append(' ')
         }
-        return "${sb} сум"
+        return "$sb сум"
     }
 
     companion object {

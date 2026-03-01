@@ -1,10 +1,10 @@
 package uz.gita.maxwayappclone.data.source.remote.response
 
-data class ProductResponse(
-    val id: Long,
-    val categoryID: Long,
+data class ItemProductResponseData(
+    val id: Int,
+    val categoryId: Int,
     val name: String,
     val description: String,
     val image: String,
-    val cost: Long
+    val cost: Int
 )
