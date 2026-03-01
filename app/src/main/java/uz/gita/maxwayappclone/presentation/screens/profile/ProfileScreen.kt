@@ -9,9 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.data.source.remote.response.EditProfileResponse
 import uz.gita.maxwayappclone.databinding.ScreenProfileBinding
 import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
+import uz.gita.maxwayappclone.presentation.screens.notification.NotificationFragment
+import uz.gita.maxwayappclone.presentation.screens.prfileDialog.EditProfileBottomSheet
+import uz.gita.maxwayappclone.presentation.screens.search.SearchScreen
 import kotlin.getValue
 
 class ProfileScreen : Fragment(R.layout.screen_profile) {
@@ -20,7 +24,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getProfileInfo("2ef92c130ea8a5c22c044c9006286b7a")
+        viewModel.getProfileInfo(TokenManager.token)
 
         observe()
         viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
@@ -36,10 +40,8 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                     putString("birth", viewModel.userResponse?.birthDate)
                 }
             }
-            findNavController().navigate(
-                R.id.action_profileScreen_to_editProfileBottomSheet,
-                bundle
-            )
+            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet,bundle)
+
         }
         toasts()
         binding.buttonLogOut.setOnClickListener {
@@ -81,10 +83,13 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             Toast.makeText(requireContext(), "address clicked", Toast.LENGTH_SHORT).show()
         }
         binding.buttonStock.setOnClickListener {
-            findNavController().navigate(R.id.action_profileScreen_to_notificationFragment)
+            findNavController().navigate(R.id.action_mainScreen_to_notificationFragment)
+//            parentFragmentManager.beginTransaction().replace(R.id.main, NotificationFragment()).commit()
         }
         binding.buttonBranches.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.main, BranchesFragment()).commit()
+            findNavController().navigate(R.id.action_mainScreen_to_branchesFragment)
+
+//            parentFragmentManager.beginTransaction().replace(R.id.main, BranchesFragment()).commit()
         }
         binding.buttonNews.setOnClickListener {
             Toast.makeText(requireContext(), "news clicked", Toast.LENGTH_SHORT).show()

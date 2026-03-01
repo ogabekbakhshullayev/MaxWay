@@ -2,7 +2,6 @@ package uz.gita.maxwayappclone.data.source.remote
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.maxwayappclone.app.MyApp
@@ -15,17 +14,22 @@ import uz.gita.maxwayappclone.data.source.remote.api.EditeProfileApi
 import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 
 object ApiClient {
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .addHeader("Accept", "application/json")
+                .build()
+            chain.proceed(request)
+        }
+        .addInterceptor(ChuckerInterceptor.Builder(MyApp.context).build())
         .build()
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("https://superzealously-frumentaceous-illa.ngrok-free.dev")
+        .baseUrl("" +
+                "" +
+                "https://superzealously-frumentaceous-illa.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

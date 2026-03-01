@@ -20,7 +20,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenBranchesBinding
 import uz.gita.maxwayappclone.domain.model.Branch
-import uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen
 import uz.gita.maxwayappclone.presentation.util.showGoogleMapsSheet
 
 class BranchesFragment : Fragment(R.layout.screen_branches) {
@@ -48,7 +47,7 @@ class BranchesFragment : Fragment(R.layout.screen_branches) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ivBack.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.main, ProfileScreen()).commit()
+            findNavController().popBackStack()
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

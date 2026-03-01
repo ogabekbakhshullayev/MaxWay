@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.DialogBottomEditProfileInfoBinding
 import uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.DatePickerBottomSheet
 
@@ -38,13 +39,13 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
             val name = binding.editName.text.toString()
             val birth = binding.editBirth.text.toString()
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
-            viewModel.updateProfileInfo("2ef92c130ea8a5c22c044c9006286b7a",name,birth)
+            viewModel.updateProfileInfo(TokenManager.token,name,birth)
 
             val bundle = Bundle().apply {
                 putString("name", name)
                 putString("birth", birth)
             }
-            findNavController().navigate(R.id.action_editProfileBottomSheet_to_profileScreen, bundle)
+            findNavController().popBackStack()
         }
     }
     private fun dateOnClick() {

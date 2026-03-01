@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.gson.Gson
 import timber.log.Timber
-import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
 
@@ -51,9 +50,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 				binding.historyOrders.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.none))
 			}
 		}
-		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner){
-			(activity as MainActivity).binding.viewPager.currentItem = 0
-		}
+
 		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
 			Timber.tag("TTT").d("error: $message")
 

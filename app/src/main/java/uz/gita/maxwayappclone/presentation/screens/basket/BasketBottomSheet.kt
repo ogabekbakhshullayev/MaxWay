@@ -67,10 +67,10 @@ class BasketBottomSheet : BottomSheetDialogFragment() {
             binding.btnPay.visibility = if (isEmpty) View.GONE else View.VISIBLE
         }
 
-        binding.btnChoose.setOnClickListener {
-            (requireActivity() as? MainActivity)?.binding?.viewPager?.currentItem = 0
-            dismiss()
-        }
+//        binding.btnChoose.setOnClickListener {
+//            (requireActivity() as? MainActivity)?.binding?.viewPager?.currentItem = 0
+//            dismiss()
+//        }
 
         binding.ivClose.setOnClickListener {
             dismiss()

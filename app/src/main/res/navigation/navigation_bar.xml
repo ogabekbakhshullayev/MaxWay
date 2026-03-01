@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_bar"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/mainScreen">
 
     <fragment
         android:id="@+id/notificationFragment"
@@ -28,21 +28,7 @@
             android:id="@+id/action_branchesFragment_to_branchDetailFragment"
             app:destination="@id/branchDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/homeScreen"
-        android:name="uz.gita.maxwayappclone.presentation.screens.home.HomeScreen"
-        android:label="HomeScreen" />
-    <fragment
-        android:id="@+id/profileScreen"
-        android:name="uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen"
-        android:label="ProfileScreen" >
-        <action
-            android:id="@+id/action_profileScreen_to_notificationFragment"
-            app:destination="@id/notificationFragment" />
-        <action
-            android:id="@+id/action_profileScreen_to_editProfileBottomSheet"
-            app:destination="@id/editProfileBottomSheet" />
-    </fragment>
+
     <fragment
         android:id="@+id/registerVerifyScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
@@ -55,10 +41,7 @@
         android:id="@+id/registerNameScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
         android:label="RegisterNameScreen" />
-    <fragment
-        android:id="@+id/basketScreen"
-        android:name="uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen"
-        android:label="BasketScreen" />
+
     <fragment
         android:id="@+id/branchDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
@@ -79,22 +62,28 @@
         <action
             android:id="@+id/action_editProfileBottomSheet_to_datePickerBottomSheet"
             app:destination="@id/datePickerBottomSheet" />
-        <action
-            android:id="@+id/action_editProfileBottomSheet_to_profileScreen"
-            app:destination="@id/profileScreen" />
+
     </dialog>
 
     <fragment
-        android:id="@+id/branchesFragment"
-        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment"
-        android:label="BranchesFragment">
+        android:id="@+id/mainScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.main.MainScreen"
+        android:label="MainScreen" >
+
+
+
         <action
-            android:id="@+id/action_branchesFragment_to_branchDetailFragment"
-            app:destination="@id/branchDetailFragment" />
+            android:id="@+id/action_mainScreen_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_mainScreen_to_editProfileBottomSheet"
+            app:destination="@id/editProfileBottomSheet" />
+        <action
+            android:id="@+id/action_mainScreen_to_branchesFragment"
+            app:destination="@id/branchesFragment" />
+        <action
+            android:id="@+id/action_mainScreen_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/branchDetailFragment"
-        android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
-        android:label="BranchDetailFragment" />
 </navigation>

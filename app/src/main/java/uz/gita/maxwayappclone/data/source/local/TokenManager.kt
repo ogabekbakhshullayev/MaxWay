@@ -9,7 +9,7 @@ object TokenManager {
 	private val pref = MyApp.context.getSharedPreferences("MaxWayClone", Context.MODE_PRIVATE)
 
 	init {
-		pref.edit { putString("TOKEN", "ce28a3d361694f9e8f45dc5e26195dc9") }
+		pref.edit { putString("TOKEN", "01e48b85b1aa89d71d05688516524607") }
 	}
 
 	var token
