@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,8 +17,8 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
+import uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen
 import uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen
-import uz.gita.maxwayappclone.presentation.screens.product.ProductDetailBottomSheet
 
 class HomeScreen : Fragment(R.layout.screen_home) {
 
@@ -74,9 +75,14 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         binding.rvFilters.setOnTouchListener { v, event ->
             when (event.actionMasked) {
                 android.view.MotionEvent.ACTION_DOWN,
-                android.view.MotionEvent.ACTION_MOVE -> v.parent?.requestDisallowInterceptTouchEvent(true)
+                android.view.MotionEvent.ACTION_MOVE -> v.parent?.requestDisallowInterceptTouchEvent(
+                    true
+                )
+
                 android.view.MotionEvent.ACTION_UP,
-                android.view.MotionEvent.ACTION_CANCEL -> v.parent?.requestDisallowInterceptTouchEvent(false)
+                android.view.MotionEvent.ACTION_CANCEL -> v.parent?.requestDisallowInterceptTouchEvent(
+                    false
+                )
             }
             false
         }
@@ -90,12 +96,17 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         binding.rvProducts.layoutManager = gridLayoutManager
         binding.rvProducts.adapter = sectionAdapter
         binding.rvProducts.itemAnimator = null
-        binding.rvProducts.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+        binding.rvProducts.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
                 if (isProgrammaticScroll) return
                 val lm = recyclerView.layoutManager as GridLayoutManager
                 val first = lm.findFirstVisibleItemPosition()
-                if (first != androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
+                if (first != RecyclerView.NO_POSITION) {
                     val catId = sectionAdapter.getCategoryForPosition(first)
                     if (catId != null && catId != selectedCategoryId) {
                         selectedCategoryId = catId
@@ -104,8 +115,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 }
             }
 
-            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE && isProgrammaticScroll) {
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int
+            ) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && isProgrammaticScroll) {
                     isProgrammaticScroll = false
                     pendingCategoryId?.let { id ->
                         selectedCategoryId = id
@@ -186,8 +200,18 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
     private fun openProductDetail(product: Product) {
-        ProductDetailBottomSheet.newInstance(product)
-            .show(parentFragmentManager, "product_detail")
+        parentFragmentManager.beginTransaction().replace(
+            R.id.main,
+            ProductInfoScreen::class.java,
+            bundleOf(
+                "arg_id" to product.id,
+                "arg_name" to product.name,
+                "arg_desc" to product.description,
+                "arg_image" to product.image,
+                "arg_cost" to product.cost
+            ),
+            "tag"
+        ).addToBackStack(null).commit()
     }
 
 

@@ -10,6 +10,7 @@ import uz.gita.maxwayappclone.data.mapper.toProductList
 import uz.gita.maxwayappclone.data.source.remote.ApiClient
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
+import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
@@ -83,9 +84,25 @@ class ProductRepositoryImpl private constructor(
         productCounts.value = emptyMap()
     }
 
+    override suspend fun productByCategory(): Result<Array<ProductByCategoryResponse>> {
+        val response = productApi.productsByCategory()
+        return (if (response.isSuccessful && response.body() != null)
+            Result.success(response.body()?.data)
+        else {
+            val errorJson = response.errorBody()?.string()
+            if (errorJson.isNullOrEmpty()) Result.failure(Throwable("Unknown exception"))
+            else {
+                val errorMessage = gson.fromJson(errorJson, ErrorMessageResponse::class.java)
+                Result.failure(Throwable(errorMessage.message))
+            }
+        }) as Result<Array<ProductByCategoryResponse>>
+    }
+
     private fun parseError(errorJson: String?): Throwable {
         if (errorJson.isNullOrEmpty()) return Throwable("Unknown exception")
         val errorMessage = gson.fromJson(errorJson, ErrorMessageResponse::class.java)
         return Throwable(errorMessage.message)
     }
 }
+
+

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_bar"
     app:startDestination="@id/searchFragment">
 
@@ -17,9 +18,14 @@
         android:name="uz.gita.maxwayappclone.presentation.screens.notification.NotificationDetailFragment"
         android:label="NotificationDetailFragment" />
     <fragment
+        tools:layout="@layout/fragment_search"
         android:id="@+id/searchFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productInfoScreen"
+            app:destination="@id/productInfoScreen" />
+    </fragment>
 
     <fragment
         android:id="@+id/branchesFragment"
@@ -34,4 +40,14 @@
         android:id="@+id/branchDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
         android:label="BranchDetailFragment" />
+    <fragment
+        android:id="@+id/homeScreen"
+        tools:layout="@layout/screen_home"
+        android:name="uz.gita.maxwayappclone.presentation.screens.home.HomeScreen"
+        android:label="HomeScreen" />
+    <fragment
+        android:id="@+id/productInfoScreen"
+        tools:layout="@layout/screen_info_product"
+        android:name="uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen"
+        android:label="ProductInfoScreen" />
 </navigation>
