@@ -40,11 +40,6 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
             val birth = binding.editBirth.text.toString()
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
             viewModel.updateProfileInfo(TokenManager.token,name,birth)
-
-            val bundle = Bundle().apply {
-                putString("name", name)
-                putString("birth", birth)
-            }
             findNavController().popBackStack()
         }
     }

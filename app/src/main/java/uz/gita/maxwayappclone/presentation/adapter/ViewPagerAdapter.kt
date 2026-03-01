@@ -1,11 +1,9 @@
 package uz.gita.maxwayappclone.presentation.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen
 import uz.gita.maxwayappclone.presentation.screens.home.HomeScreen
-import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 import uz.gita.maxwayappclone.presentation.screens.orders.OrdersScreen
 import uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen
 
