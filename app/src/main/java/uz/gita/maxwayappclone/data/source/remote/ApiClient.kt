@@ -2,30 +2,34 @@ package uz.gita.maxwayappclone.data.source.remote
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import uz.gita.maxwayappclone.BuildConfig
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.StoryApi
 import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
+import uz.gita.maxwayappclone.data.source.remote.api.EditeProfileApi
 import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 
 object ApiClient {
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
     private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .addHeader("Accept", "application/json")
+                .build()
+            chain.proceed(request)
+        }
         .addInterceptor(ChuckerInterceptor.Builder(MyApp.context).build())
         .build()
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl("" +
+                "" +
+                "https://superzealously-frumentaceous-illa.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -35,5 +39,5 @@ object ApiClient {
     val branchApi = retrofit.create<BranchApi>(BranchApi::class.java)
     val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
     val searchApi = retrofit.create<SearchApi>(SearchApi::class.java)
-
+    val editeProfileApi = retrofit.create<EditeProfileApi>(EditeProfileApi::class.java)
 }

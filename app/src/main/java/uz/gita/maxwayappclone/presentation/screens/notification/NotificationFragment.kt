@@ -10,12 +10,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.databinding.FragmentNotificationBinding
+import uz.gita.maxwayappclone.databinding.ScreenNotificationBinding
+import uz.gita.maxwayappclone.presentation.adapter.NotificationAdapter
 
 
-class NotificationFragment: Fragment(R.layout.fragment_notification) {
+class NotificationFragment: Fragment(R.layout.screen_notification) {
 
-    private val binding by viewBinding(FragmentNotificationBinding::bind)
+    private val binding by viewBinding(ScreenNotificationBinding::bind)
 
     private val viewModel: NotificationViewModel by viewModels<NotificationViewModelImpl>{ NotificationViewModelFactory() }
 
@@ -24,6 +25,10 @@ class NotificationFragment: Fragment(R.layout.fragment_notification) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.notificationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         setupAdapter()
         observe()
@@ -31,14 +36,14 @@ class NotificationFragment: Fragment(R.layout.fragment_notification) {
     }
 
     private fun setupAdapter(){
-        adapter = NotificationAdapter(requireContext()){item ->
+        adapter = NotificationAdapter(requireContext()) { item ->
             val bundle = Bundle().apply {
-                putString("name",item.name)
-                putString("message",item.message)
-                putString("image",item.imgURL)
+                putString("name", item.name)
+                putString("message", item.message)
+                putString("image", item.imgURL)
             }
             findNavController().navigate(
-                R.id.action_notificationFragment_to_notificationDetailFragment,bundle
+                R.id.action_notificationFragment_to_notificationDetailFragment, bundle
             )
         }
         binding.notificationRecyclerView.adapter = adapter
@@ -51,6 +56,7 @@ class NotificationFragment: Fragment(R.layout.fragment_notification) {
 
         viewModel.notificationListLiveData.observe(viewLifecycleOwner){response->
             adapter.submitList(response )
+
         }
 
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner){

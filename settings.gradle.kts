@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MaxWayAppClone"
 include(":app")
- 
+include(":mylibrary")

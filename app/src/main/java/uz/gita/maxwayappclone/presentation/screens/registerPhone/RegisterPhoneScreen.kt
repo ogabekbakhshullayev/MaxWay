@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenRegisterPhoneBinding
 

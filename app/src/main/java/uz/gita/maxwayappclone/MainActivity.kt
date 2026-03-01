@@ -9,15 +9,46 @@ import uz.gita.maxwayappclone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+//    val adapter = ViewPagerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.fragmentContainer) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+
+//        fun backToNavHome(){
+
+
     }
+    //   supportFragmentManager.beginTransaction().replace(R.id.main, BranchesFragment()).commit()
+//        binding.viewPager.adapter = adapter
+//
+//        binding.bottomNavigation.setOnItemSelectedListener {
+//            when(it.itemId) {
+//                R.id.home -> binding.viewPager.currentItem = 0
+//                R.id.basket -> binding.viewPager.currentItem = 1
+//                R.id.orders -> binding.viewPager.currentItem = 2
+//                R.id.profile -> binding.viewPager.currentItem = 3
+//            }
+//            true
+//        }
+//
+//
+//
+//        binding.viewPager.registerOnPageChangeCallback(
+//            object : ViewPager2.OnPageChangeCallback() {
+//                override fun onPageSelected(position: Int) {
+//                    super.onPageSelected(position)
+//					binding.bottomNavigation.menu[position].isChecked = true
+//                }
+//            }
+//        )
+//
+//        binding.bottomNavigation.itemIconTintList = null
+//        }
 }

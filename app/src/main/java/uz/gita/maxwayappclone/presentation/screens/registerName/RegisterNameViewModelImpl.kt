@@ -1,6 +1,5 @@
 package uz.gita.maxwayappclone.presentation.screens.registerName
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import uz.gita.maxwayappclone.data.util.checkConnection
 import uz.gita.maxwayappclone.domain.usecase.NameDateUseCase
-import uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyViewModel
 
 class RegisterNameViewModelImpl(private val nameUseCase: NameDateUseCase) : RegisterNameViewModel,
     ViewModel() {

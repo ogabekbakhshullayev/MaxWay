@@ -11,7 +11,6 @@ class NotificationRepositoryImpl private constructor(
     private val notificationApi: NotificationApi,
     private val gson: Gson): NotificationRepository{
 
-
         companion object{
             private lateinit var instance: NotificationRepository
             fun init(){

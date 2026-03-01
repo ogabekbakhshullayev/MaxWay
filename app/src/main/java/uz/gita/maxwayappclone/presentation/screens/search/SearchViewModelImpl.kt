@@ -22,6 +22,7 @@ class SearchViewModelImpl(private val searchUseCase: SearchUseCase): ViewModel()
 
         private var getSearchResultJob: Job? = null
     override fun getSearchResult(query: String) {
+        searchLiveData.value = ArrayList<SearchResponse>()
         getSearchResultJob?.cancel()
         getSearchResultJob = viewModelScope.launch {
             delay(700)

@@ -7,8 +7,10 @@ import timber.log.Timber
 import uz.gita.maxwayappclone.data.repository_impl.AuthRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.StoryRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.BranchRepositoryImpl
+import uz.gita.maxwayappclone.data.repository_impl.EditeProfileRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.NotificationRepositoryImpl
 import uz.gita.maxwayappclone.data.repository_impl.SearchRepositoryImpl
+import uz.gita.maxwayappclone.domain.repository.EditeProfileRepository
 import uz.gita.maxwayappclone.data.repository_impl.ProductRepositoryImpl
 
 class MyApp : Application() {
@@ -30,6 +32,7 @@ class MyApp : Application() {
         BranchRepositoryImpl.init()
         NotificationRepositoryImpl.init()
         SearchRepositoryImpl.init()
+        EditeProfileRepositoryImpl.init()
         ProductRepositoryImpl.init()
     }
 }
