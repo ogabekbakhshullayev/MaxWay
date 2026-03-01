@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.gson.Gson
 import timber.log.Timber
-import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
+import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 
 class OrdersScreen: Fragment(R.layout.screen_orders) {
 	val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
@@ -52,7 +52,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			}
 		}
 		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner){
-//			(activity as MainActivity).binding.viewPager.currentItem = 0
+			(parentFragment as MainScreen).navigateToPage(0)
 		}
 		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
 			Timber.tag("TTT").d("error: $message")

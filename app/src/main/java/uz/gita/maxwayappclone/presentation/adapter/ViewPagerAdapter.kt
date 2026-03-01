@@ -1,14 +1,13 @@
 package uz.gita.maxwayappclone.presentation.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import uz.gita.maxwayappclone.presentation.screens.basket.BasketScreen
 import uz.gita.maxwayappclone.presentation.screens.home.HomeScreen
 import uz.gita.maxwayappclone.presentation.screens.orders.OrdersScreen
 import uz.gita.maxwayappclone.presentation.screens.profile.ProfileScreen
 
-class ViewPagerAdapter(frag: FragmentActivity): FragmentStateAdapter(frag) {
+class ViewPagerAdapter(frag: Fragment): FragmentStateAdapter(frag) {
 	override fun createFragment(position: Int): Fragment {
 		return when(position) {
 			0 -> HomeScreen()

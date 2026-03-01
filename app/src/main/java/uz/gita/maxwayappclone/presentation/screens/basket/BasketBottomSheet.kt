@@ -12,10 +12,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
+import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 
 class BasketBottomSheet : BottomSheetDialogFragment() {
 
@@ -68,7 +68,7 @@ class BasketBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.btnChoose.setOnClickListener {
-            (requireActivity() as? MainActivity)?.binding?.viewPager?.currentItem = 0
+            (parentFragment as MainScreen).binding.viewPager.currentItem = 0
             dismiss()
         }
 
@@ -106,7 +106,7 @@ class BasketBottomSheet : BottomSheetDialogFragment() {
             val remaining = raw.length - i - 1
             if (remaining > 0 && remaining % 3 == 0) sb.append(' ')
         }
-        return "${sb} сум"
+        return "$sb сум"
     }
 
     companion object {
