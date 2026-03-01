@@ -40,7 +40,12 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
             val birth = binding.editBirth.text.toString()
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
             viewModel.updateProfileInfo(TokenManager.token,name,birth)
-            findNavController().popBackStack()
+            viewModel.isSuccess.observe(viewLifecycleOwner){
+                if (it) {
+                    findNavController().popBackStack()
+                }
+            }
+
         }
     }
     private fun dateOnClick() {

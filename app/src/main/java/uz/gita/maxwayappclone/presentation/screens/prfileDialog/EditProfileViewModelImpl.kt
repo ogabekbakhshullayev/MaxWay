@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.prfileDialog
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,7 @@ class EditProfileViewModelImpl(private val profileUseCase: EditProfileDialogUseC
 
 
     override val updateInfoErrorMessageLiveData = MutableLiveData<String>()
-
+    override val isSuccess = MutableLiveData<Boolean>()
 
 
     override fun updateProfileInfo(token: String, name: String, birthDate: String) {
@@ -27,6 +28,7 @@ class EditProfileViewModelImpl(private val profileUseCase: EditProfileDialogUseC
             .onCompletion { updateInfoLoadingLiveData.value = false }
             .onEach { result ->
                 result.onSuccess {
+                    isSuccess.value = true
                     it.also { updateInfoSuccessLiveData.value = it }
                 }
                 result.onFailure { updateInfoErrorMessageLiveData.value = it.message?: "Unknown exception" }
