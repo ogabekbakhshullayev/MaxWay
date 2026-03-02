@@ -110,10 +110,24 @@
         <action
             android:id="@+id/action_mainScreen_to_registerPhoneScreen2"
             app:destination="@id/registerPhoneScreen2" />
+        <action
+            android:id="@+id/action_mainScreen_to_storiesScreen2"
+            app:destination="@id/storiesScreen2" />
+        <action
+            android:id="@+id/action_mainScreen_to_productInfoScreen2"
+            app:destination="@id/productInfoScreen2" />
     </fragment>
     <fragment
         android:id="@+id/noConnectionScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
         android:label="NoConnectionScreen" />
+    <fragment
+        android:id="@+id/storiesScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen"
+        android:label="StoriesScreen" />
+    <fragment
+        android:id="@+id/productInfoScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen"
+        android:label="ProductInfoScreen" />
 
 </navigation>
