@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
@@ -30,7 +31,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
         binding.allContainer.setPadding(0, 42, 0, dpToPx(requireContext(), 84f))
 
         binding.backBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         viewModel.countLiveData.observe(viewLifecycleOwner) { qty ->
@@ -48,7 +49,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
 
         binding.addBtn.setOnClickListener {
             viewModel.applyCount()
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)

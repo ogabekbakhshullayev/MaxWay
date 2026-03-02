@@ -30,10 +30,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         scrollToCategory(category)
     }
     private val storyAdapter = StoryAdapter {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main, StoriesScreen())
-            .addToBackStack(null)
-            .commit()
+        findNavController().navigate(R.id.action_mainScreen_to_storiesScreen2)
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.main, StoriesScreen())
+//            .addToBackStack(null)
+//            .commit()
     }
     private val adsPagerAdapter = AdsPagerAdapter()
     private val sectionAdapter = HomeSectionAdapter(
@@ -205,18 +206,25 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
     private fun openProductDetail(product: Product) {
-        parentFragmentManager.beginTransaction().replace(
-            R.id.main,
-            ProductInfoScreen::class.java,
-            bundleOf(
-                "arg_id" to product.id,
-                "arg_name" to product.name,
-                "arg_desc" to product.description,
-                "arg_image" to product.image,
-                "arg_cost" to product.cost
-            ),
-            "tag"
-        ).addToBackStack(null).commit()
+        findNavController().navigate(R.id.action_mainScreen_to_productInfoScreen2,bundleOf(
+            "arg_id" to product.id,
+            "arg_name" to product.name,
+            "arg_desc" to product.description,
+            "arg_image" to product.image,
+            "arg_cost" to product.cost
+        ))
+//        parentFragmentManager.beginTransaction().replace(
+//            R.id.main,
+//            ProductInfoScreen::class.java,
+//            bundleOf(
+//                "arg_id" to product.id,
+//                "arg_name" to product.name,
+//                "arg_desc" to product.description,
+//                "arg_image" to product.image,
+//                "arg_cost" to product.cost
+//            ),
+//            "tag"
+//        ).addToBackStack(null).commit()
     }
 
 
