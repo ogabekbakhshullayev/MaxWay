@@ -1,4 +1,4 @@
-package uz.gita.maxwayappclone.presentation.screens.notification
+package uz.gita.maxwayappclone.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

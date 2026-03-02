@@ -70,7 +70,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean>{
             if (it){
                 timer.cancel()
-                findNavController().navigate(R.id.action_registerVerifyScreen_to_noConnectionScreen)
+                findNavController().navigate(R.id.action_registerVerifyScreen2_to_noConnectionScreen2)
                 viewModel.noConnectionLiveData.value = false
             }
         })
@@ -114,7 +114,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         if (code.length > 4) {
             timer.cancel()
             findNavController().navigate(
-                R.id.action_registerVerifyScreen_to_registerNameScreen,
+                R.id.action_registerVerifyScreen2_to_registerNameScreen2,
                 bundleOf("token" to it)
             )
         }else{

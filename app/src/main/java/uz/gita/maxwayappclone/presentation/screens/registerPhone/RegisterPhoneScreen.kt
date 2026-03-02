@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenRegisterPhoneBinding
 
@@ -59,7 +58,7 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
 
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                findNavController().navigate(R.id.action_registerPhoneScreen_to_noConnectionScreen)
+                findNavController().navigate(R.id.action_registerPhoneScreen2_to_noConnectionScreen2)
                 viewModel.noConnectionLiveData.value = false
             }
         })
@@ -71,7 +70,7 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
         findNavController().navigate(
-            R.id.action_registerPhoneScreen_to_registerVerifyScreen,
+            R.id.action_registerPhoneScreen2_to_registerVerifyScreen2,
             bundleOf("phone" to binding.edPhone.text.toString())
         )
     }

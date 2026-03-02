@@ -12,10 +12,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import uz.gita.maxwayappclone.MainActivity
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
-import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 
 class BasketBottomSheet : BottomSheetDialogFragment() {
 
@@ -67,10 +67,10 @@ class BasketBottomSheet : BottomSheetDialogFragment() {
             binding.btnPay.visibility = if (isEmpty) View.GONE else View.VISIBLE
         }
 
-        binding.btnChoose.setOnClickListener {
-            (parentFragment as MainScreen).binding.viewPager.currentItem = 0
-            dismiss()
-        }
+//        binding.btnChoose.setOnClickListener {
+//            (requireActivity() as? MainActivity)?.binding?.viewPager?.currentItem = 0
+//            dismiss()
+//        }
 
         binding.ivClose.setOnClickListener {
             dismiss()

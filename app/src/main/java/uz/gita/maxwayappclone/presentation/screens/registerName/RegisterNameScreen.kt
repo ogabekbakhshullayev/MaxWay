@@ -1,7 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.registerName
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -13,10 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.datepicker.MaterialDatePicker
-import timber.log.Timber
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.util.setFocusListener
 import uz.gita.maxwayappclone.databinding.ScreenRegisterNameBinding
 import uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.DatePickerBottomSheet
 
@@ -71,7 +67,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
 
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                findNavController().navigate(R.id.action_registerNameScreen_to_noConnectionScreen)
+                findNavController().navigate(R.id.action_registerNameScreen2_to_noConnectionScreen2)
                 viewModel.noConnectionLiveData.value = false
             }
         })
@@ -79,8 +75,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
     }
 
     private val successObserver = Observer<String> {
-        Log.d("TTT", "Success: $it")
-        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_registerNameScreen2_to_mainScreen)
     }
     private val errorMessageObserver = Observer<String> {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

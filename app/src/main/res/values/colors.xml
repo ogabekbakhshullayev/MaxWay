@@ -8,6 +8,8 @@
     <color name="disabled">#EBEDF0</color>
     <color name="hint_color">#818C99</color>
     <color name="wrong">#E8D52F46</color>
+    <color name="light_white">#FBF7F7</color>
+
 
     <color name="bg_light">#F3F4F6</color>
     <color name="segment_bg">#E2E3E5</color>
@@ -17,6 +19,7 @@
     <color name="maxway_purple">#7D59B5</color>
 
     <color name="bg_round_8_stroke_color">#7A31C5</color>
+    <color name="light_purple">#D4C9E2</color>
 
     <color name="grey">#edf1f4</color>
     <color name="dark_grey">#747579</color>

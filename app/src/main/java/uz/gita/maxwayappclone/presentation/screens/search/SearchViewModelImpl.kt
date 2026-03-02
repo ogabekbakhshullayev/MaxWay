@@ -22,19 +22,25 @@ class SearchViewModelImpl(private val searchUseCase: SearchUseCase): ViewModel()
 
         private var getSearchResultJob: Job? = null
     override fun getSearchResult(query: String) {
-        getSearchResultJob?.cancel()
-        getSearchResultJob = viewModelScope.launch {
-            delay(700)
-            searchUseCase(query)
-                .onStart { loadingLiveData.value = true }
-                .onCompletion { loadingLiveData.value = false }
-                .onEach { result ->
-                    result.onSuccess { searchLiveData.value = it }
-                    result.onFailure { errorMessageLiveData.value = it.message?: "Unknown exception" }
-                }
-                .collect()
-
+        if (query == ""){
+            searchLiveData.value = emptyList<SearchResponse>()
         }
+        else {
+            getSearchResultJob?.cancel()
+            getSearchResultJob = viewModelScope.launch {
+                delay(700)
+                searchUseCase(query)
+                    .onStart { loadingLiveData.value = true }
+                    .onCompletion { loadingLiveData.value = false }
+                    .onEach { result ->
+                        result.onSuccess { searchLiveData.value = it }
+                        result.onFailure {
+                            errorMessageLiveData.value = it.message ?: "Unknown exception"
+                        }
+                    }
+                    .collect()
 
+            }
+        }
     }
 }
