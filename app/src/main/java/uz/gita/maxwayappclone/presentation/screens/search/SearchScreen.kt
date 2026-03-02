@@ -1,10 +1,12 @@
 package uz.gita.maxwayappclone.presentation.screens.search
 
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,8 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
+
 
 class SearchScreen: Fragment(R.layout.screen_search) {
 
@@ -33,24 +37,32 @@ class SearchScreen: Fragment(R.layout.screen_search) {
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL,false)
         binding.recyclerView.adapter = adapter
         observe()
-        binding.search.requestFocus()
+        binding.search.post {
+            binding.search.requestFocus()
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.search, InputMethodManager.SHOW_IMPLICIT)
+        }
+
+
 
 
         binding.search.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
+
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     if (s.toString() != "") {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.textTitle.visibility = View.VISIBLE
                         viewModel.getSearchResult(s.toString())
                     }
                     else{
-                        binding.recyclerView.visibility = View.GONE
+                        adapter.submitList(emptyList<SearchResponse>())
+                        adapter.notifyDataSetChanged()
                         binding.textTitle.visibility = View.GONE
                     }
-                }
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

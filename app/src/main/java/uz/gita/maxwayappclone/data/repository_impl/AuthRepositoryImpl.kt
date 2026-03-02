@@ -1,6 +1,7 @@
 package uz.gita.maxwayappclone.data.repository_impl
 
 import com.google.gson.Gson
+import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.data.source.remote.ApiClient
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.request.NameDateRequest
@@ -8,7 +9,6 @@ import uz.gita.maxwayappclone.data.source.remote.request.RegisterRequest
 import uz.gita.maxwayappclone.data.source.remote.request.RepeatRequest
 import uz.gita.maxwayappclone.data.source.remote.request.VerifyRequest
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
-import uz.gita.maxwayappclone.data.tokenManager.TokenManager
 import uz.gita.maxwayappclone.domain.repository.AuthRepository
 
 class AuthRepositoryImpl private constructor(
@@ -48,7 +48,7 @@ class AuthRepositoryImpl private constructor(
         val response = authApi.verify(request)
         return if (response.isSuccessful && response.body() != null) {
             val token = response.body()?.data?.token.toString()
-            TokenManager().putToken(token)
+            TokenManager.token = token
             Result.success(token)
         } else {
             val errorJson = response.errorBody()?.string()
@@ -77,7 +77,8 @@ class AuthRepositoryImpl private constructor(
 
     override suspend fun nameDate(token: String, name: String, date: String): Result<String> {
         val request = NameDateRequest(name, date)
-        val response = authApi.updateUserNameDate(TokenManager().getToken(), request)
+        val response = authApi.updateUserNameDate(
+            uz.gita.maxwayappclone.data.source.local.TokenManager.token, request)
         return if (response.isSuccessful && response.body() != null)
             Result.success(response.body()?.message.toString())
         else {

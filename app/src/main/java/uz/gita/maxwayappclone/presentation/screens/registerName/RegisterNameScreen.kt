@@ -67,7 +67,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
 
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                findNavController().navigate(R.id.action_registerNameScreen_to_noConnectionScreen)
+                findNavController().navigate(R.id.action_registerNameScreen2_to_noConnectionScreen2)
                 viewModel.noConnectionLiveData.value = false
             }
         })
@@ -75,6 +75,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
     }
 
     private val successObserver = Observer<String> {
+        findNavController().navigate(R.id.action_registerNameScreen2_to_mainScreen)
     }
     private val errorMessageObserver = Observer<String> {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

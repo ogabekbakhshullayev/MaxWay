@@ -42,9 +42,30 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
             viewModel.updateProfileInfo(TokenManager.token,name,birth)
             viewModel.isSuccess.observe(viewLifecycleOwner){
                 if (it) {
+//                    val  result = Bundle().apply {
+//                        putString("name",binding.editName.text.toString())
+//                    }
+//                    parentFragmentManager.setFragmentResult(
+//                        "edit_profile_result",result
+//                    )
+                    findNavController().previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.apply {
+                            set("name",binding.editName.text.toString())
+                            set("date",binding.editBirth.text.toString())
+                            set("phone",binding.editPhone.text.toString())
+
+                        }
+
+
+                    dismiss()
                     findNavController().popBackStack()
+
                 }
             }
+
+
+
 
         }
     }

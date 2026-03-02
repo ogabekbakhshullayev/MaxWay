@@ -32,15 +32,38 @@
     <fragment
         android:id="@+id/registerVerifyScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
-        android:label="RegisterVerifyScreen" />
+        android:label="RegisterVerifyScreen" >
+        <action
+            android:id="@+id/action_registerVerifyScreen2_to_registerNameScreen2"
+            app:destination="@id/registerNameScreen2" />
+        <action
+            android:id="@+id/action_registerVerifyScreen2_to_noConnectionScreen2"
+            app:destination="@id/noConnectionScreen2" />
+    </fragment>
     <fragment
         android:id="@+id/registerPhoneScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerPhone.RegisterPhoneScreen"
-        android:label="RegisterPhoneScreen" />
+        android:label="RegisterPhoneScreen" >
+        <action
+            android:id="@+id/action_registerPhoneScreen2_to_registerVerifyScreen2"
+            app:destination="@id/registerVerifyScreen2" />
+        <action
+            android:id="@+id/action_registerPhoneScreen2_to_noConnectionScreen2"
+            app:destination="@id/noConnectionScreen2" />
+    </fragment>
     <fragment
         android:id="@+id/registerNameScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
-        android:label="RegisterNameScreen" />
+        android:label="RegisterNameScreen" >
+        <action
+            app:popUpTo="@id/mainScreen"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_registerNameScreen2_to_mainScreen"
+            app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/action_registerNameScreen2_to_noConnectionScreen2"
+            app:destination="@id/noConnectionScreen2" />
+    </fragment>
 
     <fragment
         android:id="@+id/branchDetailFragment"
@@ -84,6 +107,13 @@
         <action
             android:id="@+id/action_mainScreen_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainScreen_to_registerPhoneScreen2"
+            app:destination="@id/registerPhoneScreen2" />
     </fragment>
+    <fragment
+        android:id="@+id/noConnectionScreen2"
+        android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
+        android:label="NoConnectionScreen" />
 
 </navigation>

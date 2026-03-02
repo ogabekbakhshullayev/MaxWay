@@ -1,8 +1,13 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,34 +15,48 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.local.TokenManager
-import uz.gita.maxwayappclone.data.source.remote.response.EditProfileResponse
 import uz.gita.maxwayappclone.databinding.ScreenProfileBinding
-import uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment
-import uz.gita.maxwayappclone.presentation.screens.notification.NotificationFragment
-import uz.gita.maxwayappclone.presentation.screens.prfileDialog.EditProfileBottomSheet
-import uz.gita.maxwayappclone.presentation.screens.search.SearchScreen
 import kotlin.getValue
 
 class ProfileScreen : Fragment(R.layout.screen_profile) {
+
     private val binding by viewBinding(ScreenProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl> { ProfileViewModelFactory() }
 
+    var date = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getProfileInfo(TokenManager.token)
 
-        observe()
-        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
-            viewModel.userResponse = response
-            loadView(response)
+        val editeDate = findNavController().currentBackStackEntry
+            ?.savedStateHandle
+
+                editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner){
+                    binding.profileName.text = it
+                }
+        editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner){
+            date = it
         }
+        editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner){
+            binding.profilePhone.text = it
+        }
+
+
+
+
+//        parentFragmentManager.setFragmentResultListener("edit_profile_result",viewLifecycleOwner){
+//            _,bundle->
+//            binding.profileName.text = bundle.getString("name")
+//        }
+
+
+
         binding.buttonEdit.setOnClickListener {
 
             val bundle = Bundle().apply {
                 if (viewModel.userResponse != null) {
-                    putString("name", viewModel.userResponse?.name)
-                    putString("phone", viewModel.userResponse?.phone)
-                    putString("birth", viewModel.userResponse?.birthDate)
+                    putString("name", binding.profileName.text.toString())
+                    putString("phone", binding.profilePhone.text.toString())
+                    putString("birth", date)
                 }
             }
             findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet,bundle)
@@ -45,18 +64,30 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
         toasts()
         binding.buttonLogOut.setOnClickListener {
+            TokenManager.token = ""
             login(false)
         }
         binding.buttonLogin.setOnClickListener {
-            login(true)
+            findNavController().navigate(R.id.action_mainScreen_to_registerPhoneScreen2)
         }
+        login(!TokenManager.token.isEmpty())
     }
-    private fun loadView(response: EditProfileResponse){
-        binding.profileName.text = response.name
-        binding.profilePhone.text = response.phone
-    }
+//    private fun loadView(response: EditProfileResponse){
+//        binding.profileName.text = response.name
+//        binding.profilePhone.text = response.phone
+//    }
 
     private fun observe() {
+
+        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
+
+            binding.profileName.text = response.name
+            binding.profilePhone.text = response.phone
+            date = response.birthDate
+            viewModel.userResponse = response
+
+        }
+
         viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) {
             binding.progress.isVisible = it
         }
@@ -84,12 +115,9 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
         binding.buttonStock.setOnClickListener {
             findNavController().navigate(R.id.action_mainScreen_to_notificationFragment)
-//            parentFragmentManager.beginTransaction().replace(R.id.main, NotificationFragment()).commit()
         }
         binding.buttonBranches.setOnClickListener {
             findNavController().navigate(R.id.action_mainScreen_to_branchesFragment)
-
-//            parentFragmentManager.beginTransaction().replace(R.id.main, BranchesFragment()).commit()
         }
         binding.buttonNews.setOnClickListener {
             Toast.makeText(requireContext(), "news clicked", Toast.LENGTH_SHORT).show()
@@ -107,4 +135,14 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             Toast.makeText(requireContext(), "language clicked", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProfileInfo(TokenManager.token)
+        Log.d("TTT", "onResume: $")
+        observe()
+    }
+
+
+
 }
