@@ -48,27 +48,19 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             findNavController().popBackStack()
         }
         timer.start()
-        binding.ed1.setFocusListener(true)
-        binding.ed2.setFocusListener(true)
-        binding.ed3.setFocusListener(true)
-        binding.ed4.setFocusListener(true)
-//        binding.ed1.addTextChangedListener(textChangeListener)
-//        binding.ed2.addTextChangedListener(textChangeListener)
-//        binding.ed3.addTextChangedListener(textChangeListener)
-        binding.ed4.addTextChangedListener(textChangeListener)
+
+        binding.pinview.addTextChangedListener(pinTextChangeListener)
 
         binding.continueBtn.setOnClickListener {
-            val sb = StringBuilder()
-            sb.append(binding.ed1.text.toString())
-            sb.append(binding.ed2.text.toString())
-            sb.append(binding.ed3.text.toString())
-            sb.append(binding.ed4.text.toString())
-            viewModel.verify(arguments?.getString("phone", "") ?: "", sb.toString().toInt())
+            viewModel.verify(
+                arguments?.getString("phone", "") ?: "",
+                binding.pinview.text.toString().toInt()
+            )
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner, loadingObserver)
 
-        viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean>{
-            if (it){
+        viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) {
                 timer.cancel()
                 findNavController().navigate(R.id.action_registerVerifyScreen2_to_noConnectionScreen2)
                 viewModel.noConnectionLiveData.value = false
@@ -81,6 +73,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             timer.cancel()
             timer.start()
             viewModel.repeat(arguments?.getString("phone", "") ?: "")
+            binding.pinview.setText("")
         }
     }
 
@@ -109,7 +102,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
 
 
     private val successObserver = Observer<String> {
-        Log.d("TTT","Success: $it")
+        Log.d("TTT", "Success: $it")
         code = it
         if (code.length > 4) {
             timer.cancel()
@@ -117,34 +110,13 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
                 R.id.action_registerVerifyScreen2_to_registerNameScreen2,
                 bundleOf("token" to it)
             )
-        }else{
+        } else {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-            binding.ed1.setText("")
-            binding.ed1.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
-            binding.ed2.setText("")
-            binding.ed2.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
-            binding.ed3.setText("")
-            binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
-            binding.ed4.setText("")
-            binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_unselected)
             binding.wrongCodeTv.visibility = View.INVISIBLE
         }
     }
     private val errorMessageObserver = Observer<String> {
-        val sb = StringBuilder()
-        sb.append(binding.ed1.text.toString())
-        sb.append(binding.ed2.text.toString())
-        sb.append(binding.ed3.text.toString())
-        sb.append(binding.ed4.text.toString())
-        if (sb.toString() != code) {
-            binding.ed1.onFocusChangeListener = null
-            binding.ed2.onFocusChangeListener = null
-            binding.ed3.onFocusChangeListener = null
-            binding.ed4.onFocusChangeListener = null
-            binding.ed1.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
-            binding.ed2.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
-            binding.ed3.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
-            binding.ed4.setBackgroundResource(R.drawable.input_ed_bcg_wrong)
+        if (binding.pinview.text.toString() != code) {
             binding.wrongCodeTv.visibility = View.VISIBLE
             binding.continueBtn.isEnabled = false
             binding.continueBtn.setTextColor(
@@ -164,7 +136,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         }
     }
 
-    val textChangeListener = object : TextWatcher {
+    val pinTextChangeListener = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(
             p0: CharSequence?,
@@ -180,12 +152,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             p2: Int,
             p3: Int
         ) {
-            val sb = StringBuilder()
-            sb.append(binding.ed1.text.toString())
-            sb.append(binding.ed2.text.toString())
-            sb.append(binding.ed3.text.toString())
-            sb.append(binding.ed4.text.toString())
-            if (sb.toString().length == 4) {
+            if (binding.pinview.text.toString().length == 4) {
                 binding.continueBtn.isEnabled = true
                 binding.continueBtn.setTextColor(
                     ContextCompat.getColor(

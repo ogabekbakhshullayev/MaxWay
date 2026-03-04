@@ -2,7 +2,6 @@ package uz.gita.maxwayappclone.presentation.screens.productInfo
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast

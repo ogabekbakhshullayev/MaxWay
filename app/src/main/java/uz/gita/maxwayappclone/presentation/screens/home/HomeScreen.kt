@@ -18,8 +18,6 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.model.Product
-import uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen
-import uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen
 
 class HomeScreen : Fragment(R.layout.screen_home) {
 
