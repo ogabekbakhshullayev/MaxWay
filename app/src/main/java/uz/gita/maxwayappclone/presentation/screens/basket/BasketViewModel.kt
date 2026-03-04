@@ -12,6 +12,7 @@ import uz.gita.maxwayappclone.domain.usecase.GetProductsUseCase
 import uz.gita.maxwayappclone.domain.usecase.ObserveProductCountsUseCase
 import uz.gita.maxwayappclone.domain.usecase.SetProductCountUseCase
 
+// ViewMOdel interface ochish kerak
 class BasketViewModel(
     private val getProductsUseCase: GetProductsUseCase,
     private val observeProductCountsUseCase: ObserveProductCountsUseCase,

@@ -1,6 +1,5 @@
 package uz.gita.maxwayappclone.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,20 +10,11 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.databinding.ItemNotificationBinding
 
-class NotificationAdapter(
-    private val context: Context,
-    private val onItemClick: ((NotificationResponse)-> Unit)? = null
-): ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
+class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder = NotificationViewHolder(
-        ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClick
+    private var onItemClickListener: ((NotificationResponse) -> Unit)? = null
 
-    )
-
-    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) = holder.bind(getItem(position))
-
-
-    object NotificationDiff: DiffUtil.ItemCallback<NotificationResponse>(){
+    object NotificationDiff : DiffUtil.ItemCallback<NotificationResponse>() {
         override fun areItemsTheSame(oldItem: NotificationResponse, newItem: NotificationResponse): Boolean {
             return oldItem.id == newItem.id
         }
@@ -34,26 +24,32 @@ class NotificationAdapter(
         }
     }
 
+    inner class NotificationViewHolder(private val binding: ItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    inner class NotificationViewHolder(
-        private val binding: ItemNotificationBinding,
-        private val onItemClick: ((NotificationResponse) -> Unit)?
-        ): RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.root.setOnClickListener { onItemClickListener?.invoke(getItem(absoluteAdapterPosition)) }
+        }
 
-        fun bind(item : NotificationResponse){
+        fun bind(item: NotificationResponse) {
             binding.notificationName.text = item.name
             binding.notificationMassage.text = item.message
-            Glide.with(context)
+
+            Glide.with(binding.root.context)
                 .load(item.imgURL)
                 .placeholder(R.drawable.placeholder)
                 .into(binding.detailImage)
-
-
-
-
-            binding.root.setOnClickListener { onItemClick?.invoke(item) }
         }
-
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder = NotificationViewHolder(
+        ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
+
+    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) = holder.bind(getItem(position))
+
+    fun setOnItemClickListener(block: (NotificationResponse) -> Unit) {
+        onItemClickListener = block
+    }
 }
+
+

@@ -5,5 +5,6 @@ import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 
 interface StoriesViewModel {
     val storiesLiveData: LiveData<Array<StoryData>>
+    val timerLiveData: LiveData<Int>
     fun getStories()
 }

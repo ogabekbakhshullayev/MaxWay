@@ -13,7 +13,7 @@
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

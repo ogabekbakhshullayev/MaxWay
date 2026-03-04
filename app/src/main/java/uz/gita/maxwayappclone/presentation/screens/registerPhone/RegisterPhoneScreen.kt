@@ -61,7 +61,7 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
 
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                findNavController().navigate(R.id.action_registerPhoneScreen2_to_noConnectionScreen2)
+                findNavController().navigate(R.id.noConnectionScreen)
                 viewModel.noConnectionLiveData.value = false
             }
         })

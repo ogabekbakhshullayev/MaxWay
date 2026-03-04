@@ -60,7 +60,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
                 timer.cancel()
-                findNavController().navigate(R.id.action_registerVerifyScreen2_to_noConnectionScreen2)
+                findNavController().navigate(R.id.noConnectionScreen)
                 viewModel.noConnectionLiveData.value = false
             }
         })

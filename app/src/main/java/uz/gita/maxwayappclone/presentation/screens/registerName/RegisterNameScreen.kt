@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenRegisterNameBinding
-import uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.DatePickerBottomSheet
+import uz.gita.maxwayappclone.presentation.dialogs.DatePickerBottomSheet
 
 class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
     private val binding by viewBinding(ScreenRegisterNameBinding::bind)
@@ -67,7 +68,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
 
         viewModel.noConnectionLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                findNavController().navigate(R.id.action_registerNameScreen2_to_noConnectionScreen2)
+                findNavController().navigate(R.id.noConnectionScreen)
                 viewModel.noConnectionLiveData.value = false
             }
         })
@@ -75,16 +76,14 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
     }
 
     private val successObserver = Observer<String> {
-        findNavController().navigate(R.id.action_registerNameScreen2_to_mainScreen)
+        findNavController().popBackStack()
     }
+
     private val errorMessageObserver = Observer<String> {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
+
     private val loadingObserver = Observer<Boolean> {
-        if (it) {
-            binding.pb.visibility = View.VISIBLE
-        } else {
-            binding.pb.visibility = View.GONE
-        }
+        binding.pb.isVisible = it
     }
 }
