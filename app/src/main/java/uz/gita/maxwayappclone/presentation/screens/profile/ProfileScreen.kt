@@ -1,13 +1,9 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +22,8 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     var date = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getProfileInfo("01e48b85b1aa89d71d05688516524607")
 
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
@@ -64,7 +62,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
         toasts()
         binding.buttonLogOut.setOnClickListener {
-            TokenManager.token = ""
+//            TokenManager.token = ""
             login(false)
         }
         binding.buttonLogin.setOnClickListener {
@@ -142,7 +140,4 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         Log.d("TTT", "onResume: $")
         observe()
     }
-
-
-
 }
