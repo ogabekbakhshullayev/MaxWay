@@ -34,6 +34,8 @@
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
         android:label="RegisterVerifyScreen" >
         <action
+            app:popUpTo="@id/registerPhoneScreen2"
+            app:popUpToInclusive="true"
             android:id="@+id/action_registerVerifyScreen2_to_registerNameScreen2"
             app:destination="@id/registerNameScreen2" />
         <action
