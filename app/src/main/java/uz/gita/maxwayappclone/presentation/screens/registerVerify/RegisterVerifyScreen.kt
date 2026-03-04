@@ -17,9 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import timber.log.Timber
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.util.setFocusListener
 import uz.gita.maxwayappclone.databinding.ScreenRegisterVerifyBinding
 
 class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {

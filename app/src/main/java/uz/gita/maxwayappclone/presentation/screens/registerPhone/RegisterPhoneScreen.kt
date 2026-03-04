@@ -16,10 +16,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.vicmikhailau.maskededittext.MaskedEditText
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenRegisterPhoneBinding
-import kotlin.math.min
 
 class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
 
