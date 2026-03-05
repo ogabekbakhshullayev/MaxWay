@@ -12,8 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.BottomSheetProductDetailBinding
-import uz.gita.maxwayappclone.domain.model.Product
 
 class ProductDetailBottomSheet : BottomSheetDialogFragment() {
 
@@ -107,7 +107,7 @@ class ProductDetailBottomSheet : BottomSheetDialogFragment() {
         private const val ARG_IMAGE = "arg_image"
         private const val ARG_COST = "arg_cost"
 
-        fun newInstance(product: Product): ProductDetailBottomSheet {
+        fun newInstance(product: ProductUIData): ProductDetailBottomSheet {
             return ProductDetailBottomSheet().apply {
                 arguments = Bundle().apply {
                     putLong(ARG_ID, product.id)

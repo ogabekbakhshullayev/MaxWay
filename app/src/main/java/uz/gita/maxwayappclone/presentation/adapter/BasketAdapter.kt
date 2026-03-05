@@ -2,36 +2,48 @@ package uz.gita.maxwayappclone.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ItemBasketProductBinding
-import uz.gita.maxwayappclone.domain.model.Product
-import uz.gita.maxwayappclone.presentation.screens.basket.BasketItem
 import uz.gita.maxwayappclone.utils.formatPrice
 import uz.gita.maxwayappclone.utils.loadImageWithGlide
 
-// tavsiya listadapter ishlatish
-class BasketAdapter() : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>() {
+class BasketAdapter() : ListAdapter<ProductUIData, BasketAdapter.BasketViewHolder>(BasketDiffUtil) {
 
-    private var onCountChangeListener: ((Product, Int) -> Unit)?= null
-    private val items = ArrayList<BasketItem>()
+    private var onChangeProductCountListener: (() -> Unit)?= null
+
+    object BasketDiffUtil : DiffUtil.ItemCallback<ProductUIData>() {
+        override fun areItemsTheSame(oldItem: ProductUIData, newItem: ProductUIData): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ProductUIData, newItem: ProductUIData): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     inner class BasketViewHolder(private val binding: ItemBasketProductBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.btnPlus.setOnClickListener {
-                onCountChangeListener?.invoke(items[absoluteAdapterPosition].product, items[absoluteAdapterPosition].count + 1)
+                getItem(absoluteAdapterPosition).count ++
+                onChangeProductCountListener?.invoke()
             }
 
             binding.btnMinus.setOnClickListener {
-                val next = if (items[absoluteAdapterPosition].count <= 1) 0 else items[absoluteAdapterPosition].count - 1
-                onCountChangeListener?.invoke(items[absoluteAdapterPosition].product, next)
+                getItem(absoluteAdapterPosition).count --
+                onChangeProductCountListener?.invoke()
             }
         }
 
-        fun bind(item: BasketItem) {
-            binding.ivProduct.loadImageWithGlide(item.product.image)
-            binding.tvName.text = item.product.name
-            binding.tvPrice.text = item.product.cost.formatPrice()
-            binding.tvQty.text = item.count.toString()
+        fun bind() {
+            getItem(absoluteAdapterPosition).apply {
+                binding.ivProduct.loadImageWithGlide(this.image)
+                binding.tvName.text = this.name
+                binding.tvPrice.text = this.cost.formatPrice()
+                binding.tvQty.text = this.count.toString()
+            }
         }
     }
 
@@ -39,18 +51,10 @@ class BasketAdapter() : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>() {
         BasketViewHolder(ItemBasketProductBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind()
     }
 
-    override fun getItemCount(): Int = items.size
-
-    fun submitList(list: List<BasketItem>) {
-        items.clear()
-        items.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    fun setOnCountChangeListener(block: (Product, Int) -> Unit) {
-        onCountChangeListener = block
+    fun setOnChangeProductCountListener(block: () -> Unit) {
+        onChangeProductCountListener = block
     }
 }

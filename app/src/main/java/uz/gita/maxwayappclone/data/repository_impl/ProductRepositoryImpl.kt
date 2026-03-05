@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.update
 import uz.gita.maxwayappclone.data.mapper.toAdList
 import uz.gita.maxwayappclone.data.mapper.toCategoryList
 import uz.gita.maxwayappclone.data.mapper.toProductList
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.data.source.remote.ApiClient
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
-import uz.gita.maxwayappclone.domain.model.Product
 import uz.gita.maxwayappclone.domain.repository.ProductRepository
 
 class ProductRepositoryImpl private constructor(
@@ -22,6 +22,7 @@ class ProductRepositoryImpl private constructor(
 ) : ProductRepository {
 
     private val productCounts = MutableStateFlow<Map<Long, Int>>(emptyMap())
+    private val productList = ArrayList<ProductUIData>()
 
     companion object {
         private lateinit var instance: ProductRepository
@@ -53,14 +54,19 @@ class ProductRepositoryImpl private constructor(
         }
     }
 
-    override suspend fun getProducts(): Result<List<Product>> {
+    override suspend fun getProducts(): Result<List<ProductUIData>> {
         val response = productApi.getProducts()
         return if (response.isSuccessful && response.body() != null) {
-            Result.success(response.body()!!.data.toProductList())
+            productList.addAll(response.body()!!.data.toProductList())
+            Result.success(productList)
         } else {
             Result.failure(parseError(response.errorBody()?.string()))
         }
     }
+
+    override fun search(query: String) = productList.filter { it.name.contains(query, false) }
+
+    override fun getProductsInBasket(): List<ProductUIData> = productList.filter { it.count > 0 }
 
     override fun observeProductCounts(): Flow<Map<Long, Int>> = productCounts
 

@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
-import uz.gita.maxwayappclone.domain.model.Product
 import uz.gita.maxwayappclone.domain.usecase.GetAdsUseCase
 import uz.gita.maxwayappclone.domain.usecase.GetCategoriesUseCase
 import uz.gita.maxwayappclone.domain.usecase.GetProductsUseCase
@@ -34,8 +34,8 @@ class HomeViewModel(
     private val _categoriesLiveData = MutableLiveData<List<Category>>()
     val categoriesLiveData: LiveData<List<Category>> = _categoriesLiveData
 
-    private val _productsLiveData = MutableLiveData<List<Product>>()
-    val productsLiveData: LiveData<List<Product>> = _productsLiveData
+    private val _productsLiveData = MutableLiveData<List<ProductUIData>>()
+    val productsLiveData: LiveData<List<ProductUIData>> = _productsLiveData
 
     private val _storiesLiveData = MutableLiveData<Array<StoryData>>()
     val storiesLiveData: LiveData<Array<StoryData>> = _storiesLiveData

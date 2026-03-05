@@ -16,7 +16,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/my_orders"
 			android:textColor="@color/black"
-			android:textSize="24sp"
+			android:textSize="18sp"
 			android:fontFamily="@font/montserrat"
 			android:layout_gravity="center" />
 	</FrameLayout>

@@ -65,4 +65,8 @@ class OrdersViewModel(private val useCase: OrdersUseCase): ViewModel() {
 	fun refresh() {
 		_refreshLiveData.value = true
 	}
+
+	fun clearClickOrder() {
+		_onClickOrder.value = null
+	}
 }
