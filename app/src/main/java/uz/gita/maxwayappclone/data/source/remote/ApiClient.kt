@@ -4,7 +4,6 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import uz.gita.maxwayappclone.BuildConfig.BASE_URL
 import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.api.AuthApi
 import uz.gita.maxwayappclone.data.source.remote.api.StoryApi
@@ -28,7 +27,9 @@ object ApiClient {
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl(BASE_URL)
+        .baseUrl("" +
+                "" +
+                "https://superzealously-frumentaceous-illa.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

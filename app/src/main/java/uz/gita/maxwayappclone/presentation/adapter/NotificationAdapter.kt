@@ -36,7 +36,7 @@ class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdap
 
             Glide.with(binding.root.context)
                 .load(item.imgURL)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.img_placeholder)
                 .into(binding.detailImage)
         }
     }
