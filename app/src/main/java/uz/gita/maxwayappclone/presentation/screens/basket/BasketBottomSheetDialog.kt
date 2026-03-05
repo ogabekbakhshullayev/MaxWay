@@ -1,4 +1,4 @@
-package uz.gita.maxwayappclone.presentation.dialogs
+package uz.gita.maxwayappclone.presentation.screens.basket
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,52 +6,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
 import uz.gita.maxwayappclone.presentation.adapter.BasketAdapter
-import uz.gita.maxwayappclone.presentation.screens.basket.BasketViewModel
-import uz.gita.maxwayappclone.presentation.screens.basket.BasketViewModelFactory
 import uz.gita.maxwayappclone.utils.formatPrice
 
 class BasketBottomSheetDialog : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(BottomSheetBasketBinding::bind)
-    private val viewModel: BasketViewModel by viewModels { BasketViewModelFactory() }
+    private val viewModel: BasketViewModel by viewModels<BasketViewModelImpl> { BasketViewModelFactory() }
     private val adapter by lazy { BasketAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.bottom_sheet_basket, container, false)
     }
 
-    // livedatalarga observer maydon qilib yoziladi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvBasket.layoutManager = LinearLayoutManager(requireContext())
         binding.rvBasket.adapter = adapter
-        adapter.setOnCountChangeListener { product, newCount ->
-            viewModel.setProductCount(product.id, newCount)
-        }
 
-        viewModel.basketItemsLiveData.observe(viewLifecycleOwner) { items ->
-            adapter.submitList(items)
-        }
-
-        // liveData observer maydon qilish kerak
-        viewModel.totalLiveData.observe(viewLifecycleOwner) { total ->
-            binding.tvPayTotal.text = total.formatPrice()
-        }
-
-        viewModel.emptyLiveData.observe(viewLifecycleOwner) { isEmpty ->
-            binding.emptyContainer.visibility = if (isEmpty) View.VISIBLE else View.GONE
-            binding.rvBasket.visibility = if (isEmpty) View.GONE else View.VISIBLE
-            binding.btnPay.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        adapter.setOnChangeProductCountListener {
+            viewModel.load()
         }
 
         binding.ivClose.setOnClickListener {
@@ -62,7 +48,23 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
             showClearDialog()
         }
 
-        viewModel.load()
+        viewModel.basketItemsLiveData.observe(viewLifecycleOwner, basketItemsObserver)
+        viewModel.totalLiveData.observe(viewLifecycleOwner, totalObserver)
+        viewModel.emptyLiveData.observe(viewLifecycleOwner, emptyObserver)
+    }
+
+    private val emptyObserver = Observer<Boolean> {
+        binding.emptyContainer.isVisible = it
+        binding.rvBasket.isVisible = !it
+        binding.btnPay.isVisible = !it
+    }
+
+    private val totalObserver = Observer<Long> {
+        binding.tvPayTotal.text = it.formatPrice()
+    }
+
+    private val basketItemsObserver = Observer<List<ProductUIData>> {
+        adapter.submitList(it)
     }
 
     override fun onStart() {
@@ -95,4 +97,3 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         dialog.show()
     }
 }
-
