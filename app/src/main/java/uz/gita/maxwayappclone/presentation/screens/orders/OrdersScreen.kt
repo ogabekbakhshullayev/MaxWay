@@ -6,10 +6,12 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
+import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 
 class OrdersScreen: Fragment(R.layout.screen_orders) {
 	val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
@@ -25,11 +27,11 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			.commit()
 
 		setAction()
-		observe()
+		observes()
 		viewModel.loadOrders()
 	}
 
-	fun observe() {
+	fun observes() {
 		viewModel.currentBtnLiveData.observe(viewLifecycleOwner) { bool ->
 			if (bool) {
 				binding.currentOrders.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
@@ -51,37 +53,30 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			}
 		}
 
-		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
+		viewModel.errorMessageLiveData.observe(this) { message ->
 			Timber.tag("TTT").d("error: $message")
 
-			parentFragmentManager.setFragmentResultListener("key", viewLifecycleOwner) { _, bundle ->
-				val result = bundle.getBoolean("refresh")
-				if (result) viewModel.refresh()
-			}
-
-			parentFragmentManager.beginTransaction()
-				.replace(R.id.main, NoConnectionScreen())
-				.addToBackStack(null)
-				.commit()
+//			findNavController().navigate(R.id.noConnectionScreen)
 		}
 		viewModel.onClickOrder.observe(viewLifecycleOwner) { data ->
-			val bundle = Bundle()
-			val gson = Gson()
-			val json = gson.toJson(data)
-			bundle.putString("DATA", json)
-			val fragment = OrderPage()
-			fragment.arguments = bundle
-
-			parentFragmentManager.beginTransaction()
-				.replace(R.id.main, fragment)
-				.addToBackStack(null)
-				.commit()
+			Timber.tag("TTT").d("$data")
+			if (data != null) {
+				val bundle = Bundle()
+				val gson = Gson()
+				val json = gson.toJson(data)
+				bundle.putString("DATA", json)
+				findNavController().navigate(R.id.action_mainScreen_to_orderPage, bundle)
+				viewModel.clearClickOrder()
+			}
 		}
 		viewModel.refreshLiveData.observe(viewLifecycleOwner) {
 			viewModel.loadOrders()
 		}
 		viewModel.loadingLiveData.observe(viewLifecycleOwner) { bool ->
 			if (bool) binding.swipeRefresh.isRefreshing = false
+		}
+		viewModel.toMainScreenLiveData.observe(viewLifecycleOwner) {
+			(parentFragment as MainScreen).binding.viewPager.currentItem = 0
 		}
 	}
 

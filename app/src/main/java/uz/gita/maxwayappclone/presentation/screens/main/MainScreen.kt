@@ -12,7 +12,7 @@ import uz.gita.maxwayappclone.presentation.adapter.ViewPagerAdapter
 
 class MainScreen: Fragment(R.layout.screen_main) {
 
-    private val binding by viewBinding ( ScreenMainBinding::bind )
+    val binding by viewBinding ( ScreenMainBinding::bind )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

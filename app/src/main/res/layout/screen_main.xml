@@ -22,11 +22,11 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu"
         app:itemTextAppearanceActive="@style/BottomNavText"
-        app:itemTextAppearanceActiveBoldEnabled="false"
         app:itemTextAppearanceInactive="@style/BottomNavText"
         app:itemActiveIndicatorStyle="@null"
         app:itemHorizontalTranslationEnabled="false"
         android:background="@color/white"
+        app:itemTextColor="@color/bottom_nav_text_color"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

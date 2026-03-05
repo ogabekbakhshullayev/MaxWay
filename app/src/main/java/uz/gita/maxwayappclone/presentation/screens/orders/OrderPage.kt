@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import uz.gita.maxwayappclone.R
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import uz.gita.maxwayappclone.data.model.OrdersUIData
 import uz.gita.maxwayappclone.databinding.ItemOrderPriceBinding
@@ -50,7 +51,7 @@ class OrderPage: Fragment(R.layout.page_order) {
 			binding.title.text = "History"
 			binding.status.isVisible = false
 		}
-		binding.btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
+		binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 		binding.numberOrder.text = "Order №${data.id + 100}"
 		binding.orderStatusNum.text = "${data.id + 100}"
 		binding.date.text = data.createTime.getDate().substring(0, 10)

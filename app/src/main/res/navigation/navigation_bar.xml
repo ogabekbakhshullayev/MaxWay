@@ -94,6 +94,9 @@
         <action
             android:id="@+id/action_mainScreen_to_productInfoScreen2"
             app:destination="@id/productInfoScreen2" />
+        <action
+            android:id="@+id/action_mainScreen_to_orderPage"
+            app:destination="@id/orderPage" />
     </fragment>
     <fragment
         android:id="@+id/storiesScreen2"
@@ -107,5 +110,10 @@
         android:id="@+id/noConnectionScreen"
         android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
         android:label="NoConnectionScreen" />
+    <fragment
+        android:id="@+id/orderPage"
+        android:name="uz.gita.maxwayappclone.presentation.screens.orders.OrderPage"
+        android:label="OrderPage"
+        tools:layout="@layout/page_order"/>
 
 </navigation>
