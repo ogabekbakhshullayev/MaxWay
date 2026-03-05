@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.DialogBottomEditProfileInfoBinding
-import uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick.DatePickerBottomSheet
+import uz.gita.maxwayappclone.presentation.dialogs.DatePickerBottomSheet
 
 class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_edit_profile_info) {
 

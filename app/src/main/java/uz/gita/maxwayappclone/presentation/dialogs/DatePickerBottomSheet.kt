@@ -1,4 +1,4 @@
-package uz.gita.maxwayappclone.presentation.dialogs.bottomSheeteDatePick
+package uz.gita.maxwayappclone.presentation.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.DatePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
-import java.util.*
+import java.util.Calendar
 
 class DatePickerBottomSheet : BottomSheetDialogFragment() {
 

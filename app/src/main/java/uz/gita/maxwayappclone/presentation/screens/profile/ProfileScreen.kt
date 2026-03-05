@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,28 +33,24 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
 
-                editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner){
-                    binding.profileName.text = it
-                }
-        editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner){
+        editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner) {
+            binding.profileName.text = it
+        }
+        editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner) {
             date = it
         }
-        editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner){
+        editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner) {
             binding.profilePhone.text = it
         }
-
-
 
 
 //        parentFragmentManager.setFragmentResultListener("edit_profile_result",viewLifecycleOwner){
 //            _,bundle->
 //            binding.profileName.text = bundle.getString("name")
 //        }
-
 
 
         binding.buttonEdit.setOnClickListener {
@@ -65,7 +62,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                     putString("birth", date)
                 }
             }
-            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet,bundle)
+            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet, bundle)
 
         }
         toasts()

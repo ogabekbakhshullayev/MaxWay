@@ -24,6 +24,7 @@ class StoriesScreen : Fragment(R.layout.screen_stories) {
     private val viewModel by viewModels<StoriesViewModelImpl> { StoriesViewModelFactory() }
     private lateinit var arrayL: Array<StoryData>
 
+    // flow
     val totalTime = 30000L
     val timer = object : CountDownTimer(totalTime, 10) {
         override fun onTick(millisUntilFinished: Long) {

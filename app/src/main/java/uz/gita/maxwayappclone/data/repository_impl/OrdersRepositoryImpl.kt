@@ -15,6 +15,7 @@ class OrdersRepositoryImpl private constructor(
 ): OrdersRepository {
 
 	override suspend fun getOrders(): Result<List<OrdersUIData>> {
+        if (TokenManager.token.isEmpty()) return Result.success(emptyList())
 		val response = productApi.getOrders(TokenManager.token)
 		return if (response.isSuccessful && response.body() != null) {
 			val orders = response.body()!!.data.toData()

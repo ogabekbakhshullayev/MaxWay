@@ -12,14 +12,12 @@ import uz.gita.maxwayappclone.presentation.adapter.ViewPagerAdapter
 
 class MainScreen: Fragment(R.layout.screen_main) {
 
-    val binding by viewBinding ( ScreenMainBinding::bind )
+    private val binding by viewBinding ( ScreenMainBinding::bind )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         if (binding.viewPager.adapter == null) {
-
             binding.viewPager.adapter = ViewPagerAdapter(this)
         }
 
@@ -33,8 +31,6 @@ class MainScreen: Fragment(R.layout.screen_main) {
             true
         }
 
-
-
         binding.viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -45,7 +41,7 @@ class MainScreen: Fragment(R.layout.screen_main) {
         )
 
         binding.bottomNavigation.itemIconTintList = null
-
     }
-
 }
+
+

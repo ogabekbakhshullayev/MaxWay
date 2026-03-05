@@ -16,6 +16,10 @@ class NotificationViewModelImpl(private val notificationUseCase: NotificationUse
     override val notificationListLiveData = MutableLiveData< List<NotificationResponse>>()
     override val errorMessageLiveData = MutableLiveData<String>()
 
+    init {
+        getNotificationsList()
+    }
+
     override fun getNotificationsList() {
         notificationUseCase()
             .onStart { loadingLiveData.value = true }
