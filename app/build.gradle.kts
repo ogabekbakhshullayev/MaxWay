@@ -22,18 +22,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://erick-fustigatory-khadijah.ngrok-free.dev/\""
-            )
+            buildConfigField("String", "BASE_URL", "\"https://rutilant-treena-nonheinous.ngrok-free.dev/\"")
         }
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -55,8 +48,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation(libs.play.services.maps)
-    implementation(libs.androidx.navigation.fragment.ktx)
+	implementation(libs.play.services.maps)
+	implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -97,10 +90,9 @@ dependencies {
 //    swipe refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-    // editText mask
-    implementation("io.github.vicmikhailau:MaskedEditText:5.0.3")
+//    shimmer
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
-    // verification view
+//    pin view
     implementation("io.github.chaosleung:pinview:1.4.4")
-
 }

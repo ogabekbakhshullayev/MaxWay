@@ -2,8 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:background="@color/none"
 	android:layout_height="match_parent">
+
+	<com.facebook.shimmer.ShimmerFrameLayout
+		android:id="@+id/shimmerLayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+			<include layout="@layout/item_order_shimmer" />
+		</LinearLayout>
+	</com.facebook.shimmer.ShimmerFrameLayout>
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/recyclerView"
@@ -11,6 +34,7 @@
 		android:layout_height="0dp"
 		android:visibility="invisible"
 		app:layout_constraintTop_toTopOf="parent"
+		tools:listitem="@layout/item_order"
 		app:layout_constraintBottom_toBottomOf="parent"/>
 
 	<LinearLayout
@@ -36,7 +60,7 @@
 			android:text="@string/no_orders"
 			android:textColor="@color/black"
 			android:fontFamily="@font/montserrat"
-			android:textSize="16sp" />
+			android:textSize="15sp" />
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -45,31 +69,18 @@
 			android:textColor="@color/dark_grey"
 			android:gravity="center"
 			android:fontFamily="@font/montserrat"
-			android:textSize="16sp" />
+			android:textSize="13sp" />
 
 		<androidx.appcompat.widget.AppCompatButton
 			android:id="@+id/btnAddOrder"
-			android:layout_width="170dp"
+			android:layout_width="150dp"
 			android:layout_height="48dp"
 			android:background="@drawable/bg_add_order_button"
 			android:text="@string/make_order"
 			android:textAllCaps="false"
 			android:textColor="@color/white"
-			android:textSize="16sp"
+			android:textSize="15sp"
 			android:layout_marginTop="12dp"
 			android:fontFamily="@font/montserrat" />
 	</LinearLayout>
-
-	<ProgressBar
-		android:id="@+id/loadingProgress"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:visibility="invisible"
-		android:indeterminate="true"
-		android:indeterminateTint="@color/yellow"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
