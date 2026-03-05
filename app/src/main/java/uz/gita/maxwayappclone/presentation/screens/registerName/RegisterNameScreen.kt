@@ -1,6 +1,7 @@
 package uz.gita.maxwayappclone.presentation.screens.registerName
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -37,6 +38,8 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
             insets
         }
 
+        binding.infoTv.movementMethod = LinkMovementMethod.getInstance()
+
         binding.edDateOfBirth.setOnClickListener {
             binding.edDateOfBirth.setBackgroundResource(R.drawable.input_ed_bcg_selected)
 
@@ -55,6 +58,7 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
                     )
                 }
             }
+
             datePickerBottomSheet.show(parentFragmentManager, datePickerBottomSheet.tag)
         }
 

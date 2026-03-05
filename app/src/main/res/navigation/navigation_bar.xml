@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_bar"
-    app:startDestination="@id/mainScreen">
+    app:startDestination="@id/registerPhoneScreen2">
 
     <fragment
         android:id="@+id/notificationFragment"
@@ -19,16 +19,18 @@
         android:id="@+id/notificationDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.notification_detail.NotificationDetailFragment"
         android:label="NotificationDetailFragment"
-        tools:layout="@layout/screen_notification_detail"/>
+        tools:layout="@layout/screen_notification_detail" />
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchScreen"
-        android:label="SearchFragment" />
+        android:label="SearchFragment"
+        tools:layout="@layout/screen_search" />
     <fragment
         android:id="@+id/branchesFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment"
-        android:label="BranchesFragment">
+        android:label="BranchesFragment"
+        tools:layout="@layout/screen_branches">
         <action
             android:id="@+id/action_branchesFragment_to_branchDetailFragment"
             app:destination="@id/branchDetailFragment" />
@@ -37,7 +39,8 @@
     <fragment
         android:id="@+id/registerVerifyScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerVerify.RegisterVerifyScreen"
-        android:label="RegisterVerifyScreen">
+        android:label="RegisterVerifyScreen"
+        tools:layout="@layout/screen_register_verify">
         <action
             android:id="@+id/action_registerVerifyScreen2_to_registerNameScreen2"
             app:destination="@id/registerNameScreen2"
@@ -47,7 +50,8 @@
     <fragment
         android:id="@+id/registerPhoneScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerPhone.RegisterPhoneScreen"
-        android:label="RegisterPhoneScreen">
+        android:label="RegisterPhoneScreen"
+        tools:layout="@layout/screen_register_phone">
         <action
             android:id="@+id/action_registerPhoneScreen2_to_registerVerifyScreen2"
             app:destination="@id/registerVerifyScreen2" />
@@ -55,23 +59,25 @@
     <fragment
         android:id="@+id/registerNameScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.registerName.RegisterNameScreen"
-        android:label="RegisterNameScreen" />
+        android:label="RegisterNameScreen"
+        tools:layout="@layout/screen_register_name" />
 
     <fragment
         android:id="@+id/branchDetailFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchDetailFragment"
-        android:label="BranchDetailFragment" />
+        android:label="BranchDetailFragment"
+        tools:layout="@layout/screen_branch_detail" />
     <dialog
         android:id="@+id/editProfileBottomSheet"
         android:name="uz.gita.maxwayappclone.presentation.screens.prfileDialog.EditProfileBottomSheet"
-        android:label="EditProfileBottomSheet" />
+        android:label="EditProfileBottomSheet"
+        tools:layout="@layout/dialog_bottom_edit_profile_info" />
 
     <fragment
         android:id="@+id/mainScreen"
         android:name="uz.gita.maxwayappclone.presentation.screens.main.MainScreen"
         android:label="MainScreen"
         tools:layout="@layout/screen_main">
-
 
         <action
             android:id="@+id/action_mainScreen_to_notificationFragment"
@@ -96,14 +102,17 @@
             app:destination="@id/productInfoScreen2" />
     </fragment>
     <fragment
+        tools:layout="@layout/screen_stories"
         android:id="@+id/storiesScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.storiesScreen.StoriesScreen"
         android:label="StoriesScreen" />
     <fragment
+        tools:layout="@layout/screen_info_product"
         android:id="@+id/productInfoScreen2"
         android:name="uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen"
         android:label="ProductInfoScreen" />
     <fragment
+        tools:layout="@layout/screen_no_connection"
         android:id="@+id/noConnectionScreen"
         android:name="uz.gita.maxwayappclone.presentation.screens.noConnection.NoConnectionScreen"
         android:label="NoConnectionScreen" />
