@@ -8,7 +8,7 @@ import uz.gita.maxwayappclone.databinding.ItemStoryCircleBinding
 import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 
 class StoryAdapter(
-    private val onClick: (StoryData) -> Unit
+    private val onClick: (StoryData,Int) -> Unit
 ) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
     private val items = ArrayList<StoryData>()
@@ -35,13 +35,14 @@ class StoryAdapter(
     class ViewHolder(private val binding: ItemStoryCircleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: StoryData, onClick: (StoryData) -> Unit) {
+        fun bind(item: StoryData, onClick: (StoryData,Int) -> Unit) {
             binding.tvStoryName.text = item.name
+
             Glide.with(binding.root.context)
                 .load(item.url)
                 .centerCrop()
                 .into(binding.ivStory)
-            binding.root.setOnClickListener { onClick(item) }
+            binding.root.setOnClickListener { onClick(item,absoluteAdapterPosition) }
         }
     }
 }

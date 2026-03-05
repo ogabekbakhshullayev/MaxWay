@@ -1,13 +1,8 @@
 package uz.gita.maxwayappclone.presentation.screens.storiesScreen
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,31 +12,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 import uz.gita.maxwayappclone.databinding.ScreenStoriesBinding
-import uz.gita.maxwayappclone.presentation.adapter.Adapter1
+import uz.gita.maxwayappclone.presentation.adapter.StoriesVPAdapter
 
 class StoriesScreen : Fragment(R.layout.screen_stories) {
     private val binding by viewBinding(ScreenStoriesBinding::bind)
     private val viewModel by viewModels<StoriesViewModelImpl> { StoriesViewModelFactory() }
     private lateinit var arrayL: Array<StoryData>
-
-    // flow
-    val totalTime = 30000L
-    val timer = object : CountDownTimer(totalTime, 10) {
-        override fun onTick(millisUntilFinished: Long) {
-            val progress = ((totalTime - millisUntilFinished) * 100 / totalTime).toInt()
-            binding.progressBar.progress = progress
-        }
-
-        override fun onFinish() {
-            binding.progressBar.progress = 100
-            if (binding.vp.currentItem == arrayL.size - 1) {
-                Log.d("TTT", "popBackStack")
-                findNavController().popBackStack()
-            } else {
-                binding.vp.currentItem++
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,9 +26,25 @@ class StoriesScreen : Fragment(R.layout.screen_stories) {
         viewModel.storiesLiveData.observe(viewLifecycleOwner, Observer<Array<StoryData>> {
             Log.d("TTT", "observe")
             arrayL = it
-            binding.vp.adapter = Adapter1(arrayL, parentFragmentManager, lifecycle)
+            binding.vp.adapter = StoriesVPAdapter(arrayL, parentFragmentManager, lifecycle)
             binding.vp.registerOnPageChangeCallback(callBack)
+            binding.vp.currentItem = arguments?.getInt("POS", 0) ?: 0
         })
+
+        viewModel.timerLiveData.observe(viewLifecycleOwner) {
+            if (it == 30) {
+                binding.progressBar.progress = 100
+                if (binding.vp.currentItem == arrayL.size - 1) {
+                    Log.d("TTT", "popBackStack")
+                    findNavController().popBackStack()
+                } else {
+                    binding.vp.currentItem++
+                }
+            } else {
+                val progress = it * 3
+                binding.progressBar.progress = progress
+            }
+        }
 
         binding.closeBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -81,8 +73,6 @@ class StoriesScreen : Fragment(R.layout.screen_stories) {
             positionOffsetPixels: Int
         ) {
             super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            timer.cancel()
-            timer.start()
             Log.d("DDD", "position = $position")
             Log.d("DDD", "positionOffset = $positionOffset")
             Log.d("DDD", "positionOffsetPixels = $positionOffsetPixels")
@@ -90,12 +80,13 @@ class StoriesScreen : Fragment(R.layout.screen_stories) {
 
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-
+            viewModel.endTimer()
+            viewModel.startTimer()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        timer.cancel()
+        viewModel.endTimer()
     }
 }

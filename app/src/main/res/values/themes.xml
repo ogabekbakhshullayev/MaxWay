@@ -8,7 +8,51 @@
     <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/montserrat</item>
+    <style name="BottomNavText">
+        <!--        <item name="android:textSize">11sp</item>-->
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="Theme.MaxWayAppClone" parent="Base.Theme.MaxWayAppClone" />
+
+    <dimen name="pv_pin_view_cursor_width">2dp</dimen>
+    <dimen name="pv_pin_view_item_line_width">1dp</dimen>
+    <dimen name="pv_pin_view_item_radius">5dp</dimen>
+    <dimen name="pv_pin_view_item_size">42dp</dimen>
+    <dimen name="pv_pin_view_item_spacing">12dp</dimen>
+
+    <style name="PinWidget" />
+
+    <style name="PinWidget.PinView" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textCursorDrawable">@drawable/pv_invisible_image</item>
+        <item name="android:textSelectHandle">@drawable/pv_invisible_image</item>
+        <item name="android:textSelectHandleLeft">@drawable/pv_invisible_image</item>
+        <item name="android:textSelectHandleRight">@drawable/pv_invisible_image</item>
+    </style>
+
+    <declare-styleable name="PinView">
+        <attr name="itemCount" format="integer" />
+        <attr name="itemWidth" format="dimension" />
+        <attr name="itemHeight" format="dimension" />
+        <attr name="itemRadius" format="dimension" />
+        <attr name="itemSpacing" format="dimension" />
+        <attr name="lineWidth" format="dimension" />
+        <attr name="lineColor" format="reference|color" />
+        <attr name="viewType" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="line" value="1" />
+            <enum name="none" value="2" />
+        </attr>
+        <attr name="android:cursorVisible" />
+        <attr name="cursorWidth" format="dimension" />
+        <attr name="cursorColor" format="reference|color" />
+        <attr name="android:itemBackground" />
+        <attr name="hideLineWhenFilled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="PinViewTheme">
+        <attr name="pinViewStyle" format="reference" />
+    </declare-styleable>
 </resources>

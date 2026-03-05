@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.presentation.screens.registerPhone
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -40,12 +41,14 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
             insets
         }
 
+        binding.tvInfo.movementMethod = LinkMovementMethod.getInstance()
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.edPhone.setText("+998")
         binding.edPhone.setSelection(binding.edPhone.text.length)
-
         binding.edPhone.addTextChangedListener(textChangeListener)
         binding.edPhone.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -121,7 +124,7 @@ class RegisterPhoneScreen : Fragment(R.layout.screen_register_phone) {
                 binding.continueBtn.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        R.color.text_secondary
                     )
                 )
             }

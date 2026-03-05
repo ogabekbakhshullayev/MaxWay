@@ -41,6 +41,8 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             insets
         }
 
+        binding.tvInfo.text = "Код отправили на номер ${(arguments?.getString("phone", "") ?: "").phoneFormat()}"
+
         binding.backBtn.setOnClickListener {
             timer.cancel()
             findNavController().popBackStack()
@@ -75,6 +77,13 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
         }
     }
 
+    private fun String.phoneFormat(): String {
+        val sb = StringBuilder().append(this.take(4)).append(" (" + this.substring(4, 6) + ") ")
+            .append(this.substring(6, 9)).append(" ").append(this.substring(9, 11)).append(" ")
+            .append(this.substring(11, 13))
+        return sb.toString()
+    }
+
     private val timer = object : CountDownTimer(59000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             val str = getString(R.string.use_time)
@@ -88,7 +97,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             binding.continueBtn.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.black
+                    R.color.text_secondary
                 )
             )
             val str = getString(R.string.send_again)
@@ -120,7 +129,7 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
             binding.continueBtn.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.black
+                    R.color.text_secondary
                 )
             )
         }
@@ -163,11 +172,10 @@ class RegisterVerifyScreen : Fragment(R.layout.screen_register_verify) {
                 binding.continueBtn.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        R.color.text_secondary
                     )
                 )
             }
-
         }
     }
 }
