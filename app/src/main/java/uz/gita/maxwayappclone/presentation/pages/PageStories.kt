@@ -3,9 +3,7 @@ package uz.gita.maxwayappclone.presentation.pages
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.app.MyApp
 import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 import uz.gita.maxwayappclone.data.util.applyBlurEffect
 import uz.gita.maxwayappclone.databinding.PageStoryBinding

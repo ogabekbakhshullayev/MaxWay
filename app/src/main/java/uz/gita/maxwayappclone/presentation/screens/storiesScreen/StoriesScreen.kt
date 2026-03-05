@@ -1,7 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.storiesScreen
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment

@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenInfoProductBinding
 import uz.gita.maxwayappclone.utils.loadImageWithGlide
