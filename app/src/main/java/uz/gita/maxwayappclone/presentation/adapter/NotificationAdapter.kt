@@ -45,7 +45,7 @@ class NotificationAdapter(
             binding.notificationMassage.text = item.message
             Glide.with(context)
                 .load(item.imgURL)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.img_placeholder)
                 .into(binding.detailImage)
 
 

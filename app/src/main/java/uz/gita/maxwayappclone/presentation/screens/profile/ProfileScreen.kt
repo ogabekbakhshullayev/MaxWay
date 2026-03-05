@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,10 +21,17 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl> { ProfileViewModelFactory() }
 
     var date = ""
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getProfileInfo("01e48b85b1aa89d71d05688516524607")
+
+    }
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getProfileInfo("01e48b85b1aa89d71d05688516524607")
 
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
@@ -136,7 +144,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getProfileInfo(TokenManager.token)
+//        viewModel.getProfileInfo(TokenManager.token)
         Log.d("TTT", "onResume: $")
         observe()
     }
