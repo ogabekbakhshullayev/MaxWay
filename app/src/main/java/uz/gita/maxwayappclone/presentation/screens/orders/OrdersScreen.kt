@@ -59,7 +59,6 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 //			findNavController().navigate(R.id.noConnectionScreen)
 		}
 		viewModel.onClickOrder.observe(viewLifecycleOwner) { data ->
-			Timber.tag("TTT").d("$data")
 			if (data != null) {
 				val bundle = Bundle()
 				val gson = Gson()
