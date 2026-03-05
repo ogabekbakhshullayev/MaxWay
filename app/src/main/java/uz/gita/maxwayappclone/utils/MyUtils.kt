@@ -19,7 +19,7 @@ fun AppCompatImageView.loadImageWithGlide(path: String) {
     Glide.with(this.context)
         .load(path)
         .centerInside()
-        .placeholder(R.drawable.placeholder)
+        .placeholder(R.drawable.img_placeholder)
         .into(this)
 }
 

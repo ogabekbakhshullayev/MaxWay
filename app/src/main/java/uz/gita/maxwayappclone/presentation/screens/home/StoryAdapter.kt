@@ -37,6 +37,7 @@ class StoryAdapter(
 
         fun bind(item: StoryData, onClick: (StoryData,Int) -> Unit) {
             binding.tvStoryName.text = item.name
+
             Glide.with(binding.root.context)
                 .load(item.url)
                 .centerCrop()

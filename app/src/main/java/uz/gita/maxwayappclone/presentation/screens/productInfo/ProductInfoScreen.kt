@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenInfoProductBinding
+import uz.gita.maxwayappclone.utils.loadImageWithGlide
 
 class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
     private val binding by viewBinding(ScreenInfoProductBinding::bind)
@@ -26,8 +29,11 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.allContainer.setPadding(0, 42, 0, dpToPx(requireContext(), 84f))
+        ViewCompat.setOnApplyWindowInsetsListener(binding.allContainer) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(0, 0,0, systemBars.bottom)
+            insets
+        }
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -61,10 +67,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
         val cost = args.getLong("arg_cost", 0L)
         baseCost = cost
 
-        Glide.with(requireContext())
-            .load(image)
-            .placeholder(R.drawable.img_placeholder)
-            .into(binding.imgProduct)
+        binding.imgProduct.loadImageWithGlide(image)
         binding.titleTv.text = name
         binding.categoryName.text = name
         binding.infoTv.text = desc
