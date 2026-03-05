@@ -18,7 +18,7 @@ fun Long.formatPrice(): String {
 fun AppCompatImageView.loadImageWithGlide(path: String) {
     Glide.with(this.context)
         .load(path)
-        .centerInside()
+        .centerCrop()
         .placeholder(R.drawable.img_placeholder)
         .into(this)
 }

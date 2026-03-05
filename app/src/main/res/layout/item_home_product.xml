@@ -38,7 +38,7 @@
             android:layout_marginTop="6dp"
             android:text="60 000 сум"
             android:textColor="@color/violet"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -48,10 +48,9 @@
             android:layout_marginTop="4dp"
             android:maxLines="2"
             android:textStyle="bold"
-            android:fontFamily="@font/gold_play_bold"
             android:text="Рамадан бокс – лаваш куриный"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvDesc"
@@ -64,7 +63,7 @@
             android:textStyle="bold"
             android:text="Лаваш куриный-1 шт.\nФри S-1 шт."
             android:textColor="@color/dark_grey"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/btnAdd"
