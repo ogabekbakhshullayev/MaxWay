@@ -27,12 +27,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val filterAdapter = FilterChipAdapter { category ->
         scrollToCategory(category)
     }
-    private val storyAdapter = StoryAdapter {
-        findNavController().navigate(R.id.action_mainScreen_to_storiesScreen2)
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.main, StoriesScreen())
-//            .addToBackStack(null)
-//            .commit()
+    private val storyAdapter = StoryAdapter { _, pos ->
+        findNavController().navigate(
+            R.id.action_mainScreen_to_storiesScreen2,
+            bundleOf("POS" to pos)
+        )
     }
     private val adsPagerAdapter = AdsPagerAdapter()
     private val sectionAdapter = HomeSectionAdapter(
@@ -204,13 +203,15 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
     private fun openProductDetail(product: Product) {
-        findNavController().navigate(R.id.action_mainScreen_to_productInfoScreen2,bundleOf(
-            "arg_id" to product.id,
-            "arg_name" to product.name,
-            "arg_desc" to product.description,
-            "arg_image" to product.image,
-            "arg_cost" to product.cost
-        ))
+        findNavController().navigate(
+            R.id.action_mainScreen_to_productInfoScreen2, bundleOf(
+                "arg_id" to product.id,
+                "arg_name" to product.name,
+                "arg_desc" to product.description,
+                "arg_image" to product.image,
+                "arg_cost" to product.cost
+            )
+        )
 //        parentFragmentManager.beginTransaction().replace(
 //            R.id.main,
 //            ProductInfoScreen::class.java,
