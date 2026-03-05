@@ -10,7 +10,7 @@ import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 import uz.gita.maxwayappclone.data.util.applyBlurEffect
 import uz.gita.maxwayappclone.databinding.PageStoryBinding
 
-class PageT1(private val arrayL: Array<StoryData>) : Fragment(R.layout.page_story) {
+class PageStories(private val arrayL: Array<StoryData>) : Fragment(R.layout.page_story) {
     private lateinit var binding: PageStoryBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
