@@ -45,5 +45,10 @@ class DatePickerBottomSheet : BottomSheetDialogFragment() {
             onDateSelectedListener?.invoke(day, month, year)
             dismiss()
         }
+
+        val maxDateCalendar = Calendar.getInstance()
+        maxDateCalendar.add(Calendar.MONTH, 0)
+        datePicker.maxDate = maxDateCalendar.timeInMillis
+
     }
 }
