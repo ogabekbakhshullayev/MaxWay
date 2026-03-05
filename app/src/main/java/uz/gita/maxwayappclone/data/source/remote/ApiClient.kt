@@ -29,7 +29,7 @@ object ApiClient {
         .client(okHttpClient)
         .baseUrl("" +
                 "" +
-                "https://erick-fustigatory-khadijah.ngrok-free.dev")
+                "https://superzealously-frumentaceous-illa.ngrok-free.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

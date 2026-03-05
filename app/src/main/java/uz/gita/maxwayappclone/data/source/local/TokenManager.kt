@@ -13,7 +13,7 @@ object TokenManager {
 //	}
 
 	var token
-		get() = pref.getString("TOKEN", "01e48b85b1aa89d71d05688516524607") ?: "01e48b85b1aa89d71d05688516524607"
+		get() = pref.getString("TOKEN", "") ?: ""
 		set(value) {
 			pref.edit { putString("TOKEN", value) }
 		}

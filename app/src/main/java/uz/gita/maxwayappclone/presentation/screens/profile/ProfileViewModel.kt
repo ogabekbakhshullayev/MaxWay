@@ -12,5 +12,8 @@ interface ProfileViewModel {
 
     var userResponse: EditProfileResponse?
 
-    fun getProfileInfo(token: String)
+    var dateLiveData: MutableLiveData<String>
+    var nameLiveData: MutableLiveData<String>
+
+    fun getProfileInfo()
 }

@@ -1,11 +1,10 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,77 +17,69 @@ import kotlin.getValue
 
 class ProfileScreen : Fragment(R.layout.screen_profile) {
 
+    private var isLoggedIn = false
     private val binding by viewBinding(ScreenProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl> { ProfileViewModelFactory() }
 
-    var date = ""
-
     override fun onStart() {
         super.onStart()
-        viewModel.getProfileInfo("01e48b85b1aa89d71d05688516524607")
-
+        if (isLoggedIn){
+            viewModel.getProfileInfo()
+            isLoggedIn = false
+        }
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
 
         editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner) {
-            binding.profileName.text = it
+            viewModel.nameLiveData.value = it
         }
         editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner) {
-            date = it
+            viewModel.dateLiveData.value = it
         }
         editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner) {
             binding.profilePhone.text = it
         }
 
-
-//        parentFragmentManager.setFragmentResultListener("edit_profile_result",viewLifecycleOwner){
-//            _,bundle->
-//            binding.profileName.text = bundle.getString("name")
-//        }
-
-
         binding.buttonEdit.setOnClickListener {
 
             val bundle = Bundle().apply {
                 if (viewModel.userResponse != null) {
-                    putString("name", binding.profileName.text.toString())
+                    putString("name", viewModel.nameLiveData.value)
                     putString("phone", binding.profilePhone.text.toString())
-                    putString("birth", date)
+                    putString("birth", viewModel.dateLiveData.value)
                 }
             }
             findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet, bundle)
 
         }
         toasts()
+        observe()
+
         binding.buttonLogOut.setOnClickListener {
-//            TokenManager.token = ""
+            isLoggedIn = true
+            TokenManager.token = ""
             login(false)
         }
         binding.buttonLogin.setOnClickListener {
+            isLoggedIn = true
             findNavController().navigate(R.id.action_mainScreen_to_registerPhoneScreen2)
         }
         login(!TokenManager.token.isEmpty())
     }
-//    private fun loadView(response: EditProfileResponse){
-//        binding.profileName.text = response.name
-//        binding.profilePhone.text = response.phone
-//    }
 
     private fun observe() {
-
         viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
-
-            binding.profileName.text = response.name
+            viewModel.nameLiveData.value = response.name
             binding.profilePhone.text = response.phone
-            date = response.birthDate
+            viewModel.dateLiveData.value = response.birthDate
             viewModel.userResponse = response
-
         }
 
         viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) {
@@ -97,6 +88,9 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
         viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.nameLiveData.observe(viewLifecycleOwner){
+            binding.profileName.text = viewModel.nameLiveData.value
         }
     }
 
@@ -109,6 +103,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             binding.logOutContainer.visibility = View.VISIBLE
             binding.loginInContainer.visibility = View.GONE
             binding.buttonLogOut.visibility = View.GONE
+            binding.progress.visibility = View.GONE
         }
     }
 
@@ -137,12 +132,5 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         binding.buttonLanguage.setOnClickListener {
             Toast.makeText(requireContext(), "language clicked", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        viewModel.getProfileInfo(TokenManager.token)
-        Log.d("TTT", "onResume: $")
-        observe()
     }
 }
