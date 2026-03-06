@@ -6,6 +6,8 @@
     android:layout_marginTop="12dp"
     android:layout_marginBottom="6dp"
     android:text="Promotion"
+    android:paddingLeft="12dp"
+    android:fontFamily="@font/sf_pro_bold"
     android:textColor="@color/black"
-    android:textSize="18sp"
+    android:textSize="20sp"
     android:textStyle="bold" />

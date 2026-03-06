@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="72dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
+    android:layout_marginHorizontal="4dp"
     android:gravity="center"
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
         android:background="@drawable/bg_circle_image"
-        android:padding="2dp">
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/ivStory"
@@ -19,18 +19,22 @@
             android:background="@drawable/bg_circle_image"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/placeholder" />
+            android:src="@drawable/img_placeholder" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/tvStoryName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="4dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
         android:ellipsize="end"
         android:maxLines="1"
+        android:fontFamily="@font/gold_play_regular"
         android:text="Aksiya"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="11sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>
