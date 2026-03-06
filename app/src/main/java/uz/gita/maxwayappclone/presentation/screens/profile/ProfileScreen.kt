@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,38 +52,35 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
         viewModel.nameLiveData.observe(viewLifecycleOwner){ binding.profileName.text = viewModel.nameLiveData.value }
 
-        toasts()
         uiActions()
+    }
 
+
+    private fun uiActions(){
+
+        binding.buttonLogin.setOnClickListener {
+            isLoggedIn = true
+            findNavController().navigate(R.id.action_mainScreen_to_registerPhoneScreen2)
+        }
 
         binding.buttonLogOut.setOnClickListener {
             isLoggedIn = true
             TokenManager.token = ""
             login(false)
         }
-        binding.buttonLogin.setOnClickListener {
-            isLoggedIn = true
-            findNavController().navigate(R.id.action_mainScreen_to_registerPhoneScreen2)
-        }
-        login(!TokenManager.token.isEmpty())
-    }
 
-
-    private fun uiActions(){
         binding.balance.text = 0L.formatPrice()
 
         binding.buttonEdit.setOnClickListener {
-
-            val bundle = Bundle().apply {
-                if (viewModel.userResponse != null) {
-                    putString("name", viewModel.nameLiveData.value)
-                    putString("phone", binding.profilePhone.text.toString())
-                    putString("birth", viewModel.dateLiveData.value)
-                }
-            }
-            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet, bundle)
-
+            findNavController().navigate(
+                resId =  R.id.action_mainScreen_to_editProfileBottomSheet,
+                args = bundleOf("NAME" to viewModel.nameLiveData.value,"PHONE" to binding.profilePhone.text.toString(),"BIRTH" to viewModel.dateLiveData.value)
+            )
         }
+
+        toasts()
+
+        login(!TokenManager.token.isEmpty())
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
@@ -91,16 +88,24 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
 
     private fun login(isLogin: Boolean) {
-        if (isLogin) {
-            binding.logOutContainer.visibility = View.GONE
-            binding.loginInContainer.visibility = View.VISIBLE
-            binding.buttonLogOut.visibility = View.VISIBLE
-        } else {
-            binding.logOutContainer.visibility = View.VISIBLE
-            binding.loginInContainer.visibility = View.GONE
-            binding.buttonLogOut.visibility = View.GONE
-            binding.progress.visibility = View.GONE
-        }
+        binding.logOutContainer.isVisible = !isLogin
+        binding.loginInContainer.isVisible = isLogin
+        binding.buttonLogOut.isVisible = isLogin
+
+
+//        if (isLogin) {
+//            binding.logOutContainer.visibility = View.GONE
+//            binding.loginInContainer.visibility = View.VISIBLE
+//            binding.buttonLogOut.visibility = View.VISIBLE
+//        } else {
+//            binding.logOutContainer.visibility = View.VISIBLE
+//            binding.loginInContainer.visibility = View.GONE
+//            binding.buttonLogOut.visibility = View.GONE
+//            binding.progress.visibility = View.GONE
+//
+    //
+    //
+    //        }
     }
 
     fun toasts() {
@@ -130,3 +135,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
     }
 }
+
+
+//mkjnuh

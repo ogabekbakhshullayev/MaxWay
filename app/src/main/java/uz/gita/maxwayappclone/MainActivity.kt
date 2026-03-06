@@ -2,7 +2,6 @@ package uz.gita.maxwayappclone
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
