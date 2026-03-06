@@ -14,8 +14,6 @@
 
     </Transition>
 
-
-    <!-- START STATE -->
     <ConstraintSet android:id="@+id/start">
 
         <Constraint
@@ -39,8 +37,6 @@
 
     </ConstraintSet>
 
-
-    <!-- END STATE -->
     <ConstraintSet android:id="@+id/end">
 
         <Constraint
