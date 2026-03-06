@@ -72,6 +72,11 @@
     <string name="burgers">Бургеры</string>
     <string name="max_burger">Макс Бургер</string>
     <string name="sum"> сум</string>
+    <string name="save_text">Сохранить</string>
+    <string name="phone_text">Номер телефона</string>
+    <string name="date_text">Дата рождения</string>
+    <string name="name_text">Имя</string>
+    <string name="profile_dialog_top_text">Изменения данных</string>
 
     <string name="link_register_login">Нажимя "Продолжить", вы соглощаетесь с\n<a href="https://maxway.uz/ru">Политикой конфиденсиональности</a>, и <a href="https://maxway.uz/ru">Публичной оферты</a></string>
     <string name="link_register_name">Создавая аккаунт, вы принимаете\n<a href="https://maxway.uz/ru">Условия использования</a> Max Way</string>

@@ -1,4 +1,4 @@
-package uz.gita.maxwayappclone.presentation.screens.prfileDialog
+package uz.gita.maxwayappclone.presentation.screens.profile_dialog
 
 import android.os.Bundle
 import android.view.View

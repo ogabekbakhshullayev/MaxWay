@@ -6,12 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/button_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/button_back"
+        android:src="@drawable/ic_back"
         android:elevation="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="@id/search"
         app:layout_constraintEnd_toStartOf="@id/search"
         app:layout_constraintStart_toStartOf="parent"

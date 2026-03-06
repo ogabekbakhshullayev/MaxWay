@@ -32,35 +32,27 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
 
-        editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner) {
-            viewModel.nameLiveData.value = it
-        }
-        editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner) {
-            viewModel.dateLiveData.value = it
-        }
-        editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner) {
-            binding.profilePhone.text = it
-        }
+        editeDate?.getLiveData<String>("name")?.observe(viewLifecycleOwner) { viewModel.nameLiveData.value = it }
+        editeDate?.getLiveData<String>("date")?.observe(viewLifecycleOwner) { viewModel.dateLiveData.value = it }
+        editeDate?.getLiveData<String>("phone")?.observe(viewLifecycleOwner) { binding.profilePhone.text = it }
 
-        binding.buttonEdit.setOnClickListener {
-
-            val bundle = Bundle().apply {
-                if (viewModel.userResponse != null) {
-                    putString("name", viewModel.nameLiveData.value)
-                    putString("phone", binding.profilePhone.text.toString())
-                    putString("birth", viewModel.dateLiveData.value)
-                }
-            }
-            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet, bundle)
-
+        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
+            viewModel.nameLiveData.value = response.name
+            binding.profilePhone.text = response.phone
+            viewModel.dateLiveData.value = response.birthDate
+            viewModel.userResponse = response
         }
+        viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) { binding.progress.isVisible = it }
+        viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
+        viewModel.nameLiveData.observe(viewLifecycleOwner){ binding.profileName.text = viewModel.nameLiveData.value }
+
         toasts()
-        observe()
+
 
         binding.buttonLogOut.setOnClickListener {
             isLoggedIn = true
@@ -74,25 +66,26 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         login(!TokenManager.token.isEmpty())
     }
 
-    private fun observe() {
-        viewModel.getInfoSuccessLiveData.observe(viewLifecycleOwner) { response ->
-            viewModel.nameLiveData.value = response.name
-            binding.profilePhone.text = response.phone
-            viewModel.dateLiveData.value = response.birthDate
-            viewModel.userResponse = response
+
+    private fun uiActions(){
+
+        binding.buttonEdit.setOnClickListener {
+
+            val bundle = Bundle().apply {
+                if (viewModel.userResponse != null) {
+                    putString("name", viewModel.nameLiveData.value)
+                    putString("phone", binding.profilePhone.text.toString())
+                    putString("birth", viewModel.dateLiveData.value)
+                }
+            }
+            findNavController().navigate(R.id.action_mainScreen_to_editProfileBottomSheet, bundle)
+
         }
 
-        viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) {
-            binding.progress.isVisible = it
-        }
-
-        viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }
-        viewModel.nameLiveData.observe(viewLifecycleOwner){
-            binding.profileName.text = viewModel.nameLiveData.value
-        }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
+
+
 
     private fun login(isLogin: Boolean) {
         if (isLogin) {

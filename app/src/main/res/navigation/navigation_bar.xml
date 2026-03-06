@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_bar"
-    app:startDestination="@id/registerPhoneScreen2">
+    app:startDestination="@id/mainScreen">
 
     <fragment
         android:id="@+id/notificationFragment"
@@ -69,7 +69,7 @@
         tools:layout="@layout/screen_branch_detail" />
     <dialog
         android:id="@+id/editProfileBottomSheet"
-        android:name="uz.gita.maxwayappclone.presentation.screens.prfileDialog.EditProfileBottomSheet"
+        android:name="uz.gita.maxwayappclone.presentation.screens.profile_dialog.EditProfileBottomSheet"
         android:label="EditProfileBottomSheet"
         tools:layout="@layout/dialog_bottom_edit_profile_info" />
 

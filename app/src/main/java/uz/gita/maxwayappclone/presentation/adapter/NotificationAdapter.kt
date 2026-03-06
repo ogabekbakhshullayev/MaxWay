@@ -10,7 +10,7 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.databinding.ItemNotificationBinding
 
-class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
+class NotificationAdapter: ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
 
     private var onItemClickListener: ((NotificationResponse) -> Unit)? = null
 

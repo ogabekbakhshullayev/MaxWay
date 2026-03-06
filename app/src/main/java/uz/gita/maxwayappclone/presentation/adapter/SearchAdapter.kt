@@ -11,21 +11,20 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ItemProductBinding
 
-class SearchAdapter(
-    private val context: Context
-): ListAdapter<SearchResponse, SearchAdapter.SearchViewHolder>(SearchDiff) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder
-       = SearchViewHolder(ItemProductBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+class SearchAdapter: ListAdapter<SearchResponse, SearchAdapter.SearchViewHolder>(SearchDiff) {
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) = holder.bind(getItem(position))
-
+    private var onItemClickListener: ((SearchResponse) -> Unit)? = null
     inner class SearchViewHolder(private val binding: ItemProductBinding): RecyclerView.ViewHolder(binding.root){
+
+        init {
+            binding.root.setOnClickListener { onItemClickListener?.invoke(getItem(absoluteAdapterPosition)) }
+        }
 
         fun bind(item: SearchResponse){
             binding.name.text = item.name
             binding.description.text = item.description
             binding.cost.text = item.cost.toString()
-            Glide.with(context)
+            Glide.with(binding.root.context)
                 .load(item.image)
                 .placeholder(R.drawable.placeholder)
                 .into(binding.image)
@@ -41,5 +40,11 @@ class SearchAdapter(
             return oldItem == newItem
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder
+            = SearchViewHolder(ItemProductBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) = holder.bind(getItem(position))
+
 
 }
