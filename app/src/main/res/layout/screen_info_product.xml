@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/all_container"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uz.gita.maxwayappclone.presentation.screens.productInfo.ProductInfoScreen"
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +17,9 @@
 
         <ImageView
             android:id="@+id/back_btn"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:padding="3dp"
             android:layout_marginLeft="14dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:src="@drawable/back_btn"
@@ -39,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ItemHomeProductBinding
-import uz.gita.maxwayappclone.domain.model.Product
+
 class HomeProductAdapter : RecyclerView.Adapter<HomeProductAdapter.ViewHolder>() {
 
-    private val items = ArrayList<Product>()
+    private val items = ArrayList<ProductUIData>()
 
-    fun submitList(list: List<Product>) {
+    fun submitList(list: List<ProductUIData>) {
         items.clear()
         items.addAll(list)
 
@@ -33,7 +34,7 @@ class HomeProductAdapter : RecyclerView.Adapter<HomeProductAdapter.ViewHolder>()
     class ViewHolder(private val binding: ItemHomeProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Product) {
+        fun bind(item: ProductUIData) {
             Glide.with(binding.root.context)
                 .load(item.image)
                 .centerCrop()

@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ItemHomeHeaderBinding
 import uz.gita.maxwayappclone.databinding.ItemHomeProductBinding
-import uz.gita.maxwayappclone.domain.model.Product
 
 sealed class HomeItem {
     data class Header(val categoryId: Long, val title: String) : HomeItem()
-    data class ProductItem(val product: Product) : HomeItem()
+    data class ProductItem(val product: ProductUIData) : HomeItem()
 }
 
 class HomeSectionAdapter(
-    private val onProductClick: (Product) -> Unit,
-    private val onCountChange: (Product, Int) -> Unit
+    private val onProductClick: (ProductUIData) -> Unit,
+    private val onCountChange: (ProductUIData, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = ArrayList<HomeItem>()
@@ -93,9 +93,9 @@ class HomeSectionAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: Product,
-            onProductClick: (Product) -> Unit,
-            onCountChange: (Product, Int) -> Unit,
+            item: ProductUIData,
+            onProductClick: (ProductUIData) -> Unit,
+            onCountChange: (ProductUIData, Int) -> Unit,
             count: Int
         ) {
             Glide.with(binding.root.context)

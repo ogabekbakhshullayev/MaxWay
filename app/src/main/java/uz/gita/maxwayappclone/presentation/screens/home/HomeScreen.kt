@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
 import uz.gita.maxwayappclone.domain.model.Category
-import uz.gita.maxwayappclone.domain.model.Product
 
 class HomeScreen : Fragment(R.layout.screen_home) {
 
@@ -27,12 +27,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val filterAdapter = FilterChipAdapter { category ->
         scrollToCategory(category)
     }
-    private val storyAdapter = StoryAdapter {
-        findNavController().navigate(R.id.action_mainScreen_to_storiesScreen2)
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.main, StoriesScreen())
-//            .addToBackStack(null)
-//            .commit()
+    private val storyAdapter = StoryAdapter { _, pos ->
+        findNavController().navigate(
+            R.id.action_mainScreen_to_storiesScreen2,
+            bundleOf("POS" to pos)
+        )
     }
     private val adsPagerAdapter = AdsPagerAdapter()
     private val sectionAdapter = HomeSectionAdapter(
@@ -45,7 +44,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     )
 
     private var categories: List<Category> = emptyList()
-    private var products: List<Product> = emptyList()
+    private var products: List<ProductUIData> = emptyList()
     private var selectedCategoryId: Long? = null
     private var isProgrammaticScroll = false
     private var pendingCategoryId: Long? = null
@@ -203,28 +202,17 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         sectionAdapter.submitList(items)
     }
 
-    private fun openProductDetail(product: Product) {
-        findNavController().navigate(R.id.action_mainScreen_to_productInfoScreen2,bundleOf(
-            "arg_id" to product.id,
-            "arg_name" to product.name,
-            "arg_desc" to product.description,
-            "arg_image" to product.image,
-            "arg_cost" to product.cost
-        ))
-//        parentFragmentManager.beginTransaction().replace(
-//            R.id.main,
-//            ProductInfoScreen::class.java,
-//            bundleOf(
-//                "arg_id" to product.id,
-//                "arg_name" to product.name,
-//                "arg_desc" to product.description,
-//                "arg_image" to product.image,
-//                "arg_cost" to product.cost
-//            ),
-//            "tag"
-//        ).addToBackStack(null).commit()
+    private fun openProductDetail(product: ProductUIData) {
+        findNavController().navigate(
+            R.id.action_mainScreen_to_productInfoScreen2, bundleOf(
+                "arg_id" to product.id,
+                "arg_name" to product.name,
+                "arg_desc" to product.description,
+                "arg_image" to product.image,
+                "arg_cost" to product.cost
+            )
+        )
     }
-
 
     override fun onResume() {
         super.onResume()

@@ -1,6 +1,5 @@
 package uz.gita.maxwayappclone.presentation.screens.search
 
-
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -15,17 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
+import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
 
-
-class SearchScreen: Fragment(R.layout.screen_search) {
+class SearchScreen : Fragment(R.layout.screen_search) {
 
     private val binding by viewBinding(ScreenSearchBinding::bind)
-    private val viewModel: SearchViewModel by viewModels <SearchViewModelImpl>{ SearchViewModelFactory() }
-    private lateinit var adapter: SearchAdapter
-
+    private val viewModel: SearchViewModel by viewModels<SearchViewModelImpl> { SearchViewModelFactory() }
+    private val adapter by lazy { SearchAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,18 +31,15 @@ class SearchScreen: Fragment(R.layout.screen_search) {
             findNavController().popBackStack()
         }
 
-        adapter = SearchAdapter(requireContext())
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL,false)
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
         observe()
+
         binding.search.post {
             binding.search.requestFocus()
             val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.search, InputMethodManager.SHOW_IMPLICIT)
         }
-
-
-
 
         binding.search.addTextChangedListener(
             object : TextWatcher {
@@ -57,9 +52,8 @@ class SearchScreen: Fragment(R.layout.screen_search) {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.textTitle.visibility = View.VISIBLE
                         viewModel.getSearchResult(s.toString())
-                    }
-                    else{
-                        adapter.submitList(emptyList<SearchResponse>())
+                    } else {
+                        adapter.submitList(emptyList<ProductUIData>())
                         adapter.notifyDataSetChanged()
                         binding.textTitle.visibility = View.GONE
                     }
@@ -71,23 +65,22 @@ class SearchScreen: Fragment(R.layout.screen_search) {
             }
         )
     }
-    private fun observe(){
-         viewModel.loadingLiveData.observe(viewLifecycleOwner){
-             binding.progress.isVisible = it
-         }
-        viewModel.searchLiveData.observe(viewLifecycleOwner){responses ->
+
+    private fun observe() {
+
+        viewModel.productsLiveData.observe(viewLifecycleOwner) { responses ->
             adapter.submitList(responses)
-            if (responses.isEmpty()){
+            if (responses.isEmpty()) {
                 binding.textTitle.visibility = View.GONE
                 binding.imageNotFound.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 binding.imageNotFound.visibility = View.GONE
             }
         }
-        viewModel.errorMessageLiveData.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+
+        viewModel.emptyResultLiveData.observe(viewLifecycleOwner) {
+//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
-
 }
+

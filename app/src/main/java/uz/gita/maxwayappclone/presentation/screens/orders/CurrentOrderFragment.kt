@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenCurrentOrderBinding
 import uz.gita.maxwayappclone.presentation.adapter.CurrentOrderAdapter
@@ -42,7 +41,14 @@ class CurrentOrderFragment: Fragment(R.layout.screen_current_order) {
 
 	fun observe() {
 		viewModel.loadingLiveData.observe(viewLifecycleOwner) { bool ->
-			binding.loadingProgress.isVisible = bool
+			if (bool) {
+				binding.shimmerLayout.startShimmer()
+                binding.emptyList.isVisible = false
+                binding.recyclerView.isVisible = false
+			} else {
+				binding.shimmerLayout.stopShimmer()
+			}
+			binding.shimmerLayout.isVisible = bool
 		}
 		viewModel.orderLiveData.observe(viewLifecycleOwner) { list ->
 			if (list.isNullOrEmpty()) {
