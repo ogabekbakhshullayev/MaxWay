@@ -113,6 +113,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     val catId = sectionAdapter.getCategoryForPosition(first)
                     if (catId != null && catId != selectedCategoryId) {
                         selectedCategoryId = catId
+                        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
                         filterAdapter.submitList(categories, selectedCategoryId)
                     }
                 }
@@ -126,6 +127,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     isProgrammaticScroll = false
                     pendingCategoryId?.let { id ->
                         selectedCategoryId = id
+                        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
                         filterAdapter.submitList(categories, selectedCategoryId)
                     }
                     pendingCategoryId = null
@@ -145,6 +147,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             if (selectedCategoryId == null) {
                 selectedCategoryId = list.firstOrNull()?.id
             }
+            binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
             filterAdapter.submitList(list, selectedCategoryId)
             updateSections()
         }
@@ -171,6 +174,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     private fun scrollToCategory(category: Category) {
         selectedCategoryId = category.id
+        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
         filterAdapter.submitList(categories, selectedCategoryId)
         val pos = sectionAdapter.getPositionForCategory(category.id)
         if (pos >= 0) {
@@ -180,9 +184,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             binding.rvProducts.post {
                 val lm = binding.rvProducts.layoutManager as? GridLayoutManager
                 if (lm != null) {
-                    lm.scrollToPositionWithOffset(pos, 0)
+                    binding.rvProducts.smoothScrollToPosition(pos)
                 } else {
-                    binding.rvProducts.scrollToPosition(pos)
+                    binding.rvProducts.smoothScrollToPosition(pos)
                 }
                 binding.rvProducts.postDelayed({
                     isProgrammaticScroll = false

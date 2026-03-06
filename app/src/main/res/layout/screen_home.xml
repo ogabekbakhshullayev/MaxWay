@@ -94,6 +94,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingLeft="4dp"
                 android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 android:overScrollMode="never"
                 tools:listitem="@layout/item_story_circle" />
 
@@ -113,6 +115,8 @@
             android:layout_marginTop="10dp"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             android:clipToPadding="false"
             android:background="@color/purple_white"
             android:overScrollMode="never"
@@ -122,6 +126,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         android:layout_height="match_parent"
         android:paddingTop="8dp"
         android:paddingStart="4dp"
