@@ -184,8 +184,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             binding.rvProducts.post {
                 val lm = binding.rvProducts.layoutManager as? GridLayoutManager
                 if (lm != null) {
+                    binding.motionHome.transitionToEnd()
                     binding.rvProducts.smoothScrollToPosition(pos)
                 } else {
+                    binding.motionHome.transitionToEnd()
                     binding.rvProducts.smoothScrollToPosition(pos)
                 }
                 binding.rvProducts.postDelayed({
