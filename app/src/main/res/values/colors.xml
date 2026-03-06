@@ -29,6 +29,7 @@
     <color name="lightest_grey">#EBEDF0</color>
     <color name="none">#0000</color>
     <color name="green">#5ed069</color>
+    <color name="default_background_color">#F1F2F6</color>
 
     <color name="link_color">#77B2E0</color>
     <color name="shimmer_color">#CECFD2</color>

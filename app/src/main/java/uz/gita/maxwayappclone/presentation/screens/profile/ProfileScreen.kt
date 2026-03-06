@@ -13,6 +13,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.ScreenProfileBinding
+import uz.gita.maxwayappclone.utils.formatPrice
 import kotlin.getValue
 
 class ProfileScreen : Fragment(R.layout.screen_profile) {
@@ -52,6 +53,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         viewModel.nameLiveData.observe(viewLifecycleOwner){ binding.profileName.text = viewModel.nameLiveData.value }
 
         toasts()
+        uiActions()
 
 
         binding.buttonLogOut.setOnClickListener {
@@ -68,6 +70,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
 
     private fun uiActions(){
+        binding.balance.text = 0L.formatPrice()
 
         binding.buttonEdit.setOnClickListener {
 

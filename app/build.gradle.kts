@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://erick-fustigatory-khadijah.ngrok-free.dev/\"")
+            buildConfigField("String", "BASE_URL", "\"https://superzealously-frumentaceous-illa.ngrok-free.dev/\"")
         }
         release {
             isMinifyEnabled = false
