@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
@@ -28,6 +30,7 @@ class HomeViewModel(
     private val setProductCountUseCase: SetProductCountUseCase
 ) : ViewModel() {
 
+    private var pending = MutableStateFlow(0)
     private val _adsLiveData = MutableLiveData<List<Ad>>()
     val adsLiveData: LiveData<List<Ad>> = _adsLiveData
 
@@ -61,10 +64,10 @@ class HomeViewModel(
 
     fun loadHome() {
         _loadingLiveData.value = true
-        var pending = 4
+        pending.value = 4
         fun done() {
-            pending -= 1
-            if (pending <= 0) _loadingLiveData.value = false
+            pending.value -= 1
+            if (pending.value <= 0) _loadingLiveData.value = false
         }
 
         getAdsUseCase()
