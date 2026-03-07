@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.presentation.screens.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -37,9 +38,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val sectionAdapter = HomeSectionAdapter(
         onProductClick = { product ->
             openProductDetail(product)
-        },
-        onCountChange = { product, newCount ->
-            viewModel.setProductCount(product.id, newCount)
         }
     )
 
@@ -63,6 +61,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sectionAdapter.onCountChangeListener { data, i ->
+            sectionAdapter.notifyDataSetChanged()
+        }
 
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.action_mainScreen_to_searchFragment)
@@ -113,6 +115,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     val catId = sectionAdapter.getCategoryForPosition(first)
                     if (catId != null && catId != selectedCategoryId) {
                         selectedCategoryId = catId
+                        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
                         filterAdapter.submitList(categories, selectedCategoryId)
                     }
                 }
@@ -126,6 +129,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                     isProgrammaticScroll = false
                     pendingCategoryId?.let { id ->
                         selectedCategoryId = id
+                        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
                         filterAdapter.submitList(categories, selectedCategoryId)
                     }
                     pendingCategoryId = null
@@ -137,6 +141,13 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         binding.vpAds.offscreenPageLimit = 3
         binding.vpAds.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
+        binding.rvProducts.post {
+            if (binding.rvProducts.childCount < 2) {
+                Log.d("BBB", binding.rvProducts.childCount.toString())
+                viewModel.loadHome()
+            }
+        }
+
         viewModel.adsLiveData.observe(viewLifecycleOwner) { ads ->
             adsPagerAdapter.submitList(ads)
         }
@@ -145,6 +156,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             if (selectedCategoryId == null) {
                 selectedCategoryId = list.firstOrNull()?.id
             }
+            binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
             filterAdapter.submitList(list, selectedCategoryId)
             updateSections()
         }
@@ -165,12 +177,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
-
-        viewModel.loadHome()
     }
 
     private fun scrollToCategory(category: Category) {
         selectedCategoryId = category.id
+        binding.rvFilters.smoothScrollToPosition(selectedCategoryId?.toInt() ?: 0)
         filterAdapter.submitList(categories, selectedCategoryId)
         val pos = sectionAdapter.getPositionForCategory(category.id)
         if (pos >= 0) {
@@ -180,9 +191,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             binding.rvProducts.post {
                 val lm = binding.rvProducts.layoutManager as? GridLayoutManager
                 if (lm != null) {
-                    lm.scrollToPositionWithOffset(pos, 0)
+                    binding.motionHome.transitionToEnd()
+                    binding.rvProducts.smoothScrollToPosition(pos)
                 } else {
-                    binding.rvProducts.scrollToPosition(pos)
+                    binding.motionHome.transitionToEnd()
+                    binding.rvProducts.smoothScrollToPosition(pos)
                 }
                 binding.rvProducts.postDelayed({
                     isProgrammaticScroll = false
@@ -209,7 +222,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 "arg_name" to product.name,
                 "arg_desc" to product.description,
                 "arg_image" to product.image,
-                "arg_cost" to product.cost
+                "arg_cost" to product.cost,
+                "arg_count" to product.count
             )
         )
     }

@@ -21,10 +21,10 @@ class ProductInfoViewModelImpl(
     override val countLiveData = MutableLiveData<Int>()
     private var currentProductId: Int = -1
 
-    override fun bind(productId: Long) {
+    override fun bind(productId: Long,count:Int) {
         if (currentProductId.toLong() == productId) return
         currentProductId = productId.toInt()
-        val count = getProductCountUseCase(productId)
+        val count = count
         countLiveData.value = if (count > 0) count else 1
     }
 

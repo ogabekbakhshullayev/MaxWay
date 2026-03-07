@@ -64,6 +64,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
         val desc = args.getString("arg_desc").orEmpty()
         val image = args.getString("arg_image").orEmpty()
         val cost = args.getLong("arg_cost", 0L)
+        val count = args.getInt("arg_count", 1)
         baseCost = cost
 
         binding.imgProduct.loadImageWithGlide(image)
@@ -73,7 +74,7 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
         binding.priceTv.text = formatPrice(cost)
 
         if (productId != -1L) {
-            viewModel.bind(productId)
+            viewModel.bind(productId,count)
         }
     }
 
@@ -97,13 +98,5 @@ class ProductInfoScreen : Fragment(R.layout.screen_info_product) {
             if (remaining > 0 && remaining % 3 == 0) sb.append(' ')
         }
         return "${sb} сум"
-    }
-
-    fun dpToPx(context: Context, dp: Float): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp,
-            context.resources.displayMetrics
-        ).toInt()
     }
 }
