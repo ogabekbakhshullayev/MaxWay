@@ -4,13 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp">
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +23,14 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_placeholder"/>
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Донар кебаб куриный"
@@ -37,6 +40,7 @@
                 android:fontFamily="@font/gold_play_bold"/>
 
             <TextView
+                android:id="@+id/weigh_gram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="330 г"
@@ -46,6 +50,7 @@
                 android:fontFamily="@font/gold_play_regular"/>
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Куриное донар мясо, рис с кукурузой, картофель фри, салат из красной капусты, томатный соус"
@@ -61,7 +66,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomLayout"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,30 +107,30 @@
 
             <TextView
                 android:id="@+id/btn_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/minus"
                 android:textSize="28sp"
                 android:textColor="@color/black"
-                android:layout_marginHorizontal="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_marginHorizontal="10dp"/>
 
             <TextView
-                android:id="@+id/btn_count"
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="1"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_margin="4dp"/>
 
             <TextView
                 android:id="@+id/btn_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/plus"
                 android:textSize="22sp"
                 android:textColor="@color/black"
-                android:layout_marginHorizontal="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_marginHorizontal="10dp"/>
 
         </LinearLayout>
 

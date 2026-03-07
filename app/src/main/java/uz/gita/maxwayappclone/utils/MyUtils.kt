@@ -1,6 +1,6 @@
 package uz.gita.maxwayappclone.utils
 
-import androidx.appcompat.widget.AppCompatImageView
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
 
@@ -15,7 +15,7 @@ fun Long.formatPrice(): String {
     return "$sb сум"
 }
 
-fun AppCompatImageView.loadImageWithGlide(path: String) {
+fun ImageView.loadImageWithGlide(path: String) {
     Glide.with(this.context)
         .load(path)
         .centerInside()

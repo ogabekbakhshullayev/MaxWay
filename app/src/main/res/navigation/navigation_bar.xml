@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="uz.gita.maxwayappclone.presentation.screens.notification.NotificationFragment"
+        android:name="uz.gita.maxwayappclone.presentation.screens.notification.NotificationScreen"
         android:label="NotificationFragment"
         tools:layout="@layout/screen_notification">
 
@@ -130,7 +130,7 @@
         tools:layout="@layout/page_order"/>
     <dialog
         android:id="@+id/searchDetailScreen"
-        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchDetailScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.search_detail.SearchDetailBottomSheet"
         android:label="SearchDetailScreen"
         tools:layout="@layout/dialog_bottom_search_detail"/>
 

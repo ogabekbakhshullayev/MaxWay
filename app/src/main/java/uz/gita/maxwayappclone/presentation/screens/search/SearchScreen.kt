@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,6 +17,7 @@ import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
+import uz.gita.maxwayappclone.presentation.screens.search_detail.SearchDetailBottomSheet
 
 class SearchScreen : Fragment(R.layout.screen_search) {
 
@@ -26,6 +28,8 @@ class SearchScreen : Fragment(R.layout.screen_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.productsLiveData.observe(viewLifecycleOwner,productObserver)
+        viewModel.emptyResultLiveData.observe(viewLifecycleOwner,emptyResultObserver)
 
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
@@ -33,7 +37,6 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-        observe()
 
         binding.search.post {
             binding.search.requestFocus()
@@ -66,24 +69,24 @@ class SearchScreen : Fragment(R.layout.screen_search) {
         )
 
         adapter.setOnItemClickListener{item ->
-            findNavController().navigate(
-                resId = R.id.action_searchFragment_to_searchDetailScreen,
-                args = bundleOf("ID" to item.id)
-            )
+            val bottomSheet = SearchDetailBottomSheet()
+            bottomSheet.arguments = bundleOf("ID" to item.id)
+            bottomSheet.show(parentFragmentManager,"SearchDetailBottomSheet")
+
+//            findNavController().navigate(
+//                resId = R.id.action_searchFragment_to_searchDetailScreen,
+//                args = bundleOf("ID" to item.id)
+//            )
         }
     }
+    private val productObserver = Observer<List<ProductUIData>>{adapter.submitList(it)}
 
-    private fun observe() {
-
-        viewModel.productsLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
-
-        viewModel.emptyResultLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.textTitle.visibility = View.GONE
-                binding.imageNotFound.visibility = View.VISIBLE
-            } else {
-                binding.imageNotFound.visibility = View.GONE
-            }
+    private val emptyResultObserver = Observer<Boolean>{
+        if (it) {
+            binding.textTitle.visibility = View.GONE
+            binding.imageNotFound.visibility = View.VISIBLE
+        } else {
+            binding.imageNotFound.visibility = View.GONE
         }
     }
 }

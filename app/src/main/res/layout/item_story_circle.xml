@@ -19,7 +19,7 @@
             android:background="@drawable/bg_circle_image"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/placeholder" />
+            android:src="@drawable/img_placeholder" />
     </FrameLayout>
 
     <TextView

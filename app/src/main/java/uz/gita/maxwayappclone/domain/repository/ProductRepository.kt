@@ -11,6 +11,7 @@ interface ProductRepository {
     suspend fun getCategories(): Result<List<Category>>
     suspend fun getProducts(): Result<List<ProductUIData>>
     fun search(query: String): List<ProductUIData>
+    fun getItem(id: Long): ProductUIData?
     fun getProductsInBasket(): List<ProductUIData>
 
     fun observeProductCounts(): Flow<Map<Long, Int>>
