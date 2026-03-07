@@ -3,7 +3,6 @@ package uz.gita.maxwayappclone.data.repository_impl
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import uz.gita.maxwayappclone.data.mapper.toAdList
 import uz.gita.maxwayappclone.data.mapper.toCategoryList
 import uz.gita.maxwayappclone.data.mapper.toProductList
@@ -75,15 +74,16 @@ class ProductRepositoryImpl private constructor(
     }
 
     override fun setProductCount(productId: Long, count: Int) {
-        productCounts.update { current ->
-            val next = current.toMutableMap()
-            if (count <= 0) {
-                next.remove(productId)
-            } else {
-                next[productId] = count
-            }
-            next.toMap()
-        }
+        productList.filter { it.id == productId }[0].count = count
+//        productCounts.update { current ->
+//            val next = current.toMutableMap()
+//            if (count <= 0) {
+//                next.remove(productId)
+//            } else {
+//                next[productId] = count
+//            }
+//            next.toMap()
+//        }
     }
 
     override fun clearProductCounts() {

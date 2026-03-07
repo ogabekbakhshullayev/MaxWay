@@ -15,9 +15,12 @@ sealed class HomeItem {
 }
 
 class HomeSectionAdapter(
-    private val onProductClick: (ProductUIData) -> Unit,
-    private val onCountChange: (ProductUIData, Int) -> Unit
+    private val onProductClick: (ProductUIData) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var onCountChange: ((ProductUIData, Int) -> Unit)? = null
+    fun onCountChangeListener(l: ((ProductUIData, Int) -> Unit)) {
+        onCountChange = l
+    }
 
     private val items = ArrayList<HomeItem>()
     private var productCounts: Map<Long, Int> = emptyMap()
@@ -75,8 +78,8 @@ class HomeSectionAdapter(
             is HomeItem.ProductItem -> (holder as ProductHolder).bind(
                 item.product,
                 onProductClick,
-                onCountChange,
-                productCounts[item.product.id] ?: 0
+                item.product.count
+//                productCounts[item.product.id] ?: 0
             )
         }
     }
@@ -89,13 +92,12 @@ class HomeSectionAdapter(
         }
     }
 
-    class ProductHolder(private val binding: ItemHomeProductBinding) :
+    inner class ProductHolder(private val binding: ItemHomeProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             item: ProductUIData,
             onProductClick: (ProductUIData) -> Unit,
-            onCountChange: (ProductUIData, Int) -> Unit,
             count: Int
         ) {
             Glide.with(binding.root.context)
@@ -108,20 +110,24 @@ class HomeSectionAdapter(
             binding.tvPrice.text = formatPrice(item.cost)
             binding.root.setOnClickListener { onProductClick(item) }
 
-            if (count > 0) {
+            if (item.count > 0) {
                 binding.btnAdd.visibility = android.view.View.GONE
                 binding.countContainer.visibility = android.view.View.VISIBLE
-                binding.tvQty.text = count.toString()
+                binding.tvQty.text = item.count.toString()
             } else {
                 binding.btnAdd.visibility = android.view.View.VISIBLE
                 binding.countContainer.visibility = android.view.View.GONE
             }
 
-            binding.btnAdd.setOnClickListener { onCountChange(item, 1) }
-            binding.btnPlus.setOnClickListener { onCountChange(item, count + 1) }
+            binding.btnAdd.setOnClickListener {
+                item.count = 1
+                onCountChange?.invoke(item, 1)
+            }
+            binding.btnPlus.setOnClickListener { onCountChange?.invoke(item, ++item.count) }
             binding.btnMinus.setOnClickListener {
-                val next = if (count <= 1) 0 else count - 1
-                onCountChange(item, next)
+                val next = if (item.count <= 1) 0 else item.count - 1
+                item.count = next
+                onCountChange?.invoke(item, next)
             }
         }
 
