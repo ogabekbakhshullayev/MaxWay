@@ -3,7 +3,6 @@ package uz.gita.maxwayappclone.data.repository_impl
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import uz.gita.maxwayappclone.data.mapper.toAdList
 import uz.gita.maxwayappclone.data.mapper.toCategoryList
 import uz.gita.maxwayappclone.data.mapper.toProductList

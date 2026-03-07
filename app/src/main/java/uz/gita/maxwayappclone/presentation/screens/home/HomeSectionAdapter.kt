@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.R
-import uz.gita.maxwayappclone.data.model.OrdersUIData
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ItemHomeHeaderBinding
 import uz.gita.maxwayappclone.databinding.ItemHomeProductBinding
