@@ -1,8 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.productInfo
 
-import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.ViewCompat
