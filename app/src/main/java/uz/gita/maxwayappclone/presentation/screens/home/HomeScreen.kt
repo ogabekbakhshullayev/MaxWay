@@ -38,9 +38,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val sectionAdapter = HomeSectionAdapter(
         onProductClick = { product ->
             openProductDetail(product)
-        },
-        onCountChange = { product, newCount ->
-            viewModel.setProductCount(product.id, newCount)
         }
     )
 
@@ -64,6 +61,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sectionAdapter.onCountChangeListener { data, i ->
+            sectionAdapter.notifyDataSetChanged()
+        }
 
         binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.action_mainScreen_to_searchFragment)
@@ -221,7 +222,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 "arg_name" to product.name,
                 "arg_desc" to product.description,
                 "arg_image" to product.image,
-                "arg_cost" to product.cost
+                "arg_cost" to product.cost,
+                "arg_count" to product.count
             )
         )
     }

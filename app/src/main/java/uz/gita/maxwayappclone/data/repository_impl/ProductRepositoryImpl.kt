@@ -75,15 +75,16 @@ class ProductRepositoryImpl private constructor(
     }
 
     override fun setProductCount(productId: Long, count: Int) {
-        productCounts.update { current ->
-            val next = current.toMutableMap()
-            if (count <= 0) {
-                next.remove(productId)
-            } else {
-                next[productId] = count
-            }
-            next.toMap()
-        }
+        productList.filter { it.id == productId }[0].count = count
+//        productCounts.update { current ->
+//            val next = current.toMutableMap()
+//            if (count <= 0) {
+//                next.remove(productId)
+//            } else {
+//                next[productId] = count
+//            }
+//            next.toMap()
+//        }
     }
 
     override fun clearProductCounts() {

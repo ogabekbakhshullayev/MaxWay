@@ -11,5 +11,5 @@ interface ProductInfoViewModel {
     fun increase()
     fun decrease()
     fun applyCount()
-    fun bind(productId:Long)
+    fun bind(productId:Long,count:Int)
 }
