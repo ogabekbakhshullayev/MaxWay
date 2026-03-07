@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import uz.gita.maxwayappclone.data.model.ProductUIData
+import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.usecase.GetAdsUseCase
@@ -17,7 +18,6 @@ import uz.gita.maxwayappclone.domain.usecase.GetProductsUseCase
 import uz.gita.maxwayappclone.domain.usecase.ObserveProductCountsUseCase
 import uz.gita.maxwayappclone.domain.usecase.SetProductCountUseCase
 import uz.gita.maxwayappclone.domain.usecase.StoriesUseCase
-import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 
 class HomeViewModel(
     private val getAdsUseCase: GetAdsUseCase,
@@ -28,6 +28,7 @@ class HomeViewModel(
     private val setProductCountUseCase: SetProductCountUseCase
 ) : ViewModel() {
 
+    private var pending = MutableStateFlow(0)
     private val _adsLiveData = MutableLiveData<List<Ad>>()
     val adsLiveData: LiveData<List<Ad>> = _adsLiveData
 
@@ -61,10 +62,10 @@ class HomeViewModel(
 
     fun loadHome() {
         _loadingLiveData.value = true
-        var pending = 4
+        pending.value = 4
         fun done() {
-            pending -= 1
-            if (pending <= 0) _loadingLiveData.value = false
+            pending.value -= 1
+            if (pending.value <= 0) _loadingLiveData.value = false
         }
 
         getAdsUseCase()

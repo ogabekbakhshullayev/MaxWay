@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.presentation.screens.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -139,6 +140,13 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         binding.vpAds.offscreenPageLimit = 3
         binding.vpAds.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
+        binding.rvProducts.post {
+            if (binding.rvProducts.childCount < 2) {
+                Log.d("BBB", binding.rvProducts.childCount.toString())
+                viewModel.loadHome()
+            }
+        }
+
         viewModel.adsLiveData.observe(viewLifecycleOwner) { ads ->
             adsPagerAdapter.submitList(ads)
         }
@@ -168,8 +176,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
-
-        viewModel.loadHome()
     }
 
     private fun scrollToCategory(category: Category) {
@@ -184,8 +190,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             binding.rvProducts.post {
                 val lm = binding.rvProducts.layoutManager as? GridLayoutManager
                 if (lm != null) {
+                    binding.motionHome.transitionToEnd()
                     binding.rvProducts.smoothScrollToPosition(pos)
                 } else {
+                    binding.motionHome.transitionToEnd()
                     binding.rvProducts.smoothScrollToPosition(pos)
                 }
                 binding.rvProducts.postDelayed({
