@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import uz.gita.maxwayappclone.data.model.ProductUIData
+import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 import uz.gita.maxwayappclone.domain.usecase.GetAdsUseCase
@@ -19,7 +18,6 @@ import uz.gita.maxwayappclone.domain.usecase.GetProductsUseCase
 import uz.gita.maxwayappclone.domain.usecase.ObserveProductCountsUseCase
 import uz.gita.maxwayappclone.domain.usecase.SetProductCountUseCase
 import uz.gita.maxwayappclone.domain.usecase.StoriesUseCase
-import uz.gita.maxwayappclone.data.source.remote.response.StoryData
 
 class HomeViewModel(
     private val getAdsUseCase: GetAdsUseCase,
