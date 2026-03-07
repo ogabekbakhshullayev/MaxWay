@@ -25,7 +25,11 @@
         android:id="@+id/searchFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchScreen"
         android:label="SearchFragment"
-        tools:layout="@layout/screen_search" />
+        tools:layout="@layout/screen_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchDetailScreen"
+            app:destination="@id/searchDetailScreen" />
+    </fragment>
     <fragment
         android:id="@+id/branchesFragment"
         android:name="uz.gita.maxwayappclone.presentation.screens.branches.BranchesFragment"
@@ -124,5 +128,10 @@
         android:name="uz.gita.maxwayappclone.presentation.screens.orders.OrderPage"
         android:label="OrderPage"
         tools:layout="@layout/page_order"/>
+    <dialog
+        android:id="@+id/searchDetailScreen"
+        android:name="uz.gita.maxwayappclone.presentation.screens.search.SearchDetailScreen"
+        android:label="SearchDetailScreen"
+        tools:layout="@layout/dialog_bottom_search_detail"/>
 
 </navigation>

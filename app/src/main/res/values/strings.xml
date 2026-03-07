@@ -80,4 +80,7 @@
 
     <string name="link_register_login">Нажимя "Продолжить", вы соглощаетесь с\n<a href="https://maxway.uz/ru">Политикой конфиденсиональности</a>, и <a href="https://maxway.uz/ru">Публичной оферты</a></string>
     <string name="link_register_name">Создавая аккаунт, вы принимаете\n<a href="https://maxway.uz/ru">Условия использования</a> Max Way</string>
+    <string name="bottom_text">Стоимость</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

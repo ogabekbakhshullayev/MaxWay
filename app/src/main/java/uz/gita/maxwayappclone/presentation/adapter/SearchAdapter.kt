@@ -11,8 +11,9 @@ import uz.gita.maxwayappclone.databinding.ItemHomeProductBinding
 import uz.gita.maxwayappclone.utils.formatPrice
 import uz.gita.maxwayappclone.utils.loadImageWithGlide
 
-class SearchAdapter(): ListAdapter<ProductUIData, SearchAdapter.SearchViewHolder>(SearchDiffUtil) {
+class SearchAdapter: ListAdapter<ProductUIData, SearchAdapter.SearchViewHolder>(SearchDiffUtil) {
 
+    private var onItemClickListener: ((ProductUIData)-> Unit)? = null
     object SearchDiffUtil: DiffUtil.ItemCallback<ProductUIData>() {
         override fun areItemsTheSame(oldItem: ProductUIData, newItem: ProductUIData): Boolean {
             return oldItem.id == newItem.id
@@ -26,6 +27,7 @@ class SearchAdapter(): ListAdapter<ProductUIData, SearchAdapter.SearchViewHolder
     inner class SearchViewHolder(private val binding: ItemHomeProductBinding): RecyclerView.ViewHolder(binding.root){
 
         init {
+            binding.root.setOnClickListener { onItemClickListener?.invoke(getItem(absoluteAdapterPosition)) }
             binding.btnAdd.setOnClickListener {
                 getItem(absoluteAdapterPosition).count ++
                 notifyItemChanged(absoluteAdapterPosition)
@@ -60,5 +62,9 @@ class SearchAdapter(): ListAdapter<ProductUIData, SearchAdapter.SearchViewHolder
             = SearchViewHolder(ItemHomeProductBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) = holder.bind()
+
+    fun setOnItemClickListener(block: (ProductUIData) -> Unit){
+        onItemClickListener = block
+    }
 
 }

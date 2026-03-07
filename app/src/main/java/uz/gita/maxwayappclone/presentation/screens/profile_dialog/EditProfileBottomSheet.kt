@@ -3,6 +3,7 @@ package uz.gita.maxwayappclone.presentation.screens.profile_dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,10 +22,14 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.isSuccess.observe(viewLifecycleOwner){
+            binding.progress.isVisible = it
+        }
+
         arguments.let { bundle ->
-            val name = bundle?.getString("name") ?: ""
-            val phone = bundle?.getString("phone") ?: ""
-            val birth = bundle?.getString("birth") ?: ""
+            val name = bundle?.getString("NAME") ?: ""
+            val phone = bundle?.getString("PHONE") ?: ""
+            val birth = bundle?.getString("BIRTH") ?: ""
             binding.editBirth.setText(birth)
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
             binding.editName.setText(name)
@@ -36,6 +41,10 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
         }
 
         binding.buttonSave.setOnClickListener {
+            binding.progress.visibility = View.VISIBLE
+
+
+
             val name = binding.editName.text.toString()
             val birth = binding.editBirth.text.toString()
             Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()

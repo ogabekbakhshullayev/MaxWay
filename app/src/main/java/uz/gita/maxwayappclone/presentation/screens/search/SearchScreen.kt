@@ -6,8 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
-import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
 
@@ -27,6 +25,8 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -64,22 +64,26 @@ class SearchScreen : Fragment(R.layout.screen_search) {
                 }
             }
         )
+
+        adapter.setOnItemClickListener{item ->
+            findNavController().navigate(
+                resId = R.id.action_searchFragment_to_searchDetailScreen,
+                args = bundleOf("ID" to item.id)
+            )
+        }
     }
 
     private fun observe() {
 
-        viewModel.productsLiveData.observe(viewLifecycleOwner) { responses ->
-            adapter.submitList(responses)
-            if (responses.isEmpty()) {
+        viewModel.productsLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
+
+        viewModel.emptyResultLiveData.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.textTitle.visibility = View.GONE
                 binding.imageNotFound.visibility = View.VISIBLE
             } else {
                 binding.imageNotFound.visibility = View.GONE
             }
-        }
-
-        viewModel.emptyResultLiveData.observe(viewLifecycleOwner) {
-//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 }
