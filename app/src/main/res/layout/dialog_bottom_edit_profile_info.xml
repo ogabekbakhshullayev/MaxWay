@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/bg_bottomsheet">
@@ -18,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Изменения данных"
+        android:text="@string/profile_dialog_top_text"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="12dp"/>
@@ -26,7 +27,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Имя"
+        android:text="@string/name_text"
         android:layout_marginTop="16dp"/>
 
     <EditText
@@ -41,24 +42,44 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Дата рождения"
+        android:text="@string/date_text"
         android:layout_marginTop="12dp"/>
 
-    <EditText
-        android:id="@+id/edit_birth"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/bg_edit"
-        android:focusable="false"
-        android:clickable="true"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:elevation="20dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edit_birth"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edit"
+            android:focusable="false"
+            android:clickable="true"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+
+    </FrameLayout>
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Номер телефона"
+        android:text="@string/phone_text"
         android:layout_marginTop="12dp"/>
 
     <TextView
@@ -76,9 +97,10 @@
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="Сохранить"
+        android:text="@string/save_text"
         android:textColor="@color/white"
         android:background="@drawable/bg_rounded_12_purple"
         android:layout_marginTop="20dp"/>
+
 
 </LinearLayout>

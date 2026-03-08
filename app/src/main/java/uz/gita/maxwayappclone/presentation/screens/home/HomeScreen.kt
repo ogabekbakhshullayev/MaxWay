@@ -14,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
+import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
 
 class HomeScreen : Fragment(R.layout.screen_home) {
@@ -64,6 +66,14 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         sectionAdapter.onCountChangeListener { data, i ->
             sectionAdapter.notifyDataSetChanged()
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.loadHome()
+        }
+
+        binding.swipeRefresh.setOnChildScrollUpCallback { _, _ ->
+            binding.rvProducts.canScrollVertically(-1)
         }
 
         binding.btnSearch.setOnClickListener {
@@ -139,7 +149,27 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         binding.vpAds.adapter = adsPagerAdapter
         binding.vpAds.offscreenPageLimit = 3
+
         binding.vpAds.getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        binding.vpAds.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+
+                    val position = binding.vpAds.currentItem
+                    val count = adsPagerAdapter.itemCount
+
+                    if (position == 0){
+                        binding.vpAds.setCurrentItem(count-2,false)
+                    }
+
+                    if (position == count-1) {
+                      binding.vpAds.setCurrentItem(1,false)
+                    }
+                }
+            }
+        } )
 
         binding.rvProducts.post {
             if (binding.rvProducts.childCount < 2) {
@@ -149,7 +179,16 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
 
         viewModel.adsLiveData.observe(viewLifecycleOwner) { ads ->
-            adsPagerAdapter.submitList(ads)
+
+            val infiniteList = mutableListOf<Ad>()
+            if(ads.size > 1){
+                infiniteList.add(ads.last())
+                infiniteList.addAll(ads)
+                infiniteList.add(ads.first())
+            }
+            else{infiniteList.addAll(ads)}
+            adsPagerAdapter.submitList(infiniteList)
+            if (ads.size > 1){binding.vpAds.setCurrentItem(1,false)}
         }
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { list ->
             categories = list
@@ -164,6 +203,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             products = list
             updateSections()
             binding.tvEmpty.isVisible = list.isEmpty()
+            binding.swipeRefresh.isRefreshing = false
         }
         viewModel.productCountsLiveData.observe(viewLifecycleOwner) { counts ->
             sectionAdapter.updateCounts(counts)

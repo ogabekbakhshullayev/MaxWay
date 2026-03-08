@@ -26,11 +26,11 @@ class NotificationDetailFragment : Fragment(R.layout.screen_notification_detail)
         if (!image.isNullOrEmpty()) {
             Glide.with(binding.root.context)
                 .load(image)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
+                .placeholder(R.drawable.img_placeholder)
+                .error(R.drawable.img_placeholder)
                 .into(binding.detailImage)
         } else {
-            binding.detailImage.setImageResource(R.drawable.placeholder)
+            binding.detailImage.setImageResource(R.drawable.img_placeholder)
         }
 
         binding.buttonBack.setOnClickListener {

@@ -3,6 +3,8 @@
     <style name="Base.Theme.MaxWayAppClone" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/default_background_color</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Body2">
@@ -11,7 +13,6 @@
     </style>
 
     <style name="Theme.MaxWayAppClone" parent="Base.Theme.MaxWayAppClone" />
-
     <dimen name="pv_pin_view_cursor_width">2dp</dimen>
     <dimen name="pv_pin_view_item_line_width">1dp</dimen>
     <dimen name="pv_pin_view_item_radius">5dp</dimen>

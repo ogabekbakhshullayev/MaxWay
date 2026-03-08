@@ -4,20 +4,21 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
-import uz.gita.maxwayappclone.data.source.remote.response.SearchResponse
 import uz.gita.maxwayappclone.databinding.ScreenSearchBinding
 import uz.gita.maxwayappclone.presentation.adapter.SearchAdapter
+import uz.gita.maxwayappclone.presentation.screens.search_detail.SearchDetailBottomSheet
 
 class SearchScreen : Fragment(R.layout.screen_search) {
 
@@ -27,17 +28,22 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.productsLiveData.observe(viewLifecycleOwner, productObserver)
+        viewModel.emptyResultLiveData.observe(viewLifecycleOwner, emptyResultObserver)
+
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-        observe()
 
         binding.search.post {
             binding.search.requestFocus()
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.search, InputMethodManager.SHOW_IMPLICIT)
         }
 
@@ -47,7 +53,12 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 
                 }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     if (s.toString() != "") {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.textTitle.visibility = View.VISIBLE
@@ -64,22 +75,44 @@ class SearchScreen : Fragment(R.layout.screen_search) {
                 }
             }
         )
+
+        adapter.setOnItemClickListener { item ->
+            val bottomSheet = SearchDetailBottomSheet.create(
+                onDismiss = { productId ->
+                    val indexOfItem = adapter.currentList.indexOfFirst { it.id == productId }
+                    if (indexOfItem >= 0) {
+                        adapter.notifyItemChanged(indexOfItem)
+                    }
+                }
+            )
+            bottomSheet.arguments = bundleOf(
+                "ID" to item.id,
+                "COST" to item.cost,
+                "COUNT" to item.count,
+                "NAME" to item.name,
+                "TITLE" to item.description,
+                "IMAGE" to item.image
+            )
+            bottomSheet.show(parentFragmentManager, "SearchDetailBottomSheet")
+            bottomSheet
+
+//            findNavController().navigate(
+//                resId = R.id.action_searchFragment_to_searchDetailScreen,
+//                args = bundleOf("ID" to item.id)
+//            )
+        }
     }
 
-    private fun observe() {
+    private val productObserver = Observer<List<ProductUIData>> {
+        adapter.submitList(it)
+    }
 
-        viewModel.productsLiveData.observe(viewLifecycleOwner) { responses ->
-            adapter.submitList(responses)
-            if (responses.isEmpty()) {
-                binding.textTitle.visibility = View.GONE
-                binding.imageNotFound.visibility = View.VISIBLE
-            } else {
-                binding.imageNotFound.visibility = View.GONE
-            }
-        }
-
-        viewModel.emptyResultLiveData.observe(viewLifecycleOwner) {
-//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+    private val emptyResultObserver = Observer<Boolean> {
+        if (it) {
+            binding.textTitle.visibility = View.GONE
+            binding.imageNotFound.visibility = View.VISIBLE
+        } else {
+            binding.imageNotFound.visibility = View.GONE
         }
     }
 }

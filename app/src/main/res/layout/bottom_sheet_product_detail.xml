@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:background="@drawable/bg_bottom_sheet">
 
+
+
     <View
         android:id="@+id/dragHandle"
         android:layout_width="36dp"
@@ -45,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/placeholder" />
+                        android:src="@drawable/img_placeholder" />
                 </com.google.android.material.card.MaterialCardView>
 
             </FrameLayout>
@@ -181,5 +183,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
+
+
 
 </LinearLayout>

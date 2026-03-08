@@ -1,6 +1,5 @@
-package uz.gita.maxwayappclone.presentation.screens.prfileDialog
+package uz.gita.maxwayappclone.presentation.screens.profile_dialog
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -16,7 +16,7 @@ import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.databinding.ScreenNotificationBinding
 import uz.gita.maxwayappclone.presentation.adapter.NotificationAdapter
 
-class NotificationFragment : Fragment(R.layout.screen_notification) {
+class NotificationScreen : Fragment(R.layout.screen_notification) {
 
     private val binding by viewBinding(ScreenNotificationBinding::bind)
     private val viewModel: NotificationViewModel by viewModels<NotificationViewModelImpl> { NotificationViewModelFactory() }

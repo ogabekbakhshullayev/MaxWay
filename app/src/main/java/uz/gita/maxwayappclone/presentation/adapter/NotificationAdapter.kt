@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.source.remote.response.NotificationResponse
 import uz.gita.maxwayappclone.databinding.ItemNotificationBinding
+import uz.gita.maxwayappclone.utils.loadImageWithGlide
 
-class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
+class NotificationAdapter: ListAdapter<NotificationResponse, NotificationAdapter.NotificationViewHolder>(NotificationDiff) {
 
     private var onItemClickListener: ((NotificationResponse) -> Unit)? = null
 
@@ -30,14 +29,12 @@ class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdap
             binding.root.setOnClickListener { onItemClickListener?.invoke(getItem(absoluteAdapterPosition)) }
         }
 
-        fun bind(item: NotificationResponse) {
-            binding.notificationName.text = item.name
-            binding.notificationMassage.text = item.message
-
-            Glide.with(binding.root.context)
-                .load(item.imgURL)
-                .placeholder(R.drawable.img_placeholder)
-                .into(binding.detailImage)
+        fun bind() {
+            getItem(absoluteAdapterPosition).apply {
+                binding.notificationName.text = this.name
+                binding.notificationMassage.text = this.message
+                binding.detailImage.loadImageWithGlide(this.imgURL)
+            }
         }
     }
 
@@ -45,7 +42,7 @@ class NotificationAdapter() : ListAdapter<NotificationResponse, NotificationAdap
         ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) = holder.bind()
 
     fun setOnItemClickListener(block: (NotificationResponse) -> Unit) {
         onItemClickListener = block

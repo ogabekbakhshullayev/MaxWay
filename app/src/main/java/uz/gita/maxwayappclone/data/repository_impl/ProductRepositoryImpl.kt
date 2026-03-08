@@ -56,6 +56,7 @@ class ProductRepositoryImpl private constructor(
     override suspend fun getProducts(): Result<List<ProductUIData>> {
         val response = productApi.getProducts()
         return if (response.isSuccessful && response.body() != null) {
+            productList.clear()
             productList.addAll(response.body()!!.data.toProductList())
             Result.success(productList)
         } else {
@@ -63,7 +64,9 @@ class ProductRepositoryImpl private constructor(
         }
     }
 
-    override fun search(query: String) = productList.filter { it.name.contains(query, false) }
+    override fun getItem(id: Long): ProductUIData? = productList.find { it.id == id }
+
+    override fun search(query: String) = productList.filter { it.name.contains(query, true) }
 
     override fun getProductsInBasket(): List<ProductUIData> = productList.filter { it.count > 0 }
 
