@@ -56,6 +56,7 @@ class ProductRepositoryImpl private constructor(
     override suspend fun getProducts(): Result<List<ProductUIData>> {
         val response = productApi.getProducts()
         return if (response.isSuccessful && response.body() != null) {
+            productList.clear()
             productList.addAll(response.body()!!.data.toProductList())
             Result.success(productList)
         } else {
