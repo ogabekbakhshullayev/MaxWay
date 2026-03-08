@@ -212,7 +212,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             storyAdapter.submitList(list)
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = it
+            if (it) showLoadingState()
+            else showContentState()
+//            binding.progressBar.isVisible = it
         }
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -266,6 +268,28 @@ class HomeScreen : Fragment(R.layout.screen_home) {
                 "arg_count" to product.count
             )
         )
+    }
+
+    fun showLoadingState() {
+        binding.motionHome.isClickable = false
+        binding.motionHome.isEnabled = false
+        binding.motionHome.isFocusable = false
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+        binding.shimmerViewContainer.startShimmer()
+        binding.scrollSection.visibility = View.INVISIBLE
+        binding.rvFilters.visibility = View.INVISIBLE
+        binding.rvProducts.visibility = View.INVISIBLE
+    }
+
+    fun showContentState() {
+        binding.motionHome.isClickable = true
+        binding.motionHome.isEnabled = true
+        binding.motionHome.isFocusable = true
+        binding.shimmerViewContainer.stopShimmer()
+        binding.shimmerViewContainer.visibility = View.INVISIBLE
+        binding.scrollSection.visibility = View.VISIBLE
+        binding.rvFilters.visibility = View.VISIBLE
+        binding.rvProducts.visibility = View.VISIBLE
     }
 
     override fun onResume() {

@@ -9,8 +9,18 @@
         android:id="@+id/motion_home"
         android:background="@color/purple_white"
         app:layoutDescription="@xml/home_scene"
+        android:layout_width="match_parent">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:shimmer_auto_start="true">
+
+        <include layout="@layout/home_screen_skeleton" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <LinearLayout
         android:id="@+id/scrollSection"
         android:layout_width="match_parent"
@@ -113,11 +123,11 @@
         android:background="#00ffffff"
         android:clipToPadding="false"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/scrollSection"
         android:overScrollMode="never"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/scrollSection"
         tools:listitem="@layout/item_filter_chip" />
 
     <androidx.recyclerview.widget.RecyclerView
