@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:background="@drawable/bg_bottom_sheet">
 
+
+
     <View
         android:id="@+id/dragHandle"
         android:layout_width="36dp"
@@ -181,5 +183,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
+
+
 
 </LinearLayout>

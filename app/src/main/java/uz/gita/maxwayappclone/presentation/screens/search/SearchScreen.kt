@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
@@ -28,19 +29,21 @@ class SearchScreen : Fragment(R.layout.screen_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.productsLiveData.observe(viewLifecycleOwner,productObserver)
-        viewModel.emptyResultLiveData.observe(viewLifecycleOwner,emptyResultObserver)
+        viewModel.productsLiveData.observe(viewLifecycleOwner, productObserver)
+        viewModel.emptyResultLiveData.observe(viewLifecycleOwner, emptyResultObserver)
 
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
         binding.search.post {
             binding.search.requestFocus()
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.search, InputMethodManager.SHOW_IMPLICIT)
         }
 
@@ -50,7 +53,12 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 
                 }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     if (s.toString() != "") {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.textTitle.visibility = View.VISIBLE
@@ -68,10 +76,25 @@ class SearchScreen : Fragment(R.layout.screen_search) {
             }
         )
 
-        adapter.setOnItemClickListener{item ->
-            val bottomSheet = SearchDetailBottomSheet()
-            bottomSheet.arguments = bundleOf("ID" to item.id)
-            bottomSheet.show(parentFragmentManager,"SearchDetailBottomSheet")
+        adapter.setOnItemClickListener { item ->
+            val bottomSheet = SearchDetailBottomSheet.create(
+                onDismiss = { productId ->
+                    val indexOfItem = adapter.currentList.indexOfFirst { it.id == productId }
+                    if (indexOfItem >= 0) {
+                        adapter.notifyItemChanged(indexOfItem)
+                    }
+                }
+            )
+            bottomSheet.arguments = bundleOf(
+                "ID" to item.id,
+                "COST" to item.cost,
+                "COUNT" to item.count,
+                "NAME" to item.name,
+                "TITLE" to item.description,
+                "IMAGE" to item.image
+            )
+            bottomSheet.show(parentFragmentManager, "SearchDetailBottomSheet")
+            bottomSheet
 
 //            findNavController().navigate(
 //                resId = R.id.action_searchFragment_to_searchDetailScreen,
@@ -79,9 +102,12 @@ class SearchScreen : Fragment(R.layout.screen_search) {
 //            )
         }
     }
-    private val productObserver = Observer<List<ProductUIData>>{adapter.submitList(it)}
 
-    private val emptyResultObserver = Observer<Boolean>{
+    private val productObserver = Observer<List<ProductUIData>> {
+        adapter.submitList(it)
+    }
+
+    private val emptyResultObserver = Observer<Boolean> {
         if (it) {
             binding.textTitle.visibility = View.GONE
             binding.imageNotFound.visibility = View.VISIBLE

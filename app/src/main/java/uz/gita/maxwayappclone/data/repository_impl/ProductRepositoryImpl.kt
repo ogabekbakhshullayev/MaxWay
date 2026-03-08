@@ -20,7 +20,7 @@ class ProductRepositoryImpl private constructor(
     private val gson: Gson
 ) : ProductRepository {
 
-    private val productcCounts = MutableStateFlow<Map<Long, Int>>(emptyMap())
+    private val productCounts = MutableStateFlow<Map<Long, Int>>(emptyMap())
     private val productList = ArrayList<ProductUIData>()
 
     companion object {
@@ -65,7 +65,7 @@ class ProductRepositoryImpl private constructor(
 
     override fun getItem(id: Long): ProductUIData? = productList.find { it.id == id }
 
-    override fun search(query: String) = productList.filter { it.name.contains(query, false) }
+    override fun search(query: String) = productList.filter { it.name.contains(query, true) }
 
     override fun getProductsInBasket(): List<ProductUIData> = productList.filter { it.count > 0 }
 
