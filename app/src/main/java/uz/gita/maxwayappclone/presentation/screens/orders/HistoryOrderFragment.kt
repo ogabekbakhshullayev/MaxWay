@@ -12,7 +12,7 @@ import uz.gita.maxwayappclone.presentation.adapter.OrderItemAdapter
 import kotlin.getValue
 
 class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
-	private val viewModel by viewModels<OrdersViewModel>(ownerProducer = { requireParentFragment() })
+	private val viewModel: OrdersViewModel by viewModels<OrdersViewModelImpl>(ownerProducer = { requireParentFragment() })
 	private var _binding: ScreenHistroyOrderBinding? = null
 	private val binding get() = _binding!!
 	private val adapter = OrderItemAdapter()

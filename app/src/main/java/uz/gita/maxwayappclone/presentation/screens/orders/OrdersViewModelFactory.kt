@@ -7,6 +7,6 @@ import uz.gita.maxwayappclone.domain.usecase.impl.OrdersUseCaseImpl
 
 class OrdersViewModelFactory: ViewModelProvider.Factory {
 	override fun <T : ViewModel> create(modelClass: Class<T>): T {
-		return OrdersViewModel(OrdersUseCaseImpl(OrdersRepositoryImpl.getInstance())) as T
+		return OrdersViewModelImpl(OrdersUseCaseImpl(OrdersRepositoryImpl.getInstance())) as T
 	}
 }
