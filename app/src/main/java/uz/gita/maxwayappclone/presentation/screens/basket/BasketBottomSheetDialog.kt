@@ -99,7 +99,7 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         dialogBinding.btnClear.setOnClickListener {
             viewModel.clearBasket()
             dialog.dismiss()
-            adapter.submitList(emptyList<ProductUIData>())
+            viewModel.load()
         }
         dialog.show()
     }
