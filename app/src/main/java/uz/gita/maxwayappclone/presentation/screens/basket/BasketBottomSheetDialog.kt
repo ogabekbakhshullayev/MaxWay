@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.basket
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,11 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.bottom_sheet_basket, container, false)
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        parentFragmentManager.setFragmentResult("REFRESH_KEY", Bundle())
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvBasket.layoutManager = LinearLayoutManager(requireContext())
@@ -46,6 +52,9 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
 
         binding.ivTrash.setOnClickListener {
             showClearDialog()
+        }
+        binding.btnChoose.setOnClickListener {
+            dismiss()
         }
 
         viewModel.basketItemsLiveData.observe(viewLifecycleOwner, basketItemsObserver)
@@ -93,6 +102,7 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         dialogBinding.btnClear.setOnClickListener {
             viewModel.clearBasket()
             dialog.dismiss()
+            viewModel.load()
         }
         dialog.show()
     }

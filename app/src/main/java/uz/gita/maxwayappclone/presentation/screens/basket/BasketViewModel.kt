@@ -9,6 +9,7 @@ interface BasketViewModel {
     val totalLiveData: LiveData<Long>
     val emptyLiveData: LiveData<Boolean>
 
+
     fun load()
     fun clearBasket()
 }

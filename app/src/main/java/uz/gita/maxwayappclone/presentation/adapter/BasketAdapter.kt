@@ -29,11 +29,13 @@ class BasketAdapter() : ListAdapter<ProductUIData, BasketAdapter.BasketViewHolde
             binding.btnPlus.setOnClickListener {
                 getItem(absoluteAdapterPosition).count ++
                 onChangeProductCountListener?.invoke()
+                notifyItemChanged(absoluteAdapterPosition)
             }
 
             binding.btnMinus.setOnClickListener {
                 getItem(absoluteAdapterPosition).count --
                 onChangeProductCountListener?.invoke()
+                notifyItemChanged(absoluteAdapterPosition)
             }
         }
 
