@@ -65,6 +65,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        parentFragmentManager.setFragmentResultListener("REFRESH_KEY",viewLifecycleOwner){_,_->
+            sectionAdapter.notifyDataSetChanged()
+        }
+
         sectionAdapter.onCountChangeListener { data, i ->
             sectionAdapter.notifyDataSetChanged()
         }
