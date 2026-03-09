@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
