@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.presentation.screens.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -63,6 +64,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener("REFRESH_KEY",viewLifecycleOwner){_,_->
+            sectionAdapter.notifyDataSetChanged()
+        }
 
         sectionAdapter.onCountChangeListener { data, i ->
             sectionAdapter.notifyDataSetChanged()
