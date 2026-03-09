@@ -53,6 +53,9 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         binding.ivTrash.setOnClickListener {
             showClearDialog()
         }
+        binding.btnChoose.setOnClickListener {
+            dismiss()
+        }
 
         viewModel.basketItemsLiveData.observe(viewLifecycleOwner, basketItemsObserver)
         viewModel.totalLiveData.observe(viewLifecycleOwner, totalObserver)
