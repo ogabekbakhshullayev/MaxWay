@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.databinding.ScreenHistroyOrderBinding
 import uz.gita.maxwayappclone.presentation.adapter.OrderItemAdapter
+import uz.gita.maxwayappclone.presentation.util.getHistory
 import kotlin.getValue
 
 class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
-	private val viewModel by viewModels<OrdersViewModel>(ownerProducer = { requireParentFragment() })
+	private val viewModel: OrdersViewModel by viewModels<OrdersViewModelImpl>(ownerProducer = { requireParentFragment() })
 	private var _binding: ScreenHistroyOrderBinding? = null
 	private val binding get() = _binding!!
 	private val adapter = OrderItemAdapter()
@@ -54,9 +55,15 @@ class HistoryOrderFragment: Fragment(R.layout.screen_histroy_order) {
 				binding.emptyList.isVisible = true
 				binding.recyclerView.isVisible = false
 			} else {
-				binding.emptyList.isVisible = false
-				binding.recyclerView.isVisible = true
-				adapter.submitList(list)
+				val newList = list.getHistory()
+				if (newList.isEmpty()) {
+					binding.emptyList.isVisible = true
+					binding.recyclerView.isVisible = false
+				} else {
+					binding.emptyList.isVisible = false
+					binding.recyclerView.isVisible = true
+					adapter.submitList(newList)
+				}
 			}
 		}
 	}

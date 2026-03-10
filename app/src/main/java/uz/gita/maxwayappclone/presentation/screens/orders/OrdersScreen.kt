@@ -14,7 +14,7 @@ import uz.gita.maxwayappclone.databinding.ScreenOrdersBinding
 import uz.gita.maxwayappclone.presentation.screens.main.MainScreen
 
 class OrdersScreen: Fragment(R.layout.screen_orders) {
-	val viewModel by viewModels<OrdersViewModel>(ownerProducer = { this }) { OrdersViewModelFactory() }
+	private val viewModel: OrdersViewModel by viewModels<OrdersViewModelImpl>(ownerProducer = { this }) { OrdersViewModelFactory() }
 	private var _binding: ScreenOrdersBinding? = null
 	private val binding get() = _binding!!
 
@@ -32,7 +32,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 	}
 
 	fun observes() {
-		viewModel.currentBtnLiveData.observe(viewLifecycleOwner) { bool ->
+		viewModel.currentBtnLiveData.observe(viewLifecycleOwner)  { bool ->
 			if (bool) {
 				binding.currentOrders.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
 				childFragmentManager.beginTransaction()
@@ -53,7 +53,7 @@ class OrdersScreen: Fragment(R.layout.screen_orders) {
 			}
 		}
 
-		viewModel.errorMessageLiveData.observe(this) { message ->
+		viewModel.errorMessageLiveData.observe(viewLifecycleOwner) { message ->
 			Timber.tag("TTT").d("error: $message")
 
 //			findNavController().navigate(R.id.noConnectionScreen)

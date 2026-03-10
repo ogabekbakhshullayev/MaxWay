@@ -13,7 +13,7 @@ import uz.gita.maxwayappclone.presentation.util.getCurrent
 import kotlin.getValue
 
 class CurrentOrderFragment: Fragment(R.layout.screen_current_order) {
-	private val viewModel by viewModels<OrdersViewModel>(ownerProducer = { requireParentFragment() })
+	private val viewModel: OrdersViewModel by viewModels<OrdersViewModelImpl>(ownerProducer = { requireParentFragment() })
 	private var _binding: ScreenCurrentOrderBinding? = null
 	private val binding get() = _binding!!
 	private val adapter = CurrentOrderAdapter()

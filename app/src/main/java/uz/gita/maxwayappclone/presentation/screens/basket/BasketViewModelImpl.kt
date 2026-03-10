@@ -1,6 +1,5 @@
 package uz.gita.maxwayappclone.presentation.screens.basket
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,20 +7,23 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import okhttp3.Dispatcher
 import uz.gita.maxwayappclone.data.model.OrderProduct
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.data.source.remote.request.OrderRequest
+import uz.gita.maxwayappclone.data.source.remote.request.RecommendedRequest
 import uz.gita.maxwayappclone.domain.usecase.GetProductsInBasketUseCase
 import uz.gita.maxwayappclone.domain.usecase.MakeOrdersUseCase
+import uz.gita.maxwayappclone.domain.usecase.RecommendUseCase
 
 class BasketViewModelImpl(
     private val getProductsInBasketUseCase: GetProductsInBasketUseCase,
+    private val getRecommendUseCase: RecommendUseCase,
     private val makeOrdersUseCase: MakeOrdersUseCase
 ) : ViewModel(), BasketViewModel {
 
     override val basketItemsLiveData = MutableLiveData<List<ProductUIData>>()
+    override val recommendItemsLiveData = MutableLiveData<List<ProductUIData>>()
     override val totalLiveData = MutableLiveData<Long>()
     override val emptyLiveData = MutableLiveData<Boolean>()
     override val loadingLiveData = MutableLiveData<Boolean>()
@@ -31,6 +33,7 @@ class BasketViewModelImpl(
 
     init {
         load()
+        getRecommend()
     }
     
     override fun load() {
@@ -44,6 +47,17 @@ class BasketViewModelImpl(
         getProductsInBasketUseCase.invoke()
             .forEach { it.count = 0 }
         load()
+    }
+
+    override fun getRecommend() {
+        if (basketItemsLiveData.value == null) return
+        getRecommendUseCase(RecommendedRequest(
+            basketItemsLiveData.value!!.map { it.id }
+        ))
+            .onEach { result ->
+                result.onSuccess { recommendItemsLiveData.value = it }
+            }
+            .launchIn(viewModelScope)
     }
 
     override fun makeOrder() {
