@@ -1,5 +1,6 @@
 package uz.gita.maxwayappclone.data.repository_impl
 
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,8 +58,24 @@ class ProductRepositoryImpl private constructor(
     override suspend fun getProducts(): Result<List<ProductUIData>> {
         val response = productApi.getProducts()
         return if (response.isSuccessful && response.body() != null) {
+            Log.d("TTT", "prList: ${productList.size}")
+            val responseDataList = response.body()!!.data.toProductList()
+            val tempList = productList.toMutableList()
+            Log.d("TTT", "before clear: ${tempList.size}")
             productList.clear()
-            productList.addAll(response.body()!!.data.toProductList())
+            Log.d("TTT", "after clear: ${tempList.size}")
+            if (tempList.isNotEmpty()) {
+                for (i in responseDataList.indices) {
+                    if (tempList[i].count > 0) {
+                        productList.add(tempList[i].copy())
+                    } else {
+                        productList.add(responseDataList[i].copy())
+                    }
+                }
+            } else {
+                productList.clear()
+                productList.addAll(response.body()!!.data.toProductList())
+            }
             Result.success(productList)
         } else {
             Result.failure(parseError(response.errorBody()?.string()))
@@ -69,7 +86,8 @@ class ProductRepositoryImpl private constructor(
 
     override fun search(query: String) = productList.filter { it.name.contains(query, true) }
 
-    override fun getProductsInBasket(): List<ProductUIData> = productList.filter { it.count > 0 }
+    override fun getProductsInBasket(): List<ProductUIData> =
+        productList.filter { it.count > 0 }
 
     override fun observeProductCounts(): Flow<Map<Long, Int>> = productCounts
 
