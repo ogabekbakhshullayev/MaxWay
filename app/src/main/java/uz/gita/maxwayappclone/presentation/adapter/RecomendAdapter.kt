@@ -12,7 +12,6 @@ import uz.gita.maxwayappclone.presentation.util.toFormatted
 
 class RecommendAdapter : ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>(diff) {
     private var listener: ((ProductUIData) -> Unit)? = null
-
     fun onClickItem(l: (ProductUIData) -> Unit) {
         listener = l
     }
@@ -42,6 +41,33 @@ class RecommendAdapter : ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>
             binding.tvName.text = data.name
             binding.tvDesc.text = data.description
             binding.tvPrice.text = "${data.cost.toFormatted()} сум"
+
+//            binding.btnAdd.setOnClickListener {
+//                data.count = 1
+//                binding.btnAdd.visibility = android.view.View.GONE
+//                binding.countContainer.visibility = android.view.View.VISIBLE
+//                binding.tvQty.text = data.count.toString()
+//
+//                onCountChange?.invoke(data, 1)
+//            }
+//            binding.btnPlus.setOnClickListener {
+//                binding.tvQty.text = (++data.count).toString()
+////                onCountChange?.invoke(data, data.count)
+//            }
+//            binding.btnMinus.setOnClickListener {
+//                val next = if (data.count <= 1) 0 else data.count - 1
+//                data.count = next
+//                if (data.count > 0) {
+//                    binding.btnAdd.visibility = android.view.View.GONE
+//                    binding.countContainer.visibility = android.view.View.VISIBLE
+//                    binding.tvQty.text = data.count.toString()
+//                } else {
+//                    binding.btnAdd.visibility = android.view.View.VISIBLE
+//                    binding.countContainer.visibility = android.view.View.GONE
+//                }
+//
+////                onCountChange?.invoke(data, next)
+//            }
         }
     }
 
