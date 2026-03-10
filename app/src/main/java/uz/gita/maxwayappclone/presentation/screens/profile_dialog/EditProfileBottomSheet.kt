@@ -47,35 +47,20 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
 
             val name = binding.editName.text.toString()
             val birth = binding.editBirth.text.toString()
-            Toast.makeText(requireContext(), birth, Toast.LENGTH_SHORT).show()
             viewModel.updateProfileInfo(TokenManager.token,name,birth)
             viewModel.isSuccess.observe(viewLifecycleOwner){
                 if (it) {
-//                    val  result = Bundle().apply {
-//                        putString("name",binding.editName.text.toString())
-//                    }
-//                    parentFragmentManager.setFragmentResult(
-//                        "edit_profile_result",result
-//                    )
                     findNavController().previousBackStackEntry
                         ?.savedStateHandle
                         ?.apply {
                             set("name",binding.editName.text.toString())
                             set("date",binding.editBirth.text.toString())
                             set("phone",binding.editPhone.text.toString())
-
                         }
-
-
                     dismiss()
                     findNavController().popBackStack()
-
                 }
             }
-
-
-
-
         }
     }
     private fun dateOnClick() {
@@ -86,7 +71,5 @@ class EditProfileBottomSheet: BottomSheetDialogFragment(R.layout.dialog_bottom_e
                 binding.editBirth.setText(selectedDate)
         }
         datePickerBottomSheet.show(parentFragmentManager, datePickerBottomSheet.tag)
-
     }
-
 }

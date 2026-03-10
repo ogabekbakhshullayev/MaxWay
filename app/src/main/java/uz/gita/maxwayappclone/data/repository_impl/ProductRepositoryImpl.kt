@@ -9,7 +9,9 @@ import uz.gita.maxwayappclone.data.mapper.toCategoryList
 import uz.gita.maxwayappclone.data.mapper.toProductList
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.data.source.remote.ApiClient
+import uz.gita.maxwayappclone.data.source.remote.api.OrderApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
+import uz.gita.maxwayappclone.data.source.remote.request.OrderRequest
 import uz.gita.maxwayappclone.data.source.remote.response.ErrorMessageResponse
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
@@ -18,6 +20,7 @@ import uz.gita.maxwayappclone.domain.repository.ProductRepository
 
 class ProductRepositoryImpl private constructor(
     private val productApi: ProductApi,
+    private val orderApi: OrderApi,
     private val gson: Gson
 ) : ProductRepository {
 
@@ -29,7 +32,7 @@ class ProductRepositoryImpl private constructor(
 
         fun init() {
             if (!::instance.isInitialized) {
-                instance = ProductRepositoryImpl(ApiClient.productApi, Gson())
+                instance = ProductRepositoryImpl(ApiClient.productApi, ApiClient.orderApi, Gson())
             }
         }
 
@@ -123,6 +126,24 @@ class ProductRepositoryImpl private constructor(
                 Result.failure(Throwable(errorMessage.message))
             }
         }) as Result<Array<ProductByCategoryResponse>>
+    }
+
+    override suspend fun makeOrder(token: String, data: OrderRequest): Result<Unit> {
+        val response = orderApi.order(token,data)
+
+        return if (response.isSuccessful && response.body() != null){
+            Result.success(response.body()!!.data)
+        }
+        else{
+            val errorJson = response.errorBody()?.string()
+            if (errorJson.isNullOrEmpty()) {
+                Result.failure(Throwable("Unknown exception"))
+            }
+            else{
+                val errorMessage = gson.fromJson(errorJson, ErrorMessageResponse::class.java)
+                Result.failure(Throwable("errorMessage.message"))
+            }
+        }
     }
 
     private fun parseError(errorJson: String?): Throwable {
