@@ -35,8 +35,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         val editeDate = findNavController().currentBackStackEntry
             ?.savedStateHandle
 
@@ -52,7 +50,16 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
         viewModel.getInfoLoadingLiveData.observe(viewLifecycleOwner) { binding.progress.isVisible = it }
         viewModel.getInfoErrorMessageLiveData.observe(viewLifecycleOwner) { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
-        viewModel.nameLiveData.observe(viewLifecycleOwner){ binding.profileName.text = viewModel.nameLiveData.value }
+        viewModel.nameLiveData.observe(viewLifecycleOwner){
+            if (viewModel.nameLiveData.value.isNullOrEmpty()){
+
+                binding.profileName.text = "Пользователь"
+            }
+            else {
+            binding.profileName.text = viewModel.nameLiveData.value
+            }
+
+        }
 
         uiActions()
     }
@@ -81,8 +88,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                 dialog.dismiss()
             }
             dialog.show()
-
-
         }
 
         binding.balance.text = 0L.formatPrice()
@@ -93,6 +98,9 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                 args = bundleOf("NAME" to viewModel.nameLiveData.value,"PHONE" to binding.profilePhone.text.toString(),"BIRTH" to viewModel.dateLiveData.value)
             )
         }
+        if (binding.profileName.text == ""){
+            binding.profileName.text = R.string.profile_name_text.toString()
+        }
 
         toasts()
 
@@ -101,27 +109,10 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-
-
     private fun login(isLogin: Boolean) {
         binding.logOutContainer.isVisible = !isLogin
         binding.loginInContainer.isVisible = isLogin
         binding.buttonLogOut.isVisible = isLogin
-
-
-//        if (isLogin) {
-//            binding.logOutContainer.visibility = View.GONE
-//            binding.loginInContainer.visibility = View.VISIBLE
-//            binding.buttonLogOut.visibility = View.VISIBLE
-//        } else {
-//            binding.logOutContainer.visibility = View.VISIBLE
-//            binding.loginInContainer.visibility = View.GONE
-//            binding.buttonLogOut.visibility = View.GONE
-//            binding.progress.visibility = View.GONE
-//
-    //
-    //
-    //        }
     }
 
     fun toasts() {
@@ -151,6 +142,3 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
     }
 }
-
-
-//mkjnuh

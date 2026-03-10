@@ -89,4 +89,5 @@
     <string name="dialog_order_success_titele">Подтверждение заказа</string>
     <string name="dialog_order_success_about">Ваш заказ подтвержден! Мы уже начали его обработку, информация о доставке появится в ближайшее время.</string>
     <string name="dialog_order_success_btn_text">Вернуться на главную</string>
+    <string name="profile_name_text">Пользователь</string>
 </resources>
