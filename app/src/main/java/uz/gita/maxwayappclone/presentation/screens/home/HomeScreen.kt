@@ -1,10 +1,8 @@
 package uz.gita.maxwayappclone.presentation.screens.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import timber.log.Timber
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ScreenHomeBinding
@@ -178,7 +177,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         binding.rvProducts.post {
             if (binding.rvProducts.childCount < 2) {
-                Log.d("BBB", binding.rvProducts.childCount.toString())
+                Timber.tag("BBB").d(binding.rvProducts.childCount.toString())
                 viewModel.loadHome()
             }
         }

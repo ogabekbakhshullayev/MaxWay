@@ -26,7 +26,6 @@ import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
 import uz.gita.maxwayappclone.presentation.adapter.BasketAdapter
-import uz.gita.maxwayappclone.presentation.adapter.BasketProductsAdapter
 import uz.gita.maxwayappclone.presentation.adapter.RecommendAdapter
 import uz.gita.maxwayappclone.utils.formatPrice
 
@@ -49,16 +48,13 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvBasket.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = BasketProductsAdapter(arrayOf(0, 0))
-        binding.rvBasket.adapter = adapter
-        adapter.setBasketAdapter(basketAdapter)
-        adapter.setRecommendProductAdapter(recommendAdapter)
+        binding.rvBasket.adapter = basketAdapter
+        binding.rvRecommend.adapter = recommendAdapter
 
         recommendAdapter.onClickItem { product ->
             openProductDetail(product)
             dismiss()
         }
-//        binding.rvBasket.adapter = basketAdapter
 
         basketAdapter.setOnChangeProductCountListener {
             viewModel.load()
@@ -117,7 +113,7 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
     }
     private val emptyObserver = Observer<Boolean> {
         binding.emptyContainer.isVisible = it
-        binding.rvBasket.isVisible = !it
+        binding.productScrollView.isVisible = !it
         binding.btnPay.isVisible = !it
     }
 
