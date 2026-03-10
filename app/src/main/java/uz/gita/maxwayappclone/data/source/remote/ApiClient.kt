@@ -12,6 +12,7 @@ import uz.gita.maxwayappclone.data.source.remote.api.BranchApi
 import uz.gita.maxwayappclone.data.source.remote.api.ProductApi
 import uz.gita.maxwayappclone.data.source.remote.api.NotificationApi
 import uz.gita.maxwayappclone.data.source.remote.api.EditeProfileApi
+import uz.gita.maxwayappclone.data.source.remote.api.OrderApi
 import uz.gita.maxwayappclone.data.source.remote.api.SearchApi
 
 object ApiClient {
@@ -39,4 +40,5 @@ object ApiClient {
     val notificationApi = retrofit.create<NotificationApi>(NotificationApi::class.java)
     val searchApi = retrofit.create<SearchApi>(SearchApi::class.java)
     val editeProfileApi = retrofit.create<EditeProfileApi>(EditeProfileApi::class.java)
+    val orderApi = retrofit.create<OrderApi>(OrderApi::class.java)
 }

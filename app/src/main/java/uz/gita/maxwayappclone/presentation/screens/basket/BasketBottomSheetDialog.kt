@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -17,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.maxwayappclone.R
 import uz.gita.maxwayappclone.data.model.ProductUIData
+import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
 import uz.gita.maxwayappclone.presentation.adapter.BasketAdapter
@@ -55,6 +58,16 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         }
         binding.btnChoose.setOnClickListener {
             dismiss()
+        }
+        binding.btnPay.setOnClickListener {
+            if (TokenManager.token.isEmpty()){
+                findNavController().navigate(R.id.registerPhoneScreen2)
+            }
+            else{
+                viewModel.clearBasket()
+                viewModel.load()
+                Toast.makeText(requireContext(), "zakaslar qabul qilindi", Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewModel.basketItemsLiveData.observe(viewLifecycleOwner, basketItemsObserver)
