@@ -1,8 +1,11 @@
 package uz.gita.maxwayappclone.data.source.remote.api
 
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
+import uz.gita.maxwayappclone.data.source.remote.request.RecommendedRequest
 import uz.gita.maxwayappclone.data.source.remote.response.GeneralResponse
 import uz.gita.maxwayappclone.data.source.remote.response.OrderResponse
 import uz.gita.maxwayappclone.data.source.remote.response.AdResponse
@@ -11,6 +14,9 @@ import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryRespo
 import uz.gita.maxwayappclone.data.source.remote.response.ProductResponse
 
 interface ProductApi {
+
+    @POST("/recommended_products")
+    suspend fun postRecommendedProducts(@Body data: RecommendedRequest): Response<GeneralResponse<List<ProductResponse>>>
 
 	@GET("/my_orders")
 	suspend fun getOrders(@Header("token") token: String): Response<GeneralResponse<List<OrderResponse>>>
@@ -28,4 +34,4 @@ interface ProductApi {
     suspend fun getProducts(): Response<GeneralResponse<List<ProductResponse>>>
 }
 
-// search, product, category, ads, recomen, basket, history
+// search, product, category, ads, recommend, basket, history

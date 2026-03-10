@@ -22,3 +22,6 @@ fun Long.toFormatted(): String {
 
 fun List<OrdersUIData>.getCurrent() =
 	this.filter { (System.currentTimeMillis() - it.createTime < 1200000) }
+
+fun List<OrdersUIData>.getHistory() =
+	this.filter { (System.currentTimeMillis() - it.createTime > 1200000) }

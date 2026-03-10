@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -26,13 +25,16 @@ import uz.gita.maxwayappclone.data.source.local.TokenManager
 import uz.gita.maxwayappclone.databinding.BottomSheetBasketBinding
 import uz.gita.maxwayappclone.databinding.DialogClearBasketBinding
 import uz.gita.maxwayappclone.presentation.adapter.BasketAdapter
+import uz.gita.maxwayappclone.presentation.adapter.BasketProductsAdapter
+import uz.gita.maxwayappclone.presentation.adapter.RecommendAdapter
 import uz.gita.maxwayappclone.utils.formatPrice
 
 class BasketBottomSheetDialog : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(BottomSheetBasketBinding::bind)
     private val viewModel: BasketViewModel by viewModels<BasketViewModelImpl> { BasketViewModelFactory() }
-    private val adapter by lazy { BasketAdapter() }
+    private val basketAdapter by lazy { BasketAdapter() }
+    private val recommendAdapter by lazy { RecommendAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.bottom_sheet_basket, container, false)
@@ -46,9 +48,13 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvBasket.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = BasketProductsAdapter(arrayOf(0, 0))
         binding.rvBasket.adapter = adapter
+        adapter.setBasketAdapter(basketAdapter)
+        adapter.setRecommendProductAdapter(recommendAdapter)
+//        binding.rvBasket.adapter = basketAdapter
 
-        adapter.setOnChangeProductCountListener {
+        basketAdapter.setOnChangeProductCountListener {
             viewModel.load()
         }
 
@@ -76,6 +82,11 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         viewModel.emptyLiveData.observe(viewLifecycleOwner, emptyObserver)
         viewModel.loadingLiveData.observe(viewLifecycleOwner,loadingObserver)
         viewModel.orderSuccessLiveData.observe(viewLifecycleOwner,orderSuccessObserver)
+        viewModel.recommendItemsLiveData.observe(viewLifecycleOwner, loadRecommendProducts)
+    }
+
+    private val loadRecommendProducts = Observer<List<ProductUIData>> {
+        recommendAdapter.submitList(it)
     }
 
     private val loadingObserver = Observer<Boolean>{binding.progress.isVisible = it}
@@ -109,7 +120,7 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     private val basketItemsObserver = Observer<List<ProductUIData>> {
-        adapter.submitList(it)
+        basketAdapter.submitList(it)
     }
 
     override fun onStart() {
