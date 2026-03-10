@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -52,6 +53,11 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
         binding.rvBasket.adapter = adapter
         adapter.setBasketAdapter(basketAdapter)
         adapter.setRecommendProductAdapter(recommendAdapter)
+
+        recommendAdapter.onClickItem { product ->
+            openProductDetail(product)
+            dismiss()
+        }
 //        binding.rvBasket.adapter = basketAdapter
 
         basketAdapter.setOnChangeProductCountListener {
@@ -151,5 +157,18 @@ class BasketBottomSheetDialog : BottomSheetDialogFragment() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    private fun openProductDetail(product: ProductUIData) {
+        findNavController().navigate(
+            R.id.action_mainScreen_to_productInfoScreen2, bundleOf(
+                "arg_id" to product.id,
+                "arg_name" to product.name,
+                "arg_desc" to product.description,
+                "arg_image" to product.image,
+                "arg_cost" to product.cost,
+                "arg_count" to product.count
+            )
+        )
     }
 }

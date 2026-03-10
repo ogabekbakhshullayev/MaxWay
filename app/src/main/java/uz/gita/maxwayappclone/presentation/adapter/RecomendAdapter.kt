@@ -7,11 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.maxwayappclone.data.model.ProductUIData
-import uz.gita.maxwayappclone.databinding.ItemHomeProductBinding
 import uz.gita.maxwayappclone.databinding.ItemRecommendProductBinding
 import uz.gita.maxwayappclone.presentation.util.toFormatted
 
 class RecommendAdapter : ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>(diff) {
+    private var listener: ((ProductUIData) -> Unit)? = null
+
+    fun onClickItem(l: (ProductUIData) -> Unit) {
+        listener = l
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRecommendProductBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -21,8 +26,11 @@ class RecommendAdapter : ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind()
 
-    inner class ViewHolder(private val binding: ItemRecommendProductBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemRecommendProductBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener { listener?.invoke(getItem(absoluteAdapterPosition)) }
+        }
 
         fun bind() {
             val data = getItem(absoluteAdapterPosition)
@@ -34,18 +42,6 @@ class RecommendAdapter : ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>
             binding.tvName.text = data.name
             binding.tvDesc.text = data.description
             binding.tvPrice.text = "${data.cost.toFormatted()} сум"
-//            binding.tvPrice.text = formatPrice(data.cost)
-        }
-
-        private fun formatPrice(cost: Long): String {
-            val raw = cost.toString()
-            val sb = StringBuilder()
-            for (i in raw.indices) {
-                sb.append(raw[i])
-                val remaining = raw.length - i - 1
-                if (remaining > 0 && remaining % 3 == 0) sb.append(' ')
-            }
-            return "${sb} сум"
         }
     }
 

@@ -2,14 +2,12 @@ package uz.gita.maxwayappclone.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.maxwayappclone.data.model.ProductUIData
 import uz.gita.maxwayappclone.databinding.ItemRecyclerViewBinding
 import uz.gita.maxwayappclone.presentation.adapter.BasketProductsAdapter.ViewHolder
-import uz.gita.maxwayappclone.presentation.screens.home.HomeProductAdapter
 
 class BasketProductsAdapter(private val data: Array<Int>): RecyclerView.Adapter<ViewHolder>() {
     private var basketAdapter: ListAdapter<ProductUIData, BasketAdapter.BasketViewHolder>? = null
@@ -45,16 +43,16 @@ class BasketProductsAdapter(private val data: Array<Int>): RecyclerView.Adapter<
     }
 }
 
-//class BasketProductsAdapter: ListAdapter<ArrayList<ProductUIData>, ViewHolder>(diff) {
+//class BasketProductsAdapter: ListAdapter<Int, ViewHolder>(diff) {
 //    private var basketAdapter: ListAdapter<ProductUIData, BasketAdapter.BasketViewHolder>? = null
-//    private var recommendProductAdapter: RecyclerView.Adapter<HomeProductAdapter.ViewHolder>? = null
+//    private var recommendProductAdapter: ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>? = null
 //
 //    fun setBasketAdapter(adapter: ListAdapter<ProductUIData, BasketAdapter.BasketViewHolder>) {
 //        basketAdapter = adapter
 //    }
 //
-//    fun setRecommendProductAdapter(adapter: ListAdapter<ProductUIData, BasketAdapter.BasketViewHolder>) {
-//        basketAdapter = adapter
+//    fun setRecommendProductAdapter(adapter: ListAdapter<ProductUIData, RecommendAdapter.ViewHolder>) {
+//        recommendProductAdapter = adapter
 //    }
 //
 //    override fun onCreateViewHolder(p0: ViewGroup, p1: Int) =
@@ -69,7 +67,7 @@ class BasketProductsAdapter(private val data: Array<Int>): RecyclerView.Adapter<
 //                binding.recyclerView.layoutManager = LinearLayoutManager(binding.root.context,
 //                    LinearLayoutManager.VERTICAL, false)
 //            } else {
-//                binding.recyclerView.adapter = HomeProductAdapter()
+//                binding.recyclerView.adapter = recommendProductAdapter
 //                binding.recyclerView.layoutManager = LinearLayoutManager(binding.root.context,
 //                    LinearLayoutManager.HORIZONTAL, false)
 //            }
@@ -77,11 +75,11 @@ class BasketProductsAdapter(private val data: Array<Int>): RecyclerView.Adapter<
 //    }
 //
 //    companion object {
-//        val diff = object: DiffUtil.ItemCallback<ArrayList<ProductUIData>>() {
-//            override fun areItemsTheSame(p0: ArrayList<ProductUIData>, p1: ArrayList<ProductUIData>) =
+//        val diff = object: DiffUtil.ItemCallback<Int>() {
+//            override fun areItemsTheSame(p0: Int, p1: Int) =
 //                p0 == p1
 //
-//            override fun areContentsTheSame(p0: ArrayList<ProductUIData>, p1: ArrayList<ProductUIData>) =
+//            override fun areContentsTheSame(p0: Int, p1: Int) =
 //                p0 == p1
 //        }
 //    }
