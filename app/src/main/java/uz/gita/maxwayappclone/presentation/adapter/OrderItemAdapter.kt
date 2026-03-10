@@ -31,13 +31,13 @@ class OrderItemAdapter: ListAdapter<OrdersUIData, OrderItemAdapter.OrderViewHold
 			val data = getItem(absoluteAdapterPosition)
 			binding.number.text = "№${data.id + 100}"
 			binding.date.text = data.createTime.getDate()
-			binding.price.text = "${data.sum.toFormatted()} sum"
+			binding.price.text = "${data.sum.toFormatted()} сум"
 			val time = System.currentTimeMillis() - data.createTime
-			binding.state.text = if (time < 300000) "Order Received"
-			else if (time < 600000) "Preparing"
-			else if (time < 900000) "Awaiting Pickup"
-			else if (time < 1200000) "On the Way"
-			else "Completed"
+			binding.state.text = if (time < 300000) "Заказ получен"
+			else if (time < 600000) "Подготовка"
+			else if (time < 900000) "Ожидание отправки"
+			else if (time < 1200000) "В пути"
+			else "Завершен"
 		}
 	}
 

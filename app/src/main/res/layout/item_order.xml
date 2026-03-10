@@ -16,6 +16,8 @@
 		android:padding="12dp">
 
 		<TextView
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
 			android:id="@+id/number"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -30,6 +32,7 @@
 			android:layout_height="wrap_content"
 			tools:text="25 000 sum"
 			android:fontFamily="@font/montserrat"
+			app:layout_constraintTop_toTopOf="parent"
 			android:textColor="@color/black"
 			android:textSize="16sp"
 			app:layout_constraintEnd_toEndOf="parent"/>
@@ -42,6 +45,7 @@
 			android:fontFamily="@font/montserrat_regular"
 			android:textColor="@color/dark_grey"
 			android:textSize="16sp"
+			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/number"
 			app:layout_constraintBottom_toBottomOf="parent"/>
 
