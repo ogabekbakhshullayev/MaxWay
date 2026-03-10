@@ -29,7 +29,7 @@ class OrderPage: Fragment(R.layout.page_order) {
 
 		val time = System.currentTimeMillis() - data.createTime
 		if (time < 1200000) {
-			binding.title.text = "Current Order"
+			binding.title.text = "Текущий заказ"
 			binding.btnReorder.isVisible = false
 			if (time in 300001..<1200000) {
 				binding.status2.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.white))
@@ -48,21 +48,21 @@ class OrderPage: Fragment(R.layout.page_order) {
 				binding.status4.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.maxway_purple))
 			}
 		} else {
-			binding.title.text = "History"
+			binding.title.text = "История"
 			binding.status.isVisible = false
 		}
 		binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-		binding.numberOrder.text = "Order №${data.id + 100}"
+		binding.numberOrder.text = "Заказ №${data.id + 100}"
 		binding.orderStatusNum.text = "${data.id + 100}"
 		binding.date.text = data.createTime.getDate().substring(0, 10)
 		data.ls.forEach {
 			val product = layoutInflater.inflate(R.layout.item_order_price, binding.orderList, false)
 			val binding = ItemOrderPriceBinding.bind(product)
 			binding.title.text = "${it.productData.name} ${it.count}x"
-			binding.price.text = "${it.productData.cost.toFormatted()} sum"
+			binding.price.text = "${it.productData.cost.toFormatted()} сум"
 			this.binding.orderList.addView(product)
 		}
-		binding.totalAmount.text = "${data.sum.toFormatted()} sum"
+		binding.totalAmount.text = "${data.sum.toFormatted()} сум"
 	}
 
 	override fun onDestroyView() {

@@ -1,6 +1,8 @@
 package uz.gita.maxwayappclone.presentation.screens.registerName
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Toast
@@ -39,10 +41,8 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
         }
 
         binding.infoTv.movementMethod = LinkMovementMethod.getInstance()
-
+        binding.edName.addTextChangedListener(textChangeListener)
         binding.edDateOfBirth.setOnClickListener {
-            binding.edDateOfBirth.setBackgroundResource(R.drawable.input_ed_bcg_selected)
-
             val datePickerBottomSheet = DatePickerBottomSheet()
 
             datePickerBottomSheet.onDateSelectedListener = { day, month, year ->
@@ -89,5 +89,41 @@ class RegisterNameScreen : Fragment(R.layout.screen_register_name) {
 
     private val loadingObserver = Observer<Boolean> {
         binding.pb.isVisible = it
+    }
+
+    val textChangeListener = object : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            s?.length?.let {
+                if (it > 0) {
+                    if (binding.edDateOfBirth.text.isNotEmpty()){
+                        binding.continueBtn.isEnabled = true
+                        binding.continueBtn.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
+                        return
+                    }
+                    return
+                }
+            }
+            binding.continueBtn.isEnabled = false
+            binding.continueBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.text_secondary
+                )
+            )
+        }
     }
 }
