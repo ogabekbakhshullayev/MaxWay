@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/purple_white">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
     <LinearLayout
         android:id="@+id/sheetContainer"
         android:layout_width="match_parent"
