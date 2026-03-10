@@ -2,6 +2,7 @@ package uz.gita.maxwayappclone.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import uz.gita.maxwayappclone.data.model.ProductUIData
+import uz.gita.maxwayappclone.data.source.remote.request.OrderRequest
 import uz.gita.maxwayappclone.data.source.remote.response.ProductByCategoryResponse
 import uz.gita.maxwayappclone.domain.model.Ad
 import uz.gita.maxwayappclone.domain.model.Category
@@ -19,4 +20,5 @@ interface ProductRepository {
     fun setProductCount(productId: Long, count: Int)
     fun clearProductCounts()
     suspend fun productByCategory(): Result<Array<ProductByCategoryResponse>>
+    suspend fun makeOrder(token: String, data: OrderRequest): Result<Unit>
 }

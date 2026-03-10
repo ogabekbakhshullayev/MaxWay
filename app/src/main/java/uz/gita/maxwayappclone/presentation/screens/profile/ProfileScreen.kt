@@ -1,9 +1,11 @@
 package uz.gita.maxwayappclone.presentation.screens.profile
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -64,9 +66,23 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         }
 
         binding.buttonLogOut.setOnClickListener {
-            isLoggedIn = true
-            TokenManager.token = ""
-            login(false)
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.dialog_log_out)
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+            val btnLogOut = dialog.findViewById<AppCompatButton>(R.id.btn_logout)
+            val btnStay = dialog.findViewById<AppCompatButton>(R.id.btn_stay)
+
+            btnStay.setOnClickListener { dialog.dismiss() }
+            btnLogOut.setOnClickListener {
+                isLoggedIn = true
+                TokenManager.token = ""
+                login(false)
+                dialog.dismiss()
+            }
+            dialog.show()
+
+
         }
 
         binding.balance.text = 0L.formatPrice()

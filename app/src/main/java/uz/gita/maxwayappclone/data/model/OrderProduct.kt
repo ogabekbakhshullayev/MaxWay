@@ -1,6 +1,6 @@
 package uz.gita.maxwayappclone.data.model
 
 data class OrderProduct(
-    val productID: Int,
+    val productID: Long,
     val count: Int
 )
